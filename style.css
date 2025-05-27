@@ -1,0 +1,451 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 15px;
+    background-color: #f3effa;
+}
+
+h1 {
+    color: #333;
+}
+
+#uploadText {
+    font-size: 20px
+}
+
+input[type="file"],
+button {
+    margin: 10px;
+    padding: 8px 12px;
+    font-size: 16px;
+}
+
+canvas {
+    width: 160px;
+    height: 160px;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+}
+
+canvas.loaded {
+    border: 4px solid #00c3ff;
+    border-radius: 10px;
+    animation: pulseBorder 3s infinite
+}
+
+@keyframes pulseBorder {
+    0% {
+        box-shadow: 0 0 65px #00c3ff;
+    }
+    50% {
+        box-shadow: 0 0 65px #00f7ff;
+    }
+    100% {
+        box-shadow: 0 0 65px #00c3ff;
+    }
+}
+
+
+
+#downloadLink, #downloadLinkM, #generateButton, #resetPos, .file-upload {
+    display: inline-block;
+    margin-top: 20px;
+    cursor: pointer;
+    color: white;
+    background-color: #007BFF;
+    padding: 10px 20px;
+    border: 3px solid black;
+    border-radius: 4px;
+    transition: box-shadow 0.3s ease-in-out, background-color 0.3s;
+}
+
+#downloadLink:hover, #downloadLinkM:hover, #generateButton:hover, #resetPos:hover, .file-upload:hover, .gl-checkbox-label:hover {
+    box-shadow: 0 0 0 2px black;
+    background-color: #0056b3
+}
+
+#upload, .gl-checkbox-button {
+    display: none;
+}
+
+.input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.number-input {
+    width: 80px;
+    padding: 10px;
+    font-size: 16px;
+    border: 3px solid black;
+    border-radius: 4px;
+    background-color: white;
+    color: black;
+}
+
+.input-group label {
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.three-position-switch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.switch-label {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.switch {
+    width: 200px;
+    height: 15px;
+    background-color: #ddd;
+    border-radius: 15px;
+    outline: none;
+    appearance: none;
+    transition: background-color 0.3s;
+}
+
+.switch::-webkit-slider-thumb, .switch::-moz-range-thumb, .switch::-ms-thumb {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background-color: #007BFF;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.switch:active::-webkit-slider-thumb, .switch:active::-moz-range-thumb, .switch:active::-ms-thumb {
+    background-color: #0056b3;
+}
+
+.switch-values {
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+}
+
+.switch-values span {
+    font-size: 14px;
+}
+
+.gl-contain {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.gl-checkbox-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    font-weight: bold;
+    border: 3px solid black;
+    border-radius: 4px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    user-select: none;
+}
+
+.checkbox-checkmark {
+    display: none;
+    font-size: 18px;
+}
+
+.gl-checkbox-button:checked + .gl-checkbox-label .checkbox-checkmark {
+    display: inline;
+}
+
+.gl-checkbox-button:checked + .gl-checkbox-label {
+    background-color: #D4AF37;
+    animation: pulseGL 3s infinite
+}
+
+@keyframes pulseGL {
+    0% {
+        box-shadow: 0 0 65px 20px #FFD700;
+    }
+    50% {
+        box-shadow: 0 0 65px 30px #fff3b0;
+    }
+    100% {
+        box-shadow: 0 0 65px 20px #FFD700;
+    }
+}
+
+.moveControl {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 50px 50px 50px;
+    grid-template-rows: 50px 50px 50px;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+    margin: 10px auto;
+    width: max-content;
+    place-items: center;
+}
+
+.moveControl button {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 3px solid black;
+    border-radius: 4px;
+    transition: box-shadow 0.3s ease-in-out, background-color 0.3s;
+    color: white;
+    background-color: #007BFF;
+    text-decoration: none;
+}
+
+.moveControl button:hover {
+    box-shadow: 0 0 0 2px black;
+    background-color: #0056b3;
+}
+
+#upButton { grid-column: 2; grid-row: 1; }
+#downButton { grid-column: 2; grid-row: 3; }
+#leftButton { grid-column: 1; grid-row: 2; }
+#rightButton { grid-column: 3; grid-row: 2; }
+
+.zoomControl {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+.zoomControl button {
+    width: 60px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 3px solid black;
+    border-radius: 4px;
+    transition: box-shadow 0.3s ease-in-out, background-color 0.3s;
+    color: white;
+    background-color: #007BFF;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.zoomControl button:hover {
+    box-shadow: 0 0 0 2px black;
+    background-color: #0056b3;
+}
+
+.collection-char {
+    position: relative;
+    height: 110px;
+    padding: 10px 0
+}
+
+.collection-char:after,.collection-char:before {
+    display: table;
+    content: "";
+    clear: both
+}
+
+.collection-char .character-portrait {
+    margin: 15px auto 10px;
+    width: 132px;
+    display: block
+}
+
+.character-portrait {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    border-radius: 50%
+}
+
+.character-portrait__primary {
+    position: relative;
+    margin: 0 auto;
+    width: 80px;
+    height: 80px;
+}
+
+.character-portrait__image-frame {
+    left: -4%;
+    top: -5%;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 4px solid #333;
+    background-color: #000;
+    width: 80px;
+    height: 80px;
+    border-width: 3px;
+}
+
+/*.character-portrait__image-frame--alignment-2 {
+    border-color: #3f8cba;
+    -webkit-box-shadow: 0 0 3px 2px rgba(63,140,186,.8) inset;
+    box-shadow: inset 0 0 3px 2px rgba(63,140,186,.8)
+}
+
+.character-portrait__image-frame--alignment-3 {
+    border-color: #b03233;
+    -webkit-box-shadow: 0 0 3px 2px rgba(176,50,51,.8) inset;
+    box-shadow: inset 0 0 3px 2px rgba(176,50,51,.8)
+}
+
+.character-portrait__image-frame--is-galactic-legend {
+    border-color: #d6b573
+}*/
+
+.character-portrait__img {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.character-portrait__relic {
+    background-image: url(./images/LS_relic_middle.webp);
+    background-size: 100%;
+    width: 44px;
+    height: 44px;
+    position: absolute;
+    top: 48px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    z-index: 4;
+    color: #fff;
+    text-align: center;
+    line-height: 45px;
+    font-weight: 700;
+    text-shadow: -1px -1px 0 #000,2px -1px 0 #000,2px 2px 0 #000,-1px 2px 0 #000
+}
+
+.character-portrait__relic--alignment-alignment_neutral {
+    background-image: url(./images/NL_relic_middle.webp);
+}
+
+.character-portrait__relic--alignment-alignment_dark {
+    background-image: url(./images/DS_relic_middle.webp);
+}
+
+.character-portrait__relic--ultimate {
+    background-image: url(./images/GL_relic_middle.webp);
+}
+
+.character-portrait__zeta {
+    background: 50% transparent url(./images/zeta.png) no-repeat;
+    background-size: contain;
+    width: 38px;
+    height: 38px;
+    position: absolute;
+    z-index: 4;
+    top: 41px;
+    left: -10px;
+    color: #fff;
+    text-align: center;
+    line-height: 38px;
+    font-size: 12px;
+    font-weight: 700;
+    text-shadow: -1px -1px 0 #7028c9,2px -1px 0 #7028c9,2px 2px 0 #7028c9,-1px 2px 0 #7028c9,2px 3px 0 #7028c9,1px 3px 0 #7028c9,2px 3px 0 #7028c9
+}
+
+.character-portrait__omicron {
+    background: 50% transparent url(./images/omi.png) no-repeat;
+    background-size: contain;
+    width: 38px;
+    height: 38px;
+    position: absolute;
+    z-index: 4;
+    top: 41px;
+    right: -10px;
+    color: #fff;
+    text-align: center;
+    line-height: 38px;
+    font-size: 12px;
+    font-weight: 700;
+    text-shadow: -1px -1px 0 #000,2px -1px 0 #000,2px 2px 0 #000,-1px 2px 0 #000
+}
+
+.character-portrait__rframe {
+    position: absolute;
+    z-index: 2;
+    width: 58px;
+    height: 112px;
+    background-image: url(./images/LS_relic.webp);
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-104%,-50%);
+    transform: translate(-104%,-50%)
+}
+
+.character-portrait__rframe--alignment-alignment_dark {
+    background-image: url(./images/DS_relic.webp);
+}
+
+.character-portrait__rframe--alignment-alignment_neutral {
+    background-image: url(./images/NL_relic.webp);
+}
+
+.character-portrait__rframe--right {
+    -webkit-transform: rotateY(180deg) translate(-4%,-50%);
+    transform: rotateY(180deg) translate(-4%,-50%)
+}
+
+.character-portrait__footer {
+    margin-top: .25rem;
+    position: relative;
+    height: 14px;
+}
+
+.character-portrait__stars {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%)
+}
+
+.character-portrait__star {
+    background: center 0 transparent url(./images/star.png) no-repeat;
+    background-size: 100%;
+    width: 14px;
+    height: 14px;
+}
