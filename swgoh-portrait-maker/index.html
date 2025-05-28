@@ -27,6 +27,7 @@
         <div id="announcement-bar">
             <div id="announcement-content">
                 <span>Version 1.0.0 is now out!</span>
+                <span><br>Known Issue: Rectangular images get trimmed<br>This will be fixed in an upcoming update</span>
                 <button id="close-banner" onclick="document.getElementById('announcement-bar').style.display = 'none';"
                     aria-label="Close announcement">&times;</button>
             </div>
@@ -126,7 +127,7 @@
             with or endorsed by Locasfilm Ltd., Disney, Electronic Arts, or Capital Games. All Star Wars: Galaxy of
             Heroes content, including images and other assets, is the property of their respective owners. It is
             suggested that you do not use this content in any way that may violate free use laws.</p>
-        <p>You can read the terms of use and privacy policy <a href="terms.html" target="_blank">here</a></p>
+        <p style="max-width: 50%; margin: 0 auto; text-align: center;"><br>You can read the terms of use and privacy policy <a href="terms.html" target="_blank">here</a></p>
         <button onclick="debugMode()" id="debugMode" style="padding: 5px 5px; height: 35px; width: 120px;">Debug
             mode</button>
         <div id="parent_portraitContainer">

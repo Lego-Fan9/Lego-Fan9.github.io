@@ -556,7 +556,7 @@ canvas.loaded {
     position: relative;
     background-color: #007BFF;
     color: white;
-    padding: 0px 20px;
+    padding: 0px 20px 5px;
     max-width: 600px;
     text-align: center;
     margin: 0 auto;
@@ -573,10 +573,10 @@ canvas.loaded {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1000px;
     margin: 0 auto;
     flex-wrap: wrap;
     gap: 10px;
+    padding: 4px 0px 10px
 }
 
 #close-banner {
