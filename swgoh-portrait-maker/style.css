@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    padding: 15px;
+    padding: 0px;
     background-color: #f3effa;
 }
 
@@ -549,4 +549,47 @@ canvas.loaded {
     left: 4px;
     top: -2px;
     font-size: 16px;
+}
+
+#announcement-bar {
+    background-color: #007BFF;
+    color: white;
+    padding: 0px 20px;
+    max-width: 600px;
+    text-align: center;
+    margin: 0 auto;
+    font-size: 14px;
+    font-weight: 600;
+    border-bottom: 3px solid black;
+    border-right: 3px solid black;
+    border-left: 3px solid black;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 10px 10px;
+}
+
+.announcement-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#close-banner {
+    background: none;
+    position: absolute;
+    top: -5px;
+    right: 150px;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0 10px;
+    transition: transform 0.2s ease-in-out;
+}
+
+#close-banner:hover {
+    transform: scale(1.2);
 }
