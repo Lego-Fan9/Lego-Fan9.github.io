@@ -3,6 +3,7 @@ body {
     text-align: center;
     padding: 0px;
     background-color: #f3effa;
+    margin: 0;
 }
 
 h1 {
@@ -552,6 +553,7 @@ canvas.loaded {
 }
 
 #announcement-bar {
+    position: relative;
     background-color: #007BFF;
     color: white;
     padding: 0px 20px;
@@ -578,15 +580,16 @@ canvas.loaded {
 }
 
 #close-banner {
-    background: none;
     position: absolute;
-    top: -5px;
-    right: 150px;
+    top: -10px;
+    right: 15px;
+    background: none;
     border: none;
     color: white;
     font-size: 20px;
     cursor: pointer;
-    padding: 0 10px;
+    padding: 0;
+    line-height: 1;
     transition: transform 0.2s ease-in-out;
 }
 
