@@ -113,7 +113,7 @@ canvas.loaded {
     font-weight: bold;
 }
 
-.three-position-switch {
+.alignment-switch {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -512,7 +512,7 @@ canvas.loaded {
     box-shadow: 0 0 20px black;
 }
 
-.custom-checkbox {
+.modal-checkbox {
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -522,11 +522,11 @@ canvas.loaded {
     user-select: none;
 }
 
-.custom-checkbox input[type="checkbox"] {
+.modal-checkbox input[type="checkbox"] {
     display: none;
 }
 
-.custom-checkbox .checkmark {
+.modal-checkbox .checkmark {
     width: 20px;
     height: 20px;
     border: 3px solid black;
@@ -537,12 +537,12 @@ canvas.loaded {
     transition: all 0.3s;
 }
 
-.custom-checkbox input[type="checkbox"]:checked+.checkmark {
+.modal-checkbox input[type="checkbox"]:checked+.checkmark {
     background-color: #007BFF;
     border-color: #0056b3;
 }
 
-.custom-checkbox input[type="checkbox"]:checked+.checkmark::after {
+.modal-checkbox input[type="checkbox"]:checked+.checkmark::after {
     content: '✔';
     color: white;
     position: absolute;
