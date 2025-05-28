@@ -306,16 +306,18 @@ function fakeRefresh() {
 
     const portraitContainer = document.getElementById('portraitContainer');
 
-    portraitContainer.style.position = 'absolute';
     portraitContainer.style.left = '-9999px';
     portraitContainer.style.top = '-9999px';
     portraitContainer.style.border = '';
     portraitContainer.style.background = '';
+    portraitContainer.style.transform = '';
+    portraitContainer.style.marginTop = ''
 }
 
 function debugMode() {
     const container = document.getElementById('portraitContainer');
-    container.style.position = 'relative';
-    container.style.left = '0';
-    container.style.top = '0';
+    container.style.left = '50%';
+    container.style.top = '50%';
+    container.style.transform = 'translate(-50%, -50%)';
+    container.style.marginTop = '50px'
 }

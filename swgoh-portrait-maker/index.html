@@ -9,7 +9,6 @@
     <link rel="icon" href="../favicon.ico" type="image/x-icon">
     <title>SWGoH Portrait Maker</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-X7TKZ22H21"></script>
@@ -127,12 +126,15 @@
             with or endorsed by Locasfilm Ltd., Disney, Electronic Arts, or Capital Games. All Star Wars: Galaxy of
             Heroes content, including images and other assets, is the property of their respective owners. It is
             suggested that you do not use this content in any way that may violate free use laws.</p>
-        <p style="max-width: 50%; margin: 0 auto; text-align: center;"><br>You can read the terms of use and privacy policy <a href="terms.html" target="_blank">here</a></p>
+        <p style="max-width: 50%; margin: 0 auto; text-align: center;"><br>You can read the terms of use and privacy
+            policy <a href="terms.html" target="_blank">here</a></p>
         <button onclick="debugMode()" id="debugMode" style="padding: 5px 5px; height: 35px; width: 120px;">Debug
             mode</button>
-        <div id="parent_portraitContainer">
+        <div id="debugGap" style="height: 50px; display: none;"></div>
+        <div id="parent_portraitContainer" style="position: relative;">
             <div id="portraitContainer" style="position:absolute;left:-9999px; top:-9999px;"></div>
         </div>
+        <div id="debugGapB" style="height: 50px; display: none;"></div>
     </footer>
 </body>
 
