@@ -102,7 +102,7 @@ async function doGenerate() {
     canvas.height = img.height;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(img, 0, 0);
-    canvas.classList.add('loaded')
+    // will add back later canvas.classList.add('loaded')
 
     downloadLink.href = canvas.toDataURL();
     downloadLink.download = "swgoh-portrait-image.png";
