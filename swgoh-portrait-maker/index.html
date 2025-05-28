@@ -67,7 +67,6 @@
         <br>
         <button onclick="stackImages()" id="generateButton">Generate!</button>
         <br><br>
-        <div id="portraitContainer" style="position:absolute;left:-9999px; top:-9999px;"></div>
         <canvas id="canvas"></canvas>
         <div style="height: 30px;"></div>
         <div class="imgControlers">
@@ -121,6 +120,8 @@
             Heroes content, including images and other assets, is the property of their respective owners. It is
             suggested that you do not use this content in any way that may violate free use laws.</p>
         <p>You can read the terms of use and privacy policy <a href="terms.html" target="_blank">here</a></p>
+        <button onclick="debugMode()" id="debugMode" style="padding: 5px 5px; height: 35px; width: 120px;">Debug mode</button>
+        <div id="parent_portraitContainer"><div id="portraitContainer" style="position:absolute;left:-9999px; top:-9999px;"></div></div>
     </footer>
 </body>
 
