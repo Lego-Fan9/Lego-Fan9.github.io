@@ -92,7 +92,7 @@ function mobileDownload() {
     const imgPreview = document.createElement('img');
     imgPreview.src = canvas.toDataURL();
     imgPreview.style.maxWidth = "100%";
-    imgPreview.id = "imgPreview"; // ID to track it later
+    imgPreview.id = "imgPreview";
     mainEl.appendChild(imgPreview);
 }
 
@@ -200,12 +200,12 @@ async function renderCanvasFromDOM() {
 }
 
 function zoomIn() {
-    imageScale = Math.min(imageScale * 1.1, 5); // cap max zoom
+    imageScale = Math.min(imageScale * 1.1, 5);
     updatePreviewTransform();
 }
 
 function zoomOut() {
-    imageScale = Math.max(imageScale / 1.1, 0.2); // cap min zoom
+    imageScale = Math.max(imageScale / 1.1, 0.2);
     updatePreviewTransform();
 }
 
