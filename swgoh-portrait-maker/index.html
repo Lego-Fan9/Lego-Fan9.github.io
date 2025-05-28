@@ -71,6 +71,7 @@
         <canvas id="canvas"></canvas>
         <div style="height: 30px;"></div>
         <div class="imgControlers">
+            <button id="resetPos" onclick="resetImagePosition()">Reset Image Position</button>
             <div class="zoomControl">
                 <button onclick="zoomIn()" id="zoomInButton">In</button>
                 <button onclick="zoomOut()" id="zoomOutButton">Out</button>
@@ -81,9 +82,9 @@
                 <button onclick="downMove()" id="downButton">Down</button>
                 <button onclick="rightMove()" id="rightButton">Right</button>
             </div>
-            <button id="resetPos" onclick="resetImagePosition()">Reset</button>
         </div>
-        <br><br>
+        <button id="resetAll" style="display: none;" onclick="fakeRefresh()">Reset Page</button>
+        <div style="height: 30px;"></div>
         <a id="downloadLink" style="display: none; text-decoration: none;">Download Result(PC)</a>
         <div style="height: 50px;"></div>
         <a id="downloadLinkM" onclick="mobileDownload()" style="display: none;">Download Result(Mobile)</a>

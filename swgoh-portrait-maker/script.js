@@ -4,6 +4,7 @@ const uploadInput = document.getElementById('upload');
 const downloadLink = document.getElementById('downloadLink');
 const downloadLinkM = document.getElementById('downloadLinkM');
 const downloadLinkMDesc = document.getElementById('downloadLinkMDesc');
+const resetAll = document.getElementById('resetAll');
 
 let imageOffsetX = 0;
 let imageOffsetY = 0;
@@ -110,6 +111,7 @@ async function doGenerate() {
     downloadLink.style.display = "inline";
     downloadLinkM.style.display = "inline";
     downloadLinkM.textContent = "Download Result (Mobile)";
+    resetAll.style.display = "inline";
 }
 
 function mobileDownload() {
@@ -265,3 +267,40 @@ function resetImagePosition() {
     updatePreviewTransform();
 }
 
+function fakeRefresh() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    canvas.width = 0;
+    canvas.height = 0;
+
+    userImageDataURL = null;
+    imageOffsetX = 0;
+    imageOffsetY = 0;
+    imageScale = 1;
+
+    uploadInput.value = "";
+
+    document.getElementById('zetaCount').value = "0";
+    document.getElementById('omiCount').value = "0";
+    document.getElementById('relicLevel').value = "9";
+    document.getElementById('switch').value = "1";
+    document.getElementById('gl-checkbox').checked = false;
+
+    downloadLink.style.display = "none";
+    downloadLink.href = "#";
+    downloadLink.textContent = "";
+
+    downloadLinkM.style.display = "none";
+    downloadLinkM.textContent = "";
+    downloadLinkMDesc.style.display = "none";
+
+    resetAll.style.display = "none";
+
+    document.getElementById('portraitContainer').innerHTML = "";
+
+    const oldPreview = document.getElementById('imgPreview');
+    if (oldPreview) oldPreview.remove();
+
+    document.getElementById('modalAgree').checked = false;
+    document.getElementById('modalRemember').checked = false;
+    document.getElementById('termsModal').style.display = 'none';
+}
