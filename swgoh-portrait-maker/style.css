@@ -37,17 +37,22 @@ canvas.loaded {
     0% {
         box-shadow: 0 0 65px #00c3ff;
     }
+
     50% {
         box-shadow: 0 0 65px #00f7ff;
     }
+
     100% {
         box-shadow: 0 0 65px #00c3ff;
     }
 }
 
-
-
-#downloadLink, #downloadLinkM, #generateButton, #resetPos, .file-upload {
+#downloadLink,
+#downloadLinkM,
+#generateButton,
+#resetPos,
+.file-upload,
+.termsButton {
     display: inline-block;
     margin-top: 20px;
     cursor: pointer;
@@ -59,12 +64,19 @@ canvas.loaded {
     transition: box-shadow 0.3s ease-in-out, background-color 0.3s;
 }
 
-#downloadLink:hover, #downloadLinkM:hover, #generateButton:hover, #resetPos:hover, .file-upload:hover, .gl-checkbox-label:hover {
+#downloadLink:hover,
+#downloadLinkM:hover,
+#generateButton:hover,
+#resetPos:hover,
+.file-upload:hover,
+.gl-checkbox-label:hover,
+.termsButton:hover {
     box-shadow: 0 0 0 2px black;
     background-color: #0056b3
 }
 
-#upload, .gl-checkbox-button {
+#upload,
+.gl-checkbox-button {
     display: none;
 }
 
@@ -120,7 +132,9 @@ canvas.loaded {
     transition: background-color 0.3s;
 }
 
-.switch::-webkit-slider-thumb, .switch::-moz-range-thumb, .switch::-ms-thumb {
+.switch::-webkit-slider-thumb,
+.switch::-moz-range-thumb,
+.switch::-ms-thumb {
     height: 25px;
     width: 25px;
     border-radius: 50%;
@@ -129,7 +143,9 @@ canvas.loaded {
     transition: background-color 0.3s;
 }
 
-.switch:active::-webkit-slider-thumb, .switch:active::-moz-range-thumb, .switch:active::-ms-thumb {
+.switch:active::-webkit-slider-thumb,
+.switch:active::-moz-range-thumb,
+.switch:active::-ms-thumb {
     background-color: #0056b3;
 }
 
@@ -171,11 +187,11 @@ canvas.loaded {
     font-size: 18px;
 }
 
-.gl-checkbox-button:checked + .gl-checkbox-label .checkbox-checkmark {
+.gl-checkbox-button:checked+.gl-checkbox-label .checkbox-checkmark {
     display: inline;
 }
 
-.gl-checkbox-button:checked + .gl-checkbox-label {
+.gl-checkbox-button:checked+.gl-checkbox-label {
     background-color: #D4AF37;
     animation: pulseGL 3s infinite
 }
@@ -184,9 +200,11 @@ canvas.loaded {
     0% {
         box-shadow: 0 0 65px 20px #FFD700;
     }
+
     50% {
         box-shadow: 0 0 65px 30px #fff3b0;
     }
+
     100% {
         box-shadow: 0 0 65px 20px #FFD700;
     }
@@ -225,10 +243,25 @@ canvas.loaded {
     background-color: #0056b3;
 }
 
-#upButton { grid-column: 2; grid-row: 1; }
-#downButton { grid-column: 2; grid-row: 3; }
-#leftButton { grid-column: 1; grid-row: 2; }
-#rightButton { grid-column: 3; grid-row: 2; }
+#upButton {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+#downButton {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+#leftButton {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+#rightButton {
+    grid-column: 3;
+    grid-row: 2;
+}
 
 .zoomControl {
     display: flex;
@@ -264,7 +297,8 @@ canvas.loaded {
     padding: 10px 0
 }
 
-.collection-char:after,.collection-char:before {
+.collection-char:after,
+.collection-char:before {
     display: table;
     content: "";
     clear: both
@@ -330,7 +364,8 @@ canvas.loaded {
 
 .character-portrait__img {
     position: absolute;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -353,7 +388,7 @@ canvas.loaded {
     text-align: center;
     line-height: 45px;
     font-weight: 700;
-    text-shadow: -1px -1px 0 #000,2px -1px 0 #000,2px 2px 0 #000,-1px 2px 0 #000
+    text-shadow: -1px -1px 0 #000, 2px -1px 0 #000, 2px 2px 0 #000, -1px 2px 0 #000
 }
 
 .character-portrait__relic--alignment-alignment_neutral {
@@ -382,7 +417,7 @@ canvas.loaded {
     line-height: 38px;
     font-size: 12px;
     font-weight: 700;
-    text-shadow: -1px -1px 0 #7028c9,2px -1px 0 #7028c9,2px 2px 0 #7028c9,-1px 2px 0 #7028c9,2px 3px 0 #7028c9,1px 3px 0 #7028c9,2px 3px 0 #7028c9
+    text-shadow: -1px -1px 0 #7028c9, 2px -1px 0 #7028c9, 2px 2px 0 #7028c9, -1px 2px 0 #7028c9, 2px 3px 0 #7028c9, 1px 3px 0 #7028c9, 2px 3px 0 #7028c9
 }
 
 .character-portrait__omicron {
@@ -399,7 +434,7 @@ canvas.loaded {
     line-height: 38px;
     font-size: 12px;
     font-weight: 700;
-    text-shadow: -1px -1px 0 #000,2px -1px 0 #000,2px 2px 0 #000,-1px 2px 0 #000
+    text-shadow: -1px -1px 0 #000, 2px -1px 0 #000, 2px 2px 0 #000, -1px 2px 0 #000
 }
 
 .character-portrait__rframe {
@@ -410,8 +445,8 @@ canvas.loaded {
     background-image: url(./images/LS_relic.webp);
     left: 50%;
     top: 50%;
-    -webkit-transform: translate(-104%,-50%);
-    transform: translate(-104%,-50%)
+    -webkit-transform: translate(-104%, -50%);
+    transform: translate(-104%, -50%)
 }
 
 .character-portrait__rframe--alignment-alignment_dark {
@@ -423,8 +458,8 @@ canvas.loaded {
 }
 
 .character-portrait__rframe--right {
-    -webkit-transform: rotateY(180deg) translate(-4%,-50%);
-    transform: rotateY(180deg) translate(-4%,-50%)
+    -webkit-transform: rotateY(180deg) translate(-4%, -50%);
+    transform: rotateY(180deg) translate(-4%, -50%)
 }
 
 .character-portrait__footer {
@@ -448,4 +483,66 @@ canvas.loaded {
     background-size: 100%;
     width: 14px;
     height: 14px;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 0 20px black;
+}
+
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 10px 0;
+    user-select: none;
+}
+
+.custom-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.custom-checkbox .checkmark {
+    width: 20px;
+    height: 20px;
+    border: 3px solid black;
+    border-radius: 4px;
+    background-color: white;
+    margin-right: 10px;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.custom-checkbox input[type="checkbox"]:checked+.checkmark {
+    background-color: #007BFF;
+    border-color: #0056b3;
+}
+
+.custom-checkbox input[type="checkbox"]:checked+.checkmark::after {
+    content: '✔';
+    color: white;
+    position: absolute;
+    left: 4px;
+    top: -2px;
+    font-size: 16px;
 }

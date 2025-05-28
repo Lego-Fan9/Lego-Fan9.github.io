@@ -30,6 +30,35 @@ function updatePreviewTransform() {
 }
 
 async function stackImages() {
+    if (document.cookie.includes("agreedToTerms=true")) {
+        return doGenerate();
+    }
+
+    document.getElementById('termsModal').style.display = 'flex';
+}
+
+function confirmTerms() {
+    const agree = document.getElementById('modalAgree').checked;
+    const remember = document.getElementById('modalRemember').checked;
+
+    if (!agree) {
+        alert("You must agree to continue.");
+        return;
+    }
+
+    if (remember) {
+        document.cookie = "agreedToTerms=true; path=/; max-age=" + (60 * 60 * 24 * 56);
+    }
+
+    document.getElementById('termsModal').style.display = 'none';
+    doGenerate();
+}
+
+function closeTermsModal() {
+    document.getElementById('termsModal').style.display = 'none';
+}
+
+async function doGenerate() {
     if (!userImageDataURL) {
         alert("Please upload an image first");
         return;

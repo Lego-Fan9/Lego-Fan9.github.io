@@ -90,6 +90,28 @@
         <p id="downloadLinkMDesc" style="display: none;">Hold down on the image then click save to photos</p>
         <div style="height: 50px;"></div>
         <script src="script.js"></script>
+        <div id="termsModal" style="display: none;" class="modal-overlay">
+            <div class="modal-content">
+                <h2>Before You Continue</h2>
+                <p style="font-weight: 750;">Please read and agree to the <a href="terms.html" target="_blank">terms and
+                        privacy policy</a> to
+                    proceed.</p>
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="modalAgree">
+                    <span class="checkmark"></span>
+                    I agree to the terms
+                </label>
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="modalRemember">
+                    <span class="checkmark"></span>
+                    Remember my choice (This will add a cookie)
+                </label>
+                <br><br>
+                <button onclick="confirmTerms()" class="termsButton">Continue</button>
+                <button onclick="closeTermsModal()" class="termsButton">Cancel</button>
+            </div>
+        </div>
+
     </main>
     <footer>
         <p>&copy; 2025 LegoFan9</p>
