@@ -522,7 +522,8 @@ canvas.loaded {
 }
 
 .modal-checkbox input[type="checkbox"] {
-    display: none;
+    /*display: none;*/
+    opacity: 0;
 }
 
 .modal-checkbox .checkmark {
@@ -545,9 +546,11 @@ canvas.loaded {
     content: '✔';
     color: white;
     position: absolute;
-    left: 4px;
-    top: -2px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -55%);
     font-size: 16px;
+    pointer-events: none;
 }
 
 #announcement-bar {
