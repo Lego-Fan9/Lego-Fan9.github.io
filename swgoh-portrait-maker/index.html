@@ -83,10 +83,10 @@
                 <button onclick="zoomOut()" id="zoomOutButton">Out</button>
             </div>
             <div class="moveControl">
-                <button onclick="upMove()" id="upButton">Up</button>
-                <button onclick="leftMove()" id="leftButton">Left</button>
-                <button onclick="downMove()" id="downButton">Down</button>
-                <button onclick="rightMove()" id="rightButton">Right</button>
+                <button onclick="imgMove('Y', -5)" id="upButton">Up</button>
+                <button onclick="imgMove('X', -5)" id="leftButton">Left</button>
+                <button onclick="imgMove('Y', 5)" id="downButton">Down</button>
+                <button onclick="imgMove('X', 5)" id="rightButton">Right</button>
             </div>
         </div>
         <button id="resetAll" style="display: none;" onclick="fakeRefresh()">Reset Page</button>

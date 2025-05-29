@@ -9,7 +9,6 @@ const resetAll = document.getElementById('resetAll');
 let imageOffsetX = 0;
 let imageOffsetY = 0;
 let imageScale = 1;
-
 let userImageDataURL = null;
 
 uploadInput.addEventListener('change', (e) => {
@@ -115,11 +114,11 @@ async function doGenerate() {
 }
 
 function mobileDownload() {
-    downloadLinkMDesc.style.display = "block";
     const mainEl = document.querySelector('main');
     const oldPreview = document.getElementById('imgPreview');
+    downloadLinkMDesc.style.display = "block";
     if (oldPreview) oldPreview.remove();
-
+    
     const imgPreview = document.createElement('img');
     imgPreview.src = canvas.toDataURL();
     imgPreview.style.maxWidth = "100%";
@@ -191,8 +190,6 @@ function buildPortraitHTML(zeta = 3, omi = 3, relic = 9, alignment = 0, isGL = f
 
 async function renderCanvasFromDOM() {
     const portraitContainer = document.getElementById('portraitContainer');
-    const canvas = document.getElementById('canvas');
-    const downloadLink = document.getElementById('downloadLink');
 
     var scale = 2;
     const Node = portraitContainer.querySelector('.collection-char');
@@ -223,7 +220,6 @@ async function renderCanvasFromDOM() {
 
     canvas.width = img.width;
     canvas.height = img.height;
-    const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(img, 0, 0);
 
@@ -240,23 +236,12 @@ function zoomOut() {
     updatePreviewTransform();
 }
 
-function upMove() {
-    imageOffsetY -= 5;
-    updatePreviewTransform();
-}
-
-function downMove() {
-    imageOffsetY += 5;
-    updatePreviewTransform();
-}
-
-function leftMove() {
-    imageOffsetX -= 5;
-    updatePreviewTransform();
-}
-
-function rightMove() {
-    imageOffsetX += 5;
+function imgMove(val, amount) {
+    if (val === 'X') {
+        imageOffsetX += amount;
+    } else if (val === 'Y') {
+        imageOffsetY += amount
+    }
     updatePreviewTransform();
 }
 
@@ -295,7 +280,8 @@ function fakeRefresh() {
 
     resetAll.style.display = "none";
 
-    document.getElementById('portraitContainer').innerHTML = "";
+    const portraitContainer = document.getElementById('portraitContainer');
+    portraitContainer.innerHTML = "";
 
     const oldPreview = document.getElementById('imgPreview');
     if (oldPreview) oldPreview.remove();
@@ -303,8 +289,6 @@ function fakeRefresh() {
     document.getElementById('modalAgree').checked = false;
     document.getElementById('modalRemember').checked = false;
     document.getElementById('termsModal').style.display = 'none';
-
-    const portraitContainer = document.getElementById('portraitContainer');
 
     portraitContainer.style.left = '-9999px';
     portraitContainer.style.top = '-9999px';
@@ -315,9 +299,9 @@ function fakeRefresh() {
 }
 
 function debugMode() {
-    const container = document.getElementById('portraitContainer');
-    container.style.left = '50%';
-    container.style.top = '50%';
-    container.style.transform = 'translate(-50%, -50%)';
-    container.style.marginTop = '50px'
+    const portraitContainer = document.getElementById('portraitContainer');
+    portraitContainer.style.left = '50%';
+    portraitContainer.style.top = '50%';
+    portraitContainer.style.transform = 'translate(-50%, -50%)';
+    portraitContainer.style.marginTop = '50px'
 }
