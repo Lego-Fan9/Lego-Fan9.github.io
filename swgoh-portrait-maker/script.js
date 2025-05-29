@@ -378,4 +378,10 @@ function debugMode() {
     portraitContainer.style.top = '50%';
     portraitContainer.style.transform = 'translate(-50%, -50%)';
     portraitContainer.style.marginTop = '50px'
+    document.getElementById("debugGap").style.display = "";
+    document.getElementById("debugGapB").style.display = "";
+    document.getElementById("debugGapC").style.display = "";
+    document.getElementById("debugInfo").style.display = "";
+    document.getElementById("userAgent").textContent = navigator.userAgent;
+    document.getElementById("isSafari").textContent = `isWebKit = ${isWebKit}`
 }

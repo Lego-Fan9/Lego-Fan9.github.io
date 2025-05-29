@@ -180,7 +180,6 @@ canvas.loaded {
     padding: 10px 20px;
     background-color: #007BFF;
     color: white;
-    font-weight: bold;
     border: 3px solid black;
     border-radius: 4px;
     transition: background-color 0.3s, box-shadow 0.3s;
