@@ -17,8 +17,12 @@ let imageScale = 1;
 let userImageDataURL = null;
 
 const unwantedEntries = {
-    'dismissedAnnouncementVersion': []
+    'dismissedAnnouncementVersion': [],
+    "agreedToTerms": []
 };
+
+const CURRENT_ANNOUNCEMENT_VERSION = '1.0.0';
+const CURRENT_TERMS_VERSION = '1.0.0';
 
 Object.entries(unwantedEntries).forEach(([key, valuesToRemove]) => {
     const currentValue = localStorage.getItem(key);
@@ -28,8 +32,6 @@ Object.entries(unwantedEntries).forEach(([key, valuesToRemove]) => {
         console.log(`Removed ${key} because value matched: ${currentValue}`);
     }
 });
-
-const CURRENT_ANNOUNCEMENT_VERSION = '1.0.0';
 
 function closeAnnouncementBar() {
     const banner = document.getElementById('announcement-bar');
@@ -71,7 +73,7 @@ function updatePreviewTransform() {
 }
 
 async function stackImages() {
-    if (localStorage.getItem("agreedToTerms") === "true") {
+    if (localStorage.getItem("agreedToTerms") === CURRENT_TERMS_VERSION) {
         return doGenerate();
     }
 
@@ -88,7 +90,7 @@ function confirmTerms() {
     }
 
     if (remember) {
-        localStorage.setItem("agreedToTerms", "true");
+        localStorage.setItem("agreedToTerms", CURRENT_TERMS_VERSION);
     }
 
     document.getElementById('termsModal').style.display = 'none';
