@@ -6,6 +6,11 @@ const downloadLinkM = document.getElementById('downloadLinkM');
 const downloadLinkMDesc = document.getElementById('downloadLinkMDesc');
 const resetAll = document.getElementById('resetAll');
 
+const isWebKit = (
+    /AppleWebKit/.test(navigator.userAgent) &&
+    'WebkitAppearance' in document.documentElement.style
+)
+
 let imageOffsetX = 0;
 let imageOffsetY = 0;
 let imageScale = 1;
@@ -72,6 +77,7 @@ async function doGenerate() {
 
     const portraitContainer = document.getElementById('portraitContainer');
     portraitContainer.innerHTML = buildPortraitHTML(zeta, omi, relic, alignmentVal, isGL, userImageDataURL);
+    updatePreviewTransform();
 
     await new Promise(r => setTimeout(r, 200));
 
@@ -118,7 +124,7 @@ function mobileDownload() {
     const oldPreview = document.getElementById('imgPreview');
     downloadLinkMDesc.style.display = "block";
     if (oldPreview) oldPreview.remove();
-    
+
     const imgPreview = document.createElement('img');
     imgPreview.src = canvas.toDataURL();
     imgPreview.style.maxWidth = "100%";
@@ -227,13 +233,41 @@ async function renderCanvasFromDOM() {
 }
 
 function zoomIn() {
-    imageScale = Math.min(imageScale * 1.1, 5);
-    updatePreviewTransform();
+    if (isWebKit) {
+        // zoom in
+        imageScale = Math.min(imageScale * 1.1, 5);
+        updatePreviewTransform();
+        // zoom out
+        imageScale = Math.max(imageScale / 1.1, 0.2);
+        updatePreviewTransform();
+        // zoom in twice
+        imageScale = Math.min(imageScale * 1.1, 5);
+        updatePreviewTransform();
+        imageScale = Math.min(imageScale * 1.1, 5);
+        updatePreviewTransform();
+    } else {
+        imageScale = Math.min(imageScale * 1.1, 5);
+        updatePreviewTransform();
+    }
 }
 
 function zoomOut() {
-    imageScale = Math.max(imageScale / 1.1, 0.2);
-    updatePreviewTransform();
+    if (isWebKit) {
+        // zoom out
+        imageScale = Math.max(imageScale / 1.1, 0.2);
+        updatePreviewTransform();
+        // zoom in
+        imageScale = Math.min(imageScale * 1.1, 5);
+        updatePreviewTransform();
+        // zoom out twice
+        imageScale = Math.max(imageScale / 1.1, 0.2);
+        updatePreviewTransform();
+        imageScale = Math.max(imageScale / 1.1, 0.2);
+        updatePreviewTransform();
+    } else {
+        imageScale = Math.max(imageScale / 1.1, 0.2);
+        updatePreviewTransform();
+    }
 }
 
 function imgMove(val, amount) {
