@@ -16,6 +16,42 @@ let imageOffsetY = 0;
 let imageScale = 1;
 let userImageDataURL = null;
 
+const unwantedEntries = {
+    'dismissedAnnouncementVersion': []
+};
+
+Object.entries(unwantedEntries).forEach(([key, valuesToRemove]) => {
+    const currentValue = localStorage.getItem(key);
+
+    if (valuesToRemove.includes(currentValue)) {
+        localStorage.removeItem(key);
+        console.log(`Removed ${key} because value matched: ${currentValue}`);
+    }
+});
+
+const CURRENT_ANNOUNCEMENT_VERSION = '1.0.0';
+
+function closeAnnouncementBar() {
+    const banner = document.getElementById('announcement-bar');
+    if (banner) {
+        banner.style.display = 'none';
+        localStorage.setItem('dismissedAnnouncementVersion', CURRENT_ANNOUNCEMENT_VERSION);
+    }
+}
+
+function initAnnouncementBar() {
+    const dismissedVersion = localStorage.getItem('dismissedAnnouncementVersion');
+    const banner = document.getElementById('announcement-bar');
+
+    if (!banner) return;
+
+    if (dismissedVersion !== CURRENT_ANNOUNCEMENT_VERSION) {
+        banner.style.display = '';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', initAnnouncementBar);
+
 uploadInput.addEventListener('change', (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -35,7 +71,7 @@ function updatePreviewTransform() {
 }
 
 async function stackImages() {
-    if (document.cookie.includes("agreedToTerms=true")) {
+    if (localStorage.getItem("agreedToTerms") === "true") {
         return doGenerate();
     }
 
@@ -52,7 +88,7 @@ function confirmTerms() {
     }
 
     if (remember) {
-        document.cookie = "agreedToTerms=true; path=/; max-age=" + (60 * 60 * 24 * 56);
+        localStorage.setItem("agreedToTerms", "true");
     }
 
     document.getElementById('termsModal').style.display = 'none';
@@ -77,7 +113,9 @@ async function doGenerate() {
 
     const portraitContainer = document.getElementById('portraitContainer');
     portraitContainer.innerHTML = buildPortraitHTML(zeta, omi, relic, alignmentVal, isGL, userImageDataURL);
-    updatePreviewTransform();
+    if (isWebKit) {
+        updatePreviewTransform();
+    }
 
     await new Promise(r => setTimeout(r, 200));
 

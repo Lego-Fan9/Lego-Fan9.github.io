@@ -23,14 +23,16 @@
 
 <body>
     <header>
-        <div id="announcement-bar">
+        <div id="announcement-bar" style="display: none;">
             <div id="announcement-content">
-                <span>Version 1.0.0 is now out!</span>
-                <span><br>Known Issue: Rectangular images get trimmed<br>This will be fixed in an upcoming update</span>
-                <button id="close-banner" onclick="document.getElementById('announcement-bar').style.display = 'none';"
+                <div class="announcement-text-wrapper">
+                    <span>Version 1.0.0 is now out!</span>
+                </div>
+                <button id="close-banner" onclick="closeAnnouncementBar()"
                     aria-label="Close announcement">&times;</button>
             </div>
         </div>
+
         <h1>SWGOH Portrait Maker</h1>
     </header>
     <main>
@@ -109,9 +111,9 @@
                     I agree to the terms
                 </label>
                 <label class="modal-checkbox">
-                    <input type="checkbox" id="modalRemember">
+                    <input type="checkbox" id="modalRemember" checked>
                     <span class="checkmark"></span>
-                    Remember my choice (This will add a cookie)
+                    Remember my choice
                 </label>
                 <br><br>
                 <button onclick="confirmTerms()" class="termsButton">Continue</button>
