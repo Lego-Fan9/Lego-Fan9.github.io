@@ -38,8 +38,20 @@
     <main>
         <h1 id="uploadText">Upload Your Image Here:</h1>
         <div>
-            <label for="upload" class="file-upload">Choose Image</label>
-            <input type="file" id="upload" accept="image/*">
+            <div>
+                <label for="upload" class="file-upload">Choose Image</label>
+                <input type="file" id="upload" accept="image/*">
+            </div>
+            <div>
+                <label for="urlInput">Image URL:</label>
+                <input type="text" id="urlInput" placeholder="https://example.com/image.png">
+                <button id="loadUrlBtn">Load from URL</button>
+            </div>
+            <!--<div>
+                <label for="discordIdInput">Discord User ID:</label>
+                <input type="text" id="discordIdInput" placeholder="123456789012345678">
+                <button id="loadDiscordBtn">Load Discord Avatar</button>
+            </div>-->
         </div>
         <div class="input-container">
             <div class="input-group">

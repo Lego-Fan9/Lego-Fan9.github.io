@@ -5,6 +5,10 @@ const downloadLink = document.getElementById('downloadLink');
 const downloadLinkM = document.getElementById('downloadLinkM');
 const downloadLinkMDesc = document.getElementById('downloadLinkMDesc');
 const resetAll = document.getElementById('resetAll');
+const urlInput = document.getElementById('urlInput');
+const loadUrlBtn = document.getElementById('loadUrlBtn');
+const discordIdInput = document.getElementById('discordIdInput');
+const loadDiscordBtn = document.getElementById('loadDiscordBtn');
 
 const isWebKit = (
     /AppleWebKit/.test(navigator.userAgent) &&
@@ -56,12 +60,68 @@ document.addEventListener('DOMContentLoaded', initAnnouncementBar);
 
 uploadInput.addEventListener('change', (e) => {
     const file = e.target.files[0];
+    if (!file) return;
+
     const reader = new FileReader();
     reader.onload = function (event) {
         userImageDataURL = event.target.result;
+        console.log("Loaded from file:", userImageDataURL);
     };
     reader.readAsDataURL(file);
 });
+
+loadUrlBtn.addEventListener('click', () => {
+    const url = urlInput.value.trim();
+    if (!url) return;
+
+    fetch(url)
+        .then(res => res.blob())
+        .then(blob => {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                userImageDataURL = event.target.result;
+                console.log("Loaded from URL:", userImageDataURL);
+            };
+            reader.readAsDataURL(blob);
+        })
+        .catch(err => {
+            console.error("Failed to load image from URL:", err);
+        });
+});
+
+loadDiscordBtn.addEventListener('click', () => {
+    const userId = discordIdInput.value.trim();
+    if (!userId) return;
+
+    fetch(`https://discord.com/api/v10/users/${userId}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('Error fetching JSON:', error);
+        });
+
+    const avatarUrl = `https://cdn.discordapp.com/avatars/${userId}/avatar.png?size=512`;
+
+    fetch(avatarUrl)
+        .then(res => {
+            if (!res.ok) throw new Error("User avatar not found");
+            return res.blob();
+        })
+        .then(blob => {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                userImageDataURL = event.target.result;
+                console.log("Loaded from Discord ID:", userImageDataURL);
+            };
+            reader.readAsDataURL(blob);
+        })
+        .catch(err => {
+            console.error("Failed to load Discord avatar:", err);
+        });
+});
+
 
 function updatePreviewTransform() {
     const imgEl = document.querySelector('.character-portrait__img');
