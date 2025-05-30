@@ -4,12 +4,55 @@ const uploadInput = document.getElementById('upload');
 const downloadLink = document.getElementById('downloadLink');
 const downloadLinkM = document.getElementById('downloadLinkM');
 const downloadLinkMDesc = document.getElementById('downloadLinkMDesc');
+const resetAll = document.getElementById('resetAll');
+
+const isWebKit = (
+    /AppleWebKit/.test(navigator.userAgent) &&
+    'WebkitAppearance' in document.documentElement.style
+)
 
 let imageOffsetX = 0;
 let imageOffsetY = 0;
 let imageScale = 1;
-
 let userImageDataURL = null;
+
+const unwantedEntries = {
+    'dismissedAnnouncementVersion': [],
+    "agreedToTerms": []
+};
+
+const CURRENT_ANNOUNCEMENT_VERSION = '1.0.0';
+const CURRENT_TERMS_VERSION = '1.0.0';
+
+Object.entries(unwantedEntries).forEach(([key, valuesToRemove]) => {
+    const currentValue = localStorage.getItem(key);
+
+    if (valuesToRemove.includes(currentValue)) {
+        localStorage.removeItem(key);
+        console.log(`Removed ${key} because value matched: ${currentValue}`);
+    }
+});
+
+function closeAnnouncementBar() {
+    const banner = document.getElementById('announcement-bar');
+    if (banner) {
+        banner.style.display = 'none';
+        localStorage.setItem('dismissedAnnouncementVersion', CURRENT_ANNOUNCEMENT_VERSION);
+    }
+}
+
+function initAnnouncementBar() {
+    const dismissedVersion = localStorage.getItem('dismissedAnnouncementVersion');
+    const banner = document.getElementById('announcement-bar');
+
+    if (!banner) return;
+
+    if (dismissedVersion !== CURRENT_ANNOUNCEMENT_VERSION) {
+        banner.style.display = '';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', initAnnouncementBar);
 
 uploadInput.addEventListener('change', (e) => {
     const file = e.target.files[0];
@@ -30,6 +73,35 @@ function updatePreviewTransform() {
 }
 
 async function stackImages() {
+    if (localStorage.getItem("agreedToTerms") === CURRENT_TERMS_VERSION) {
+        return doGenerate();
+    }
+
+    document.getElementById('termsModal').style.display = 'flex';
+}
+
+function confirmTerms() {
+    const agree = document.getElementById('modalAgree').checked;
+    const remember = document.getElementById('modalRemember').checked;
+
+    if (!agree) {
+        alert("You must agree to continue.");
+        return;
+    }
+
+    if (remember) {
+        localStorage.setItem("agreedToTerms", CURRENT_TERMS_VERSION);
+    }
+
+    document.getElementById('termsModal').style.display = 'none';
+    doGenerate();
+}
+
+function closeTermsModal() {
+    document.getElementById('termsModal').style.display = 'none';
+}
+
+async function doGenerate() {
     if (!userImageDataURL) {
         alert("Please upload an image first");
         return;
@@ -43,6 +115,9 @@ async function stackImages() {
 
     const portraitContainer = document.getElementById('portraitContainer');
     portraitContainer.innerHTML = buildPortraitHTML(zeta, omi, relic, alignmentVal, isGL, userImageDataURL);
+    if (isWebKit) {
+        updatePreviewTransform();
+    }
 
     await new Promise(r => setTimeout(r, 200));
 
@@ -73,7 +148,7 @@ async function stackImages() {
     canvas.height = img.height;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(img, 0, 0);
-    canvas.classList.add('loaded')
+    // will add back later canvas.classList.add('loaded')
 
     downloadLink.href = canvas.toDataURL();
     downloadLink.download = "swgoh-portrait-image.png";
@@ -81,18 +156,19 @@ async function stackImages() {
     downloadLink.style.display = "inline";
     downloadLinkM.style.display = "inline";
     downloadLinkM.textContent = "Download Result (Mobile)";
+    resetAll.style.display = "inline";
 }
 
 function mobileDownload() {
-    downloadLinkMDesc.style.display = "block";
     const mainEl = document.querySelector('main');
     const oldPreview = document.getElementById('imgPreview');
+    downloadLinkMDesc.style.display = "block";
     if (oldPreview) oldPreview.remove();
 
     const imgPreview = document.createElement('img');
     imgPreview.src = canvas.toDataURL();
     imgPreview.style.maxWidth = "100%";
-    imgPreview.id = "imgPreview"; // ID to track it later
+    imgPreview.id = "imgPreview";
     mainEl.appendChild(imgPreview);
 }
 
@@ -160,8 +236,6 @@ function buildPortraitHTML(zeta = 3, omi = 3, relic = 9, alignment = 0, isGL = f
 
 async function renderCanvasFromDOM() {
     const portraitContainer = document.getElementById('portraitContainer');
-    const canvas = document.getElementById('canvas');
-    const downloadLink = document.getElementById('downloadLink');
 
     var scale = 2;
     const Node = portraitContainer.querySelector('.collection-char');
@@ -192,7 +266,6 @@ async function renderCanvasFromDOM() {
 
     canvas.width = img.width;
     canvas.height = img.height;
-    const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(img, 0, 0);
 
@@ -200,32 +273,49 @@ async function renderCanvasFromDOM() {
 }
 
 function zoomIn() {
-    imageScale = Math.min(imageScale * 1.1, 5); // cap max zoom
-    updatePreviewTransform();
+    if (isWebKit) {
+        // zoom in
+        imageScale = Math.min(imageScale * 1.1, 5);
+        updatePreviewTransform();
+        // zoom out
+        imageScale = Math.max(imageScale / 1.1, 0.2);
+        updatePreviewTransform();
+        // zoom in twice
+        imageScale = Math.min(imageScale * 1.1, 5);
+        updatePreviewTransform();
+        imageScale = Math.min(imageScale * 1.1, 5);
+        updatePreviewTransform();
+    } else {
+        imageScale = Math.min(imageScale * 1.1, 5);
+        updatePreviewTransform();
+    }
 }
 
 function zoomOut() {
-    imageScale = Math.max(imageScale / 1.1, 0.2); // cap min zoom
-    updatePreviewTransform();
+    if (isWebKit) {
+        // zoom out
+        imageScale = Math.max(imageScale / 1.1, 0.2);
+        updatePreviewTransform();
+        // zoom in
+        imageScale = Math.min(imageScale * 1.1, 5);
+        updatePreviewTransform();
+        // zoom out twice
+        imageScale = Math.max(imageScale / 1.1, 0.2);
+        updatePreviewTransform();
+        imageScale = Math.max(imageScale / 1.1, 0.2);
+        updatePreviewTransform();
+    } else {
+        imageScale = Math.max(imageScale / 1.1, 0.2);
+        updatePreviewTransform();
+    }
 }
 
-function upMove() {
-    imageOffsetY -= 5;
-    updatePreviewTransform();
-}
-
-function downMove() {
-    imageOffsetY += 5;
-    updatePreviewTransform();
-}
-
-function leftMove() {
-    imageOffsetX -= 5;
-    updatePreviewTransform();
-}
-
-function rightMove() {
-    imageOffsetX += 5;
+function imgMove(val, amount) {
+    if (val === 'X') {
+        imageOffsetX += amount;
+    } else if (val === 'Y') {
+        imageOffsetY += amount
+    }
     updatePreviewTransform();
 }
 
@@ -236,3 +326,62 @@ function resetImagePosition() {
     updatePreviewTransform();
 }
 
+function fakeRefresh() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    canvas.width = 0;
+    canvas.height = 0;
+
+    userImageDataURL = null;
+    imageOffsetX = 0;
+    imageOffsetY = 0;
+    imageScale = 1;
+
+    uploadInput.value = "";
+
+    document.getElementById('zetaCount').value = "0";
+    document.getElementById('omiCount').value = "0";
+    document.getElementById('relicLevel').value = "9";
+    document.getElementById('switch').value = "1";
+    document.getElementById('gl-checkbox').checked = false;
+
+    downloadLink.style.display = "none";
+    downloadLink.href = "#";
+    downloadLink.textContent = "";
+
+    downloadLinkM.style.display = "none";
+    downloadLinkM.textContent = "";
+    downloadLinkMDesc.style.display = "none";
+
+    resetAll.style.display = "none";
+
+    const portraitContainer = document.getElementById('portraitContainer');
+    portraitContainer.innerHTML = "";
+
+    const oldPreview = document.getElementById('imgPreview');
+    if (oldPreview) oldPreview.remove();
+
+    document.getElementById('modalAgree').checked = false;
+    document.getElementById('modalRemember').checked = false;
+    document.getElementById('termsModal').style.display = 'none';
+
+    portraitContainer.style.left = '-9999px';
+    portraitContainer.style.top = '-9999px';
+    portraitContainer.style.border = '';
+    portraitContainer.style.background = '';
+    portraitContainer.style.transform = '';
+    portraitContainer.style.marginTop = ''
+}
+
+function debugMode() {
+    const portraitContainer = document.getElementById('portraitContainer');
+    portraitContainer.style.left = '50%';
+    portraitContainer.style.top = '50%';
+    portraitContainer.style.transform = 'translate(-50%, -50%)';
+    portraitContainer.style.marginTop = '50px'
+    document.getElementById("debugGap").style.display = "";
+    document.getElementById("debugGapB").style.display = "";
+    document.getElementById("debugGapC").style.display = "";
+    document.getElementById("debugInfo").style.display = "";
+    document.getElementById("userAgent").textContent = navigator.userAgent;
+    document.getElementById("isSafari").textContent = `isWebKit = ${isWebKit}`
+}

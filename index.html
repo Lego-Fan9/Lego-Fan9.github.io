@@ -4,13 +4,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="SWGoH Portrait Maker - Create custom portraits for your favorite characters.">
+    <meta name="description" content="LegoFan9's Star Wars: Galaxy of Heroes Tools">
     <meta name="author" content="LegoFan9">
-    <link rel="icon" href="/favicon.ico" type="image/png">
-    <title>SWGoH Portrait Maker</title>
-    <link rel="stylesheet" href="style.css">
-    <!--<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;700&display=swap" rel="stylesheet">-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>LegoFan9's SWGoH Tools</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 15px;
+            background-color: #f3effa;
+        }
+
+        .app-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .app-card {
+            background: white;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+            padding: 30px 24px 24px 24px;
+            width: 260px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: box-shadow 0.2s;
+        }
+
+        .app-card:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.13);
+            border-color: #007BFF;
+        }
+
+        .app-title {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .app-desc {
+            font-size: 1em;
+            color: #555;
+            margin-bottom: 18px;
+        }
+
+        .app-link {
+            display: inline-block;
+            margin-top: 10px;
+            cursor: pointer;
+            color: white;
+            background-color: #007BFF;
+            padding: 10px 20px;
+            border: 3px solid black;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: box-shadow 0.3s, background-color 0.3s;
+        }
+
+        .app-link:hover {
+            box-shadow: 0 0 0 2px black;
+            background-color: #0056b3;
+        }
+    </style>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-X7TKZ22H21"></script>
     <script>
@@ -23,82 +85,30 @@
 </head>
 
 <body>
-    <header>
-        <h1>SWGOH Portrait Maker</h1>
-    </header>
-    <main>
-        <h1 id="uploadText">Upload Your Image Here:</h1>
-        <div>
-            <label for="upload" class="file-upload">Choose Image</label>
-            <input type="file" id="upload" accept="image/*">
+    <h1>Welcome to LegoFan9's SWGoH Tools</h1>
+    <p>Select an app below to get started:</p>
+    <div class="app-list">
+        <div class="app-card">
+            <div class="app-title">SWGoH Portrait Maker</div>
+            <div class="app-desc">Create custom Star Wars Galaxy of Heroes portraits.</div>
+            <a class="app-link" href="swgoh-portrait-maker/">Open App</a>
         </div>
-        <div class="input-container">
-            <div class="input-group">
-                <label for="zetaCount">Zetas:</label>
-                <input type="number" id="zetaCount" min="-999" max="999" value="0" class="number-input">
-            </div>
-            <div class="input-group">
-                <label for="omiCount">Omicrons:</label>
-                <input type="number" id="omiCount" min="-999" max="999" value="0" class="number-input">
-            </div>
-            <div class="input-group">
-                <label for="relicLevel">Relic Level:</label>
-                <input type="number" id="relicLevel" min="-99" max="999" value="9" class="number-input">
-            </div>
+        <div class="app-card">
+            <div class="app-title">SWGoH Updates</div>
+            <div class="app-desc">Learn about the latest SWGoH updates as they happen</div>
+            <a class="app-link" href="swgoh-updates/">Open App</a>
         </div>
-        <br>
-        <div class="three-position-switch">
-            <label for="switch" class="switch-label">Alignment:</label>
-            <input type="range" id="switch" class="switch" min="0" max="2" value="1" step="1">
-            <div class="switch-values">
-                <span>Dark</span>
-                <span>Neutral</span>
-                <span>Light</span>
-            </div>
-        </div>
-        <br>
-        <div class="gl-contain">
-            <input type="checkbox" id="gl-checkbox" class="gl-checkbox-button">
-            <label for="gl-checkbox" class="gl-checkbox-label">
-                <span class="checkbox-text">GL?</span>
-                <span class="checkbox-checkmark">&#10003;</span>
-            </label>
-        </div>
-        <br>
-        <button onclick="stackImages()" id="generateButton">Generate!</button>
-        <br><br>
-        <div id="portraitContainer" style="position:absolute;left:-9999px; top:-9999px;"></div>
-        <canvas id="canvas"></canvas>
-        <div style="height: 30px;"></div>
-        <div class="imgControlers">
-            <div class="zoomControl">
-                <button onclick="zoomIn()" id="zoomInButton">In</button>
-                <button onclick="zoomOut()" id="zoomOutButton">Out</button>
-            </div>
-            <div class="moveControl">
-                <button onclick="upMove()" id="upButton">Up</button>
-                <button onclick="leftMove()" id="leftButton">Left</button>
-                <button onclick="downMove()" id="downButton">Down</button>
-                <button onclick="rightMove()" id="rightButton">Right</button>
-            </div>
-            <button id="resetPos" onclick="resetImagePosition()">Reset</button>
-        </div>
-        <br><br>
-        <a id="downloadLink" style="display: none; text-decoration: none;">Download Result(PC)</a>
-        <div style="height: 50px;"></div>
-        <a id="downloadLinkM" onclick="mobileDownload()" style="display: none;">Download Result(Mobile)</a>
-        <p id="downloadLinkMDesc" style="display: none;">Hold down on the image then click save to photos</p>
-        <div style="height: 50px;"></div>
-        <script src="script.js"></script>
-    </main>
-    <footer>
-        <p>&copy; 2025 LegoFan9</p>
-        <p style="max-width: 50%; margin: 0 auto; text-align: center;">This tool and its creators are not affiliated
-            with or endorsed by Locasfilm Ltd., Disney, Electronic Arts, or Capital Games. All Star Wars: Galaxy of
-            Heroes content, including images and other assets, is the property of their respective owners. It is
-            suggested that you do not use this content in any way that may violate free use laws.</p>
-        <p>You can read the terms of use and privacy policy <a href="/terms.html" target="_blank">here</a></p>
-    </footer>
+    </div>
+    <div style="height: 20px;"></div>
+    <a class="app-link" href="https://discord.gg/cmZjsRBwTY" target="_blank"
+        style="background-color: #5865F2; display: inline-flex; align-items: center; gap: 8px;">
+        <img src="discord.svg" alt="Discord"
+            style="width: 20px; height: 20px;">
+        Join our Discord
+    </a>
+    <div style="height: 20px"></div>
+    <p>By using this site you agree to allow useage of Google Analytics</p>
+
 </body>
 
 </html>

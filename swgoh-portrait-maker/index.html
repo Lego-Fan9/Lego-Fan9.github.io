@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SWGoH Portrait Maker - Create custom portraits for your favorite characters.">
+    <meta name="author" content="LegoFan9">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <title>SWGoH Portrait Maker</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X7TKZ22H21"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-X7TKZ22H21');
+    </script>
+</head>
+
+<body>
+    <header>
+        <div id="announcement-bar" style="display: none;">
+            <div id="announcement-content">
+                <div class="announcement-text-wrapper">
+                    <span>Version 1.0.0 is now out!</span>
+                </div>
+                <button id="close-banner" onclick="closeAnnouncementBar()"
+                    aria-label="Close announcement">&times;</button>
+            </div>
+        </div>
+
+        <h1>SWGOH Portrait Maker</h1>
+    </header>
+    <main>
+        <h1 id="uploadText">Upload Your Image Here:</h1>
+        <div>
+            <label for="upload" class="file-upload">Choose Image</label>
+            <input type="file" id="upload" accept="image/*">
+        </div>
+        <div class="input-container">
+            <div class="input-group">
+                <label for="zetaCount">Zetas:</label>
+                <input type="number" id="zetaCount" min="-999" max="999" value="0" class="number-input">
+            </div>
+            <div class="input-group">
+                <label for="omiCount">Omicrons:</label>
+                <input type="number" id="omiCount" min="-999" max="999" value="0" class="number-input">
+            </div>
+            <div class="input-group">
+                <label for="relicLevel">Relic Level:</label>
+                <input type="number" id="relicLevel" min="-99" max="999" value="9" class="number-input">
+            </div>
+        </div>
+        <br>
+        <div class="alignment-switch">
+            <label for="switch" class="switch-label">Alignment:</label>
+            <input type="range" id="switch" class="switch" min="0" max="2" value="1" step="1">
+            <div class="switch-values">
+                <span>Dark</span>
+                <span>Neutral</span>
+                <span>Light</span>
+            </div>
+        </div>
+        <br>
+        <div class="gl-contain">
+            <input type="checkbox" id="gl-checkbox" class="gl-checkbox-button">
+            <label for="gl-checkbox" class="gl-checkbox-label">
+                <span class="checkbox-text">GL?</span>
+                <span class="checkbox-checkmark">&#10003;</span>
+            </label>
+        </div>
+        <br>
+        <button onclick="stackImages()" id="generateButton">Generate!</button>
+        <br><br>
+        <canvas id="canvas"></canvas>
+        <div style="height: 30px;"></div>
+        <div class="imgControlers">
+            <button id="resetPos" onclick="resetImagePosition()">Reset Image Position</button>
+            <div class="zoomControl">
+                <button onclick="zoomIn()" id="zoomInButton">In</button>
+                <button onclick="zoomOut()" id="zoomOutButton">Out</button>
+            </div>
+            <div class="moveControl">
+                <button onclick="imgMove('Y', -5)" id="upButton">Up</button>
+                <button onclick="imgMove('X', -5)" id="leftButton">Left</button>
+                <button onclick="imgMove('Y', 5)" id="downButton">Down</button>
+                <button onclick="imgMove('X', 5)" id="rightButton">Right</button>
+            </div>
+        </div>
+        <button id="resetAll" style="display: none;" onclick="fakeRefresh()">Reset Page</button>
+        <div style="height: 30px;"></div>
+        <a id="downloadLink" style="display: none; text-decoration: none;">Download Result(PC)</a>
+        <div style="height: 50px;"></div>
+        <a id="downloadLinkM" onclick="mobileDownload()" style="display: none;">Download Result(Mobile)</a>
+        <p id="downloadLinkMDesc" style="display: none;">Hold down on the image then click save to photos</p>
+        <div style="height: 50px;"></div>
+        <script src="script.js"></script>
+        <div id="termsModal" style="display: none;" class="modal-overlay">
+            <div class="modal-content">
+                <h2>Before You Continue</h2>
+                <p style="font-weight: 750;">Please read and agree to the <a href="terms.html" target="_blank">terms and
+                        privacy policy</a> to
+                    proceed.</p>
+                <label class="modal-checkbox">
+                    <input type="checkbox" id="modalAgree">
+                    <span class="checkmark"></span>
+                    I agree to the terms
+                </label>
+                <label class="modal-checkbox">
+                    <input type="checkbox" id="modalRemember" checked>
+                    <span class="checkmark"></span>
+                    Remember my choice
+                </label>
+                <br><br>
+                <button onclick="confirmTerms()" class="termsButton">Continue</button>
+                <button onclick="closeTermsModal()" class="termsButton">Cancel</button>
+            </div>
+        </div>
+
+    </main>
+    <footer>
+        <p>&copy; 2025 LegoFan9</p>
+        <p style="max-width: 50%; margin: 0 auto; text-align: center;">This tool and its creators are not affiliated
+            with or endorsed by Locasfilm Ltd., Disney, Electronic Arts, or Capital Games. All Star Wars: Galaxy of
+            Heroes content, including images and other assets, is the property of their respective owners. It is
+            suggested that you do not use this content in any way that may violate free use laws.</p>
+        <p style="max-width: 50%; margin: 0 auto; text-align: center;"><br>You can read the terms of use and privacy
+            policy <a href="terms.html" target="_blank">here</a></p>
+        <button onclick="debugMode()" id="debugMode" style="padding: 5px 5px; height: 35px; width: 120px;">Debug
+            mode</button>
+        <div id="debugGap" style="height: 30px; display: none;"></div>
+        <div id="parent_portraitContainer" style="position: relative;">
+            <div id="portraitContainer" style="position:absolute;left:-9999px; top:-9999px;"></div>
+        </div>
+        <div id="debugGapB" style="height: 100px; display: none;"></div>
+        <br><br>
+        <div id="debugInfo" style="display: none;">
+            <span id="userAgent"></span><br>
+            <span id="isSafari"></span><br>
+        </div>
+        <div id="debugGapC" style="height: 30px; display: none;"></div>
+    </footer>
+</body>
+
+</html>
