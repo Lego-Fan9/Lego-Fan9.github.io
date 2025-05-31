@@ -376,6 +376,9 @@ canvas.loaded {
 }
 
 .character-portrait__relic {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-image: url(./images/LS_relic_middle.webp);
     background-size: 100%;
     width: 44px;
@@ -388,7 +391,6 @@ canvas.loaded {
     z-index: 4;
     color: #fff;
     text-align: center;
-    line-height: 45px;
     font-weight: 700;
     text-shadow: -1px -1px 0 #000, 2px -1px 0 #000, 2px 2px 0 #000, -1px 2px 0 #000
 }
@@ -406,6 +408,9 @@ canvas.loaded {
 }
 
 .character-portrait__zeta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: 50% transparent url(./images/zeta.png) no-repeat;
     background-size: contain;
     width: 38px;
@@ -416,13 +421,15 @@ canvas.loaded {
     left: -10px;
     color: #fff;
     text-align: center;
-    line-height: 38px;
     font-size: 12px;
     font-weight: 700;
     text-shadow: -1px -1px 0 #7028c9, 2px -1px 0 #7028c9, 2px 2px 0 #7028c9, -1px 2px 0 #7028c9, 2px 3px 0 #7028c9, 1px 3px 0 #7028c9, 2px 3px 0 #7028c9
 }
 
 .character-portrait__omicron {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: 50% transparent url(./images/omi.png) no-repeat;
     background-size: contain;
     width: 38px;
@@ -433,7 +440,6 @@ canvas.loaded {
     right: -10px;
     color: #fff;
     text-align: center;
-    line-height: 38px;
     font-size: 12px;
     font-weight: 700;
     text-shadow: -1px -1px 0 #000, 2px -1px 0 #000, 2px 2px 0 #000, -1px 2px 0 #000
