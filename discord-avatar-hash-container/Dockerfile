@@ -4,7 +4,7 @@ WORKDIR /app
 
 #COPY pip.txt .
 
-RUN pip install --no-cache-dir fastapi slowapi pydantic python-dotenv requests
+RUN pip install --no-cache-dir fastapi slowapi pydantic python-dotenv requests uvicorn
 
 COPY main.py .
 

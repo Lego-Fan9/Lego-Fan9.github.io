@@ -4,6 +4,8 @@ from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 from pydantic import BaseModel
 from dotenv import load_dotenv
+from logging.handlers import TimedRotatingFileHandler
+import logging
 import requests
 import hashlib
 import base64
@@ -11,6 +13,38 @@ import hmac
 import time
 import os
 
+def setup_logger(name: str, log_dir: str = "logs", level=logging.DEBUG) -> logging.Logger:
+
+    os.makedirs(log_dir, exist_ok=True)
+
+    logger = logging.getLogger(name)
+    logger.setLevel(level)
+    logger.propagate = False
+
+    if not logger.handlers:
+        file_handler = TimedRotatingFileHandler(
+            filename=os.path.join(log_dir, f"{name}.log"),
+            when="midnight",
+            interval=1,
+            backupCount=7,
+            encoding='utf-8'
+        )
+        file_formatter = logging.Formatter(
+            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        )
+        file_handler.setFormatter(file_formatter)
+        logger.addHandler(file_handler)
+
+        console_handler = logging.StreamHandler()
+        console_formatter = logging.Formatter(
+            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        )
+        console_handler.setFormatter(console_formatter)
+        logger.addHandler(console_handler)
+
+    return logger
+
+logger = setup_logger("discord-avatar-hash-getter")
 load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 if not BOT_TOKEN:
@@ -71,10 +105,10 @@ async def get_avatar_hash(payload: discordAvatarHash, request: Request):
     try:
         response = requests.get(url, headers=headers)
     except Exception as e:
-        print(e)
+        logger.error(e)
         raise HTTPException(status_code=500, detail=f"An error occured")
     if response.status_code != 200:
-        print(f'Bad response::Status Code:"{response.status_code}"::Body:{response.content}')
+        logger.warning(f'Bad response::Status Code:"{response.status_code}"::Body:{response.content}')
         raise HTTPException(status_code=500, detail="An error occured")
     response_data = response.json()
     return {
@@ -84,4 +118,5 @@ async def get_avatar_hash(payload: discordAvatarHash, request: Request):
 
 if __name__ == "__main__":
     import uvicorn
+    logger.info("Starting app")
     uvicorn.run(app, host="0.0.0.0", port=8080)

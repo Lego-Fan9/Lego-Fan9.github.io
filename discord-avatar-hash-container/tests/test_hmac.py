@@ -13,7 +13,7 @@ if not SHARED_SECRET_B64:
 SHARED_SECRET = base64.b64decode(SHARED_SECRET_B64)
 
 method = "GET"
-url = "http://localhost:8000/hmac"
+url = "https://legofan9-discord-hash-getter.onrender.com/hmac"
 path = "/hmac"
 timestamp = str(int(time.time()))
 
