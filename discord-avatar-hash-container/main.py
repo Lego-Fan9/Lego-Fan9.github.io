@@ -83,8 +83,9 @@ async def test_hmac(request: Request):
     ts = request.headers.get("X-Timestamp")
     sig = request.headers.get("X-Signature")
     if not ts or not sig or not verify_hmac("GET", request.url.path, ts, sig):
+        logger.info("Failed HMAC attempt")
         raise HTTPException(status_code=401, detail="Invalid or missing signature and or timestamp")
-    
+    logger.info("good /hmac call")
     return {"message": "hmac good"}
 
 class discordAvatarHash(BaseModel):
@@ -96,6 +97,7 @@ async def get_avatar_hash(payload: discordAvatarHash, request: Request):
     ts = request.headers.get("X-Timestamp")
     sig = request.headers.get("X-Signature")
     if not ts or not sig or not verify_hmac("POST", request.url.path, ts, sig):
+        logger.info("Failed HMAC attempt")
         raise HTTPException(status_code=401, detail="Invalid or missing signature and or timestamp")
     
     url = f"https://discord.com/api/v10/users/{payload.discordId}"
@@ -111,6 +113,7 @@ async def get_avatar_hash(payload: discordAvatarHash, request: Request):
         logger.warning(f'Bad response::Status Code:"{response.status_code}"::Body:{response.content}')
         raise HTTPException(status_code=500, detail="An error occured")
     response_data = response.json()
+    logger.debug("Good pull from discord, returning data")
     return {
         "discordId": payload.discordId,
         "avatarHash": response_data['avatar']

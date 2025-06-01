@@ -13,7 +13,7 @@ if not SHARED_SECRET_B64:
 SHARED_SECRET = base64.b64decode(SHARED_SECRET_B64)
 
 method = "POST"
-url = "http://localhost:8000/discord/avatar/hash"
+url = "https://legofan9-discord-hash-getter.onrender.com/discord/avatar/hash"
 path = "/discord/avatar/hash"
 timestamp = str(int(time.time()))
 
