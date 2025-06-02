@@ -43,8 +43,8 @@
                 <input type="file" id="upload" accept="image/*">
             </div>
             <div>
-                <label for="urlInput">Image URL:</label>
-                <span class="input-with-help">
+                <label for="urlInput" class="input-labels">Image URL:</label>
+                <span class="input-image">
                     <input type="text" id="urlInput" placeholder="https://example.com/image.png">
                     <button id="urlHelpBtn" class="help-btn" type="button" tabindex="0">?</button>
                     <span class="help-tooltip" id="urlHelpTooltip" style="display:none;">
@@ -54,14 +54,17 @@
                 <button id="loadUrlBtn">Load from URL</button>
             </div>
             <div>
-                <label for="discordIdInput">Discord User ID:</label>
-                <span class="input-with-help">
+                <label for="discordIdInput" class="input-labels">Discord User ID:</label>
+                <span class="input-image">
                     <input type="text" id="discordIdInput" placeholder="123456789012345678">
                     <button id="discordHelpBtn" class="help-btn" type="button" tabindex="0">?</button>
                     <span class="help-tooltip" id="discordHelpTooltip" style="display:none;">
                         A Discord User ID is a unique 18-digit number. To get it:<br>
                         1. Enable Developer Mode in Discord settings.<br>
-                        2. Right-click a user and select "Copy ID".
+                        2. Right-click a user and select "Copy ID".<br>
+                        Or you can ping that user and then copy it and paste it here<br>
+                        It should look something like<br>
+                        <@123456789012345678>
                     </span>
                 </span>
                 <button id="loadDiscordBtn">Load Discord Avatar</button>

@@ -655,7 +655,7 @@ canvas.loaded {
     display: block;
 }
 
-.input-with-help {
+.input-image {
     display: inline-flex;
     align-items: center;
     position: relative;
@@ -671,28 +671,19 @@ canvas.loaded {
         transform: none;
     }
 
-    .input-container {
-        flex-direction: column;
-        gap: 18px;
+    .input-image {
+        width: 80%;
     }
 
-    .input-group {
-        width: 100%;
-    }
-
-    .input-with-help {
-        width: 100%;
-    }
-
-    input[type="text"],
-    input[type="number"] {
+    .input-image input[type="text"],
+    .input-image input[type="number"] {
         width: 100%;
         box-sizing: border-box;
     }
 }
 
-input[type="text"],
-input[type="number"] {
+.input-image input[type="text"],
+.input-image input[type="number"] {
     padding: 10px 14px;
     border: 2px solid #007BFF;
     border-radius: 6px;
@@ -711,7 +702,7 @@ input[type="number"]:focus {
     box-shadow: 0 0 0 2px #b3d7ff;
 }
 
-label {
+.input-labels {
     font-weight: 600;
     margin-bottom: 4px;
     color: #222;

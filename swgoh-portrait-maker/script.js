@@ -156,14 +156,14 @@ function base64ToUint8Array(base64) {
 }
 
 function extractDiscordId(input) {
-  const mentionMatch = input.match(/^<@!?(\d{17,19})>$/);
-  if (mentionMatch) {
-    return mentionMatch[1];
-  }
-  if (/^\d{17,19}$/.test(input)) {
-    return input;
-  }
-  return null;
+    const mentionMatch = input.match(/^<@!?(\d{17,19})>$/);
+    if (mentionMatch) {
+        return mentionMatch[1];
+    }
+    if (/^\d{17,19}$/.test(input)) {
+        return input;
+    }
+    return null;
 }
 
 loadDiscordBtn.addEventListener('click', async () => {
@@ -545,21 +545,32 @@ function debugMode() {
 function setupHelpTooltip(btnId, tooltipId) {
     const btn = document.getElementById(btnId);
     const tooltip = document.getElementById(tooltipId);
+    let isVisible = false;
 
-    btn.addEventListener('mouseenter', () => tooltip.style.display = 'block');
-    btn.addEventListener('mouseleave', () => tooltip.style.display = 'none');
-    btn.addEventListener('focus', () => tooltip.style.display = 'block');
-    btn.addEventListener('blur', () => tooltip.style.display = 'none');
+    function showTooltip() {
+        tooltip.style.display = 'block';
+        isVisible = true;
+    }
+    function hideTooltip() {
+        tooltip.style.display = 'none';
+        isVisible = false;
+    }
     btn.addEventListener('click', (e) => {
-        // Toggle for mobile/touch
-        tooltip.style.display = (tooltip.style.display === 'block') ? 'none' : 'block';
         e.stopPropagation();
+        isVisible ? hideTooltip() : showTooltip();
     });
-    // Hide tooltip if clicking elsewhere
     document.addEventListener('click', (e) => {
         if (!btn.contains(e.target) && !tooltip.contains(e.target)) {
-            tooltip.style.display = 'none';
+            hideTooltip();
         }
+    });
+
+    btn.addEventListener('blur', () => {
+        setTimeout(() => {
+            if (!tooltip.contains(document.activeElement)) {
+                hideTooltip();
+            }
+        }, 100);
     });
 }
 setupHelpTooltip('discordHelpBtn', 'discordHelpTooltip');
