@@ -10,10 +10,15 @@ const loadUrlBtn = document.getElementById('loadUrlBtn');
 const discordIdInput = document.getElementById('discordIdInput');
 const loadDiscordBtn = document.getElementById('loadDiscordBtn');
 
-const isWebKit = (
-    /AppleWebKit/.test(navigator.userAgent) &&
-    'WebkitAppearance' in document.documentElement.style
-)
+function isTrueWebKit() {
+    const ua = navigator.userAgent;
+    const isWebKit = /AppleWebKit/.test(ua) && !/Chrome|Chromium|Edg|OPR|SamsungBrowser/.test(ua);
+    const hasWebKitFeatures = 'WebkitAppearance' in document.documentElement.style;
+    const hasAppleProdName = /iP(ad|hone|od)/.test(ua)
+    const hasMac = /Macintosh|Mac OS/.test(ua);
+    return isWebKit && hasWebKitFeatures && hasAppleProdName && hasMac;
+}
+const isWebKit = isTrueWebKit();
 
 let imageOffsetX = 0;
 let imageOffsetY = 0;
