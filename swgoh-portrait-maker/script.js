@@ -72,12 +72,41 @@ uploadInput.addEventListener('change', (e) => {
     reader.readAsDataURL(file);
 });
 
-loadUrlBtn.addEventListener('click', () => {
+loadUrlBtn.addEventListener('click', async () => {
     const url = urlInput.value.trim();
-    if (!url) return;
+    if (!url) {
+        showErrorPopup("Please input a URL");
+        return;
+    }
 
-    fetch(url)
-        .then(res => res.blob())
+    const encodedUrl = encodeURIComponent(url);
+    const proxyPath = "/image/proxy";
+    const method = "GET";
+    const sharedSecret = "jotpBwkCiLjKqg8Jcr9kXCtU5fxrcIKoQpJIK6pRROk=";
+    const { signature, timestamp } = await generateSignature(
+        base64ToUint8Array(sharedSecret), method, proxyPath
+    );
+
+    fetch(`https://legofan9-discord-hash-getter.onrender.com${proxyPath}?url=${encodedUrl}`, {
+        method: method,
+        headers: {
+            "X-Timestamp": timestamp,
+            "X-Signature": signature
+        }
+    })
+        .then(res => {
+            const contentType = res.headers.get('Content-Type') || '';
+            const extensionMatch = url.split('?')[0].match(/\.([a-zA-Z0-9]+)$/);
+            const extension = extensionMatch ? extensionMatch[1].toLowerCase() : null;
+
+            if (!res.ok || !contentType.startsWith('image/')) {
+                const fallbackType = extension || contentType || 'unknown';
+                showErrorPopup(`Unsupported: ${fallbackType} Make sure your url includes something like .gif, .png, etc.`);
+                throw new Error(`Unsupported or failed image type: ${fallbackType}`);
+            }
+
+            return res.blob();
+        })
         .then(blob => {
             const reader = new FileReader();
             reader.onload = function (event) {
@@ -86,7 +115,7 @@ loadUrlBtn.addEventListener('click', () => {
             reader.readAsDataURL(blob);
         })
         .catch(err => {
-            console.error("Failed to load image from URL:", err);
+            console.error("Image load error via proxy:", err);
         });
 });
 
@@ -109,7 +138,6 @@ async function generateSignature(sharedSecret, method, endpoint) {
         encoder.encode(message)
     );
 
-    // Convert ArrayBuffer to hex string
     const signature = Array.from(new Uint8Array(signatureBuffer))
         .map(b => b.toString(16).padStart(2, '0'))
         .join('');
@@ -117,11 +145,6 @@ async function generateSignature(sharedSecret, method, endpoint) {
     return { signature, timestamp };
 }
 
-function hexToUint8Array(hex) {
-    return new Uint8Array(hex.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
-}
-
-// Add this function:
 function base64ToUint8Array(base64) {
     const binary = atob(base64);
     const len = binary.length;
@@ -132,10 +155,23 @@ function base64ToUint8Array(base64) {
     return bytes;
 }
 
+function extractDiscordId(input) {
+  const mentionMatch = input.match(/^<@!?(\d{17,19})>$/);
+  if (mentionMatch) {
+    return mentionMatch[1];
+  }
+  if (/^\d{17,19}$/.test(input)) {
+    return input;
+  }
+  return null;
+}
+
 loadDiscordBtn.addEventListener('click', async () => {
-    const discordId = discordIdInput.value.trim();
-    if (!discordId) return;
-    //TODO: Add check to make sure it's a discord id
+    const discordId = extractDiscordId(discordIdInput.value.trim());
+    if (!discordId) {
+        showErrorPopup("Please provide a discordId");
+        return;
+    }
     const hash_url = "https://legofan9-discord-hash-getter.onrender.com/discord/avatar/hash";
     const hash_endpoint = "/discord/avatar/hash";
     const hash_method = "POST";
@@ -223,7 +259,7 @@ function closeTermsModal() {
 
 async function doGenerate() {
     if (!userImageDataURL) {
-        alert("Please upload an image first");
+        showErrorPopup("Please upload an image first");
         return;
     }
 
@@ -528,3 +564,12 @@ function setupHelpTooltip(btnId, tooltipId) {
 }
 setupHelpTooltip('discordHelpBtn', 'discordHelpTooltip');
 setupHelpTooltip('urlHelpBtn', 'urlHelpTooltip');
+
+function showErrorPopup(message) {
+    document.getElementById('popupMessage').textContent = message;
+    document.getElementById('popupModal').style.display = 'flex';
+}
+
+function closeErrorPopup() {
+    document.getElementById('popupModal').style.display = 'none';
+}
