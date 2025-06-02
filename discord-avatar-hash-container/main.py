@@ -1,10 +1,11 @@
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import FastAPI, Request, Response, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 from pydantic import BaseModel
 from dotenv import load_dotenv
+from urllib.parse import unquote
 from logging.handlers import TimedRotatingFileHandler
 import logging
 import requests
@@ -126,6 +127,42 @@ async def get_avatar_hash(payload: discordAvatarHash, request: Request):
         "discordId": payload.discordId,
         "avatarHash": response_data['avatar']
     }
+
+@app.get("/image/proxy")
+@limiter.limit("15/minute")
+async def proxy_image(request: Request, url: str):
+    ts = request.headers.get("X-Timestamp")
+    sig = request.headers.get("X-Signature")
+    route_path = request.url.path
+
+    if not ts or not sig or not verify_hmac("GET", route_path, ts, sig):
+        logger.info("Failed HMAC attempt on /image/proxy")
+        raise HTTPException(status_code=401, detail="Invalid or missing signature and or timestamp")
+
+    try:
+        decoded_url = unquote(url)
+        logger.debug(f"Fetching external image: {decoded_url}")
+
+        proxied_response = requests.get(decoded_url, timeout=5)
+        content_type = proxied_response.headers.get("Content-Type", "application/octet-stream")
+
+        if not proxied_response.ok or not content_type.startswith("image/"):
+            logger.warning(f"Proxy failed or non-image content type: {content_type}")
+            raise HTTPException(status_code=400, detail="Invalid image URL or non-image content")
+
+        return Response(
+            content=proxied_response.content,
+            media_type=content_type,
+            headers={
+                "Access-Control-Allow-Origin": "*"
+            }
+        )
+    except requests.exceptions.RequestException as e:
+        logger.error(f"Image proxy error: {e}")
+        raise HTTPException(status_code=502, detail="Failed to fetch remote image")
+    except Exception as e:
+        logger.exception("Unexpected error in image proxy")
+        raise HTTPException(status_code=500, detail="Unexpected error occurred")
 
 if __name__ == "__main__":
     import uvicorn
