@@ -361,15 +361,17 @@ function buildPortraitHTML(zeta = 3, omi = 3, relic = 9, alignment = 0, isGL = f
     if (omi != 0) {
         return_string += `<div class="character-portrait__omicron">${omi}</div>`;
     }
-    if (isGL) {
-        return_string += `<div class="character-portrait__relic character-portrait__relic--ultimate"> ${relic}</div>`
-    } else {
-        if (alignment === 1) {
-            return_string += `<div class="character-portrait__relic character-portrait__relic--alignment-alignment_neutral"> ${relic}</div>`;
-        } else if (alignment === 0) {
-            return_string += `<div class="character-portrait__relic character-portrait__relic--alignment-alignment_dark"> ${relic}</div>`;
+    if (relic != 0) {
+        if (isGL) {
+            return_string += `<div class="character-portrait__relic character-portrait__relic--ultimate"> ${relic}</div>`
         } else {
-            return_string += `<div class="character-portrait__relic">${relic}</div>`;
+            if (alignment === 1) {
+                return_string += `<div class="character-portrait__relic character-portrait__relic--alignment-alignment_neutral"> ${relic}</div>`;
+            } else if (alignment === 0) {
+                return_string += `<div class="character-portrait__relic character-portrait__relic--alignment-alignment_dark"> ${relic}</div>`;
+            } else {
+                return_string += `<div class="character-portrait__relic">${relic}</div>`;
+            }
         }
     }
     if (alignment === 1) {
