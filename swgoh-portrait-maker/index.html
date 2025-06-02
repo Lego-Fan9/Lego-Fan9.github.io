@@ -26,7 +26,11 @@
         <div id="announcement-bar" style="display: none;">
             <div id="announcement-content">
                 <div class="announcement-text-wrapper">
-                    <span>Version 1.0.0 is now out!</span>
+                    <span>Version 1.1.0 is now out!</span><br>
+                    <span>This version brings 2 new upload options!</span><br>
+                    <span>Because of those new upload options we have updates or Terms of Service</span><br>
+                    <span>Another change is that Relic 0 will no longer display a relic badge at all</span><br>
+                    <span>Credit to Hyredrum for thinking of that change</span>
                 </div>
                 <button id="close-banner" onclick="closeAnnouncementBar()"
                     aria-label="Close announcement">&times;</button>
@@ -38,8 +42,37 @@
     <main>
         <h1 id="uploadText">Upload Your Image Here:</h1>
         <div>
-            <label for="upload" class="file-upload">Choose Image</label>
-            <input type="file" id="upload" accept="image/*">
+            <div>
+                <label for="upload" class="file-upload">Choose Image</label>
+                <input type="file" id="upload" accept="image/*">
+            </div>
+            <div>
+                <label for="urlInput" class="input-labels">Image URL:</label>
+                <span class="input-image">
+                    <input type="text" id="urlInput" placeholder="https://example.com/image.png">
+                    <button id="urlHelpBtn" class="help-btn" type="button" tabindex="0">?</button>
+                    <span class="help-tooltip" id="urlHelpTooltip" style="display:none;">
+                        Enter a direct link to an image (ending in .png, .jpg, etc).
+                    </span>
+                </span>
+                <button id="loadUrlBtn">Load from URL</button>
+            </div>
+            <div>
+                <label for="discordIdInput" class="input-labels">Discord User ID:</label>
+                <span class="input-image">
+                    <input type="text" id="discordIdInput" placeholder="123456789012345678">
+                    <button id="discordHelpBtn" class="help-btn" type="button" tabindex="0">?</button>
+                    <span class="help-tooltip" id="discordHelpTooltip" style="display:none;">
+                        A Discord User ID is a unique 18-digit number. To get it:<br>
+                        1. Enable Developer Mode in Discord settings.<br>
+                        2. Right-click a user and select "Copy ID".<br>
+                        Or you can ping that user and then copy it and paste it here<br>
+                        It should look something like<br>
+                        <@123456789012345678>
+                    </span>
+                </span>
+                <button id="loadDiscordBtn">Load Discord Avatar</button>
+            </div>
         </div>
         <div class="input-container">
             <div class="input-group">
@@ -118,6 +151,13 @@
                 <br><br>
                 <button onclick="confirmTerms()" class="termsButton">Continue</button>
                 <button onclick="closeTermsModal()" class="termsButton">Cancel</button>
+            </div>
+        </div>
+        <div id="popupModal" class="modal-overlay" style="display:none;">
+            <div class="modal-content">
+                <h2 style="margin-top:0;">Notice</h2>
+                <p id="popupMessage"></p>
+                <button onclick="closeErrorPopup()" class="termsButton">OK</button>
             </div>
         </div>
 

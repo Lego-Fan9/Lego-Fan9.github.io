@@ -5,24 +5,36 @@ const downloadLink = document.getElementById('downloadLink');
 const downloadLinkM = document.getElementById('downloadLinkM');
 const downloadLinkMDesc = document.getElementById('downloadLinkMDesc');
 const resetAll = document.getElementById('resetAll');
+const urlInput = document.getElementById('urlInput');
+const loadUrlBtn = document.getElementById('loadUrlBtn');
+const discordIdInput = document.getElementById('discordIdInput');
+const loadDiscordBtn = document.getElementById('loadDiscordBtn');
 
-const isWebKit = (
-    /AppleWebKit/.test(navigator.userAgent) &&
-    'WebkitAppearance' in document.documentElement.style
-)
+function isTrueWebKit() {
+    const ua = navigator.userAgent;
+    const isWebKit = /AppleWebKit/.test(ua) && !/Chrome|Chromium|Edg|OPR|SamsungBrowser/.test(ua);
+    const hasWebKitFeatures = 'WebkitAppearance' in document.documentElement.style;
+    const hasAppleProdName = /iP(ad|hone|od)/.test(ua)
+    const hasMac = /Macintosh|Mac OS/.test(ua);
+    return isWebKit && hasWebKitFeatures && hasAppleProdName && hasMac;
+}
+const isWebKit = isTrueWebKit();
 
 let imageOffsetX = 0;
 let imageOffsetY = 0;
 let imageScale = 1;
 let userImageDataURL = null;
 
+const discordServerStartUrl = "https://legofan9-discord-hash-getter.onrender.com/"
+fetch(discordServerStartUrl)
+
 const unwantedEntries = {
-    'dismissedAnnouncementVersion': [],
-    "agreedToTerms": []
+    'dismissedAnnouncementVersion': ['1.0.0'],
+    "agreedToTerms": ['1.0.0']
 };
 
-const CURRENT_ANNOUNCEMENT_VERSION = '1.0.0';
-const CURRENT_TERMS_VERSION = '1.0.0';
+const CURRENT_ANNOUNCEMENT_VERSION = '1.1.0';
+const CURRENT_TERMS_VERSION = '1.1.0';
 
 Object.entries(unwantedEntries).forEach(([key, valuesToRemove]) => {
     const currentValue = localStorage.getItem(key);
@@ -56,11 +68,160 @@ document.addEventListener('DOMContentLoaded', initAnnouncementBar);
 
 uploadInput.addEventListener('change', (e) => {
     const file = e.target.files[0];
+    if (!file) return;
+
     const reader = new FileReader();
     reader.onload = function (event) {
         userImageDataURL = event.target.result;
     };
     reader.readAsDataURL(file);
+});
+
+loadUrlBtn.addEventListener('click', async () => {
+    const url = urlInput.value.trim();
+    if (!url) {
+        showErrorPopup("Please input a URL");
+        return;
+    }
+
+    const encodedUrl = encodeURIComponent(url);
+    const proxyPath = "/image/proxy";
+    const method = "GET";
+    const sharedSecret = "jotpBwkCiLjKqg8Jcr9kXCtU5fxrcIKoQpJIK6pRROk=";
+    const { signature, timestamp } = await generateSignature(
+        base64ToUint8Array(sharedSecret), method, proxyPath
+    );
+
+    fetch(`https://legofan9-discord-hash-getter.onrender.com${proxyPath}?url=${encodedUrl}`, {
+        method: method,
+        headers: {
+            "X-Timestamp": timestamp,
+            "X-Signature": signature
+        }
+    })
+        .then(res => {
+            const contentType = res.headers.get('Content-Type') || '';
+            const extensionMatch = url.split('?')[0].match(/\.([a-zA-Z0-9]+)$/);
+            const extension = extensionMatch ? extensionMatch[1].toLowerCase() : null;
+
+            if (!res.ok || !contentType.startsWith('image/')) {
+                const fallbackType = extension || contentType || 'unknown';
+                showErrorPopup(`Unsupported: ${fallbackType} Make sure your url includes something like .gif, .png, etc.`);
+                throw new Error(`Unsupported or failed image type: ${fallbackType}`);
+            }
+
+            return res.blob();
+        })
+        .then(blob => {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                userImageDataURL = event.target.result;
+            };
+            reader.readAsDataURL(blob);
+        })
+        .catch(err => {
+            console.error("Image load error via proxy:", err);
+        });
+});
+
+async function generateSignature(sharedSecret, method, endpoint) {
+    const encoder = new TextEncoder();
+    const timestamp = Math.floor(Date.now() / 1000).toString();
+    const message = `${method}:${endpoint}:${timestamp}`;
+
+    const key = await crypto.subtle.importKey(
+        'raw',
+        sharedSecret,
+        { name: 'HMAC', hash: 'SHA-256' },
+        false,
+        ['sign']
+    );
+
+    const signatureBuffer = await crypto.subtle.sign(
+        'HMAC',
+        key,
+        encoder.encode(message)
+    );
+
+    const signature = Array.from(new Uint8Array(signatureBuffer))
+        .map(b => b.toString(16).padStart(2, '0'))
+        .join('');
+
+    return { signature, timestamp };
+}
+
+function base64ToUint8Array(base64) {
+    const binary = atob(base64);
+    const len = binary.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+        bytes[i] = binary.charCodeAt(i);
+    }
+    return bytes;
+}
+
+function extractDiscordId(input) {
+    const mentionMatch = input.match(/^<@!?(\d{17,19})>$/);
+    if (mentionMatch) {
+        return mentionMatch[1];
+    }
+    if (/^\d{17,19}$/.test(input)) {
+        return input;
+    }
+    return null;
+}
+
+loadDiscordBtn.addEventListener('click', async () => {
+    const discordId = extractDiscordId(discordIdInput.value.trim());
+    if (!discordId) {
+        showErrorPopup("Please provide a discordId");
+        return;
+    }
+    const hash_url = "https://legofan9-discord-hash-getter.onrender.com/discord/avatar/hash";
+    const hash_endpoint = "/discord/avatar/hash";
+    const hash_method = "POST";
+    const sharedSecret = "jotpBwkCiLjKqg8Jcr9kXCtU5fxrcIKoQpJIK6pRROk=";
+    const hash_secret = base64ToUint8Array(sharedSecret);
+    const { signature, timestamp } = await generateSignature(hash_secret, hash_method, hash_endpoint);
+
+    const hash_headers = {
+        "Content-Type": "application/json",
+        "X-Signature": signature,
+        "X-Timestamp": timestamp
+    };
+    const hash_body = JSON.stringify({ "discordId": discordId });
+
+    fetch(hash_url, {
+        method: "POST",
+        headers: hash_headers,
+        body: hash_body
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Success:', data);
+            const format = data.avatarHash.startsWith('a_') ? 'gif' : 'png';
+            const discord_url = `https://cdn.discordapp.com/avatars/${discordId}/${data.avatarHash}.${format}`;
+            fetch(discord_url)
+                .then(res => res.blob())
+                .then(blob => {
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        userImageDataURL = event.target.result;
+                    };
+                    reader.readAsDataURL(blob);
+                })
+                .catch(err => {
+                    console.error("Failed to load image from URL:", err);
+                });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 });
 
 function updatePreviewTransform() {
@@ -103,7 +264,7 @@ function closeTermsModal() {
 
 async function doGenerate() {
     if (!userImageDataURL) {
-        alert("Please upload an image first");
+        showErrorPopup("Please upload an image first");
         return;
     }
 
@@ -205,15 +366,17 @@ function buildPortraitHTML(zeta = 3, omi = 3, relic = 9, alignment = 0, isGL = f
     if (omi != 0) {
         return_string += `<div class="character-portrait__omicron">${omi}</div>`;
     }
-    if (isGL) {
-        return_string += `<div class="character-portrait__relic character-portrait__relic--ultimate"> ${relic}</div>`
-    } else {
-        if (alignment === 1) {
-            return_string += `<div class="character-portrait__relic character-portrait__relic--alignment-alignment_neutral"> ${relic}</div>`;
-        } else if (alignment === 0) {
-            return_string += `<div class="character-portrait__relic character-portrait__relic--alignment-alignment_dark"> ${relic}</div>`;
+    if (relic != 0) {
+        if (isGL) {
+            return_string += `<div class="character-portrait__relic character-portrait__relic--ultimate"> ${relic}</div>`
         } else {
-            return_string += `<div class="character-portrait__relic">${relic}</div>`;
+            if (alignment === 1) {
+                return_string += `<div class="character-portrait__relic character-portrait__relic--alignment-alignment_neutral"> ${relic}</div>`;
+            } else if (alignment === 0) {
+                return_string += `<div class="character-portrait__relic character-portrait__relic--alignment-alignment_dark"> ${relic}</div>`;
+            } else {
+                return_string += `<div class="character-portrait__relic">${relic}</div>`;
+            }
         }
     }
     if (alignment === 1) {
@@ -280,9 +443,13 @@ function zoomIn() {
         // zoom out
         imageScale = Math.max(imageScale / 1.1, 0.2);
         updatePreviewTransform();
-        // zoom in twice
+        // zoom in
         imageScale = Math.min(imageScale * 1.1, 5);
         updatePreviewTransform();
+        // zoom out
+        imageScale = Math.max(imageScale / 1.1, 0.2);
+        updatePreviewTransform();
+        // zoom in
         imageScale = Math.min(imageScale * 1.1, 5);
         updatePreviewTransform();
     } else {
@@ -299,9 +466,13 @@ function zoomOut() {
         // zoom in
         imageScale = Math.min(imageScale * 1.1, 5);
         updatePreviewTransform();
-        // zoom out twice
+        // zoom out
         imageScale = Math.max(imageScale / 1.1, 0.2);
         updatePreviewTransform();
+        // zoom in
+        imageScale = Math.min(imageScale * 1.1, 5);
+        updatePreviewTransform();
+        // zoom out
         imageScale = Math.max(imageScale / 1.1, 0.2);
         updatePreviewTransform();
     } else {
@@ -384,4 +555,47 @@ function debugMode() {
     document.getElementById("debugInfo").style.display = "";
     document.getElementById("userAgent").textContent = navigator.userAgent;
     document.getElementById("isSafari").textContent = `isWebKit = ${isWebKit}`
+}
+
+function setupHelpTooltip(btnId, tooltipId) {
+    const btn = document.getElementById(btnId);
+    const tooltip = document.getElementById(tooltipId);
+    let isVisible = false;
+
+    function showTooltip() {
+        tooltip.style.display = 'block';
+        isVisible = true;
+    }
+    function hideTooltip() {
+        tooltip.style.display = 'none';
+        isVisible = false;
+    }
+    btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        isVisible ? hideTooltip() : showTooltip();
+    });
+    document.addEventListener('click', (e) => {
+        if (!btn.contains(e.target) && !tooltip.contains(e.target)) {
+            hideTooltip();
+        }
+    });
+
+    btn.addEventListener('blur', () => {
+        setTimeout(() => {
+            if (!tooltip.contains(document.activeElement)) {
+                hideTooltip();
+            }
+        }, 100);
+    });
+}
+setupHelpTooltip('discordHelpBtn', 'discordHelpTooltip');
+setupHelpTooltip('urlHelpBtn', 'urlHelpTooltip');
+
+function showErrorPopup(message) {
+    document.getElementById('popupMessage').textContent = message;
+    document.getElementById('popupModal').style.display = 'flex';
+}
+
+function closeErrorPopup() {
+    document.getElementById('popupModal').style.display = 'none';
 }
