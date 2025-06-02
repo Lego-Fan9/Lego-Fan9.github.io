@@ -71,7 +71,7 @@ def verify_hmac(method: str, path: str, timestamp: str, signature: str) -> bool:
     try:
         ts = int(timestamp)
         now = int(time.time())
-        if abs(now - ts) > 10:
+        if abs(now - ts) > 90:
             return False
     except ValueError:
         return False
