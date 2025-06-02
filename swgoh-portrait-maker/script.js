@@ -438,9 +438,7 @@ function zoomIn() {
         // zoom out
         imageScale = Math.max(imageScale / 1.1, 0.2);
         updatePreviewTransform();
-        // zoom in twice
-        imageScale = Math.min(imageScale * 1.1, 5);
-        updatePreviewTransform();
+        // zoom in
         imageScale = Math.min(imageScale * 1.1, 5);
         updatePreviewTransform();
     } else {
@@ -457,9 +455,7 @@ function zoomOut() {
         // zoom in
         imageScale = Math.min(imageScale * 1.1, 5);
         updatePreviewTransform();
-        // zoom out twice
-        imageScale = Math.max(imageScale / 1.1, 0.2);
-        updatePreviewTransform();
+        // zoom out
         imageScale = Math.max(imageScale / 1.1, 0.2);
         updatePreviewTransform();
     } else {
