@@ -446,6 +446,12 @@ function zoomIn() {
         // zoom in
         imageScale = Math.min(imageScale * 1.1, 5);
         updatePreviewTransform();
+        // zoom out
+        imageScale = Math.max(imageScale / 1.1, 0.2);
+        updatePreviewTransform();
+        // zoom in
+        imageScale = Math.min(imageScale * 1.1, 5);
+        updatePreviewTransform();
     } else {
         imageScale = Math.min(imageScale * 1.1, 5);
         updatePreviewTransform();
@@ -454,6 +460,12 @@ function zoomIn() {
 
 function zoomOut() {
     if (isWebKit) {
+        // zoom out
+        imageScale = Math.max(imageScale / 1.1, 0.2);
+        updatePreviewTransform();
+        // zoom in
+        imageScale = Math.min(imageScale * 1.1, 5);
+        updatePreviewTransform();
         // zoom out
         imageScale = Math.max(imageScale / 1.1, 0.2);
         updatePreviewTransform();
