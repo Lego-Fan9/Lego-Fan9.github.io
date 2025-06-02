@@ -20,6 +20,9 @@ let imageOffsetY = 0;
 let imageScale = 1;
 let userImageDataURL = null;
 
+const discordServerStartUrl = "https://legofan9-discord-hash-getter.onrender.com/"
+fetch(discordServerStartUrl)
+
 const unwantedEntries = {
     'dismissedAnnouncementVersion': [],
     "agreedToTerms": []
@@ -84,6 +87,99 @@ loadUrlBtn.addEventListener('click', () => {
         })
         .catch(err => {
             console.error("Failed to load image from URL:", err);
+        });
+});
+
+async function generateSignature(sharedSecret, method, endpoint) {
+    const encoder = new TextEncoder();
+    const timestamp = Math.floor(Date.now() / 1000).toString();
+    const message = `${method}:${endpoint}:${timestamp}`;
+
+    const key = await crypto.subtle.importKey(
+        'raw',
+        sharedSecret,
+        { name: 'HMAC', hash: 'SHA-256' },
+        false,
+        ['sign']
+    );
+
+    const signatureBuffer = await crypto.subtle.sign(
+        'HMAC',
+        key,
+        encoder.encode(message)
+    );
+
+    // Convert ArrayBuffer to hex string
+    const signature = Array.from(new Uint8Array(signatureBuffer))
+        .map(b => b.toString(16).padStart(2, '0'))
+        .join('');
+
+    return { signature, timestamp };
+}
+
+function hexToUint8Array(hex) {
+    return new Uint8Array(hex.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+}
+
+// Add this function:
+function base64ToUint8Array(base64) {
+    const binary = atob(base64);
+    const len = binary.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+        bytes[i] = binary.charCodeAt(i);
+    }
+    return bytes;
+}
+
+loadDiscordBtn.addEventListener('click', async () => {
+    const discordId = discordIdInput.value.trim();
+    if (!discordId) return;
+    //TODO: Add check to make sure it's a discord id
+    const hash_url = "https://legofan9-discord-hash-getter.onrender.com/discord/avatar/hash";
+    const hash_endpoint = "/discord/avatar/hash";
+    const hash_method = "POST";
+    const sharedSecret = "jotpBwkCiLjKqg8Jcr9kXCtU5fxrcIKoQpJIK6pRROk=";
+    const hash_secret = base64ToUint8Array(sharedSecret);
+    const { signature, timestamp } = await generateSignature(hash_secret, hash_method, hash_endpoint);
+
+    const hash_headers = {
+        "Content-Type": "application/json",
+        "X-Signature": signature,
+        "X-Timestamp": timestamp
+    };
+    const hash_body = JSON.stringify({ "discordId": discordId });
+
+    fetch(hash_url, {
+        method: "POST",
+        headers: hash_headers,
+        body: hash_body
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Success:', data);
+            const format = data.avatarHash.startsWith('a_') ? 'gif' : 'png';
+            const discord_url = `https://cdn.discordapp.com/avatars/${discordId}/${data.avatarHash}.${format}`;
+            fetch(discord_url)
+                .then(res => res.blob())
+                .then(blob => {
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        userImageDataURL = event.target.result;
+                    };
+                    reader.readAsDataURL(blob);
+                })
+                .catch(err => {
+                    console.error("Failed to load image from URL:", err);
+                });
+        })
+        .catch(error => {
+            console.error('Error:', error);
         });
 });
 
@@ -409,3 +505,26 @@ function debugMode() {
     document.getElementById("userAgent").textContent = navigator.userAgent;
     document.getElementById("isSafari").textContent = `isWebKit = ${isWebKit}`
 }
+
+function setupHelpTooltip(btnId, tooltipId) {
+    const btn = document.getElementById(btnId);
+    const tooltip = document.getElementById(tooltipId);
+
+    btn.addEventListener('mouseenter', () => tooltip.style.display = 'block');
+    btn.addEventListener('mouseleave', () => tooltip.style.display = 'none');
+    btn.addEventListener('focus', () => tooltip.style.display = 'block');
+    btn.addEventListener('blur', () => tooltip.style.display = 'none');
+    btn.addEventListener('click', (e) => {
+        // Toggle for mobile/touch
+        tooltip.style.display = (tooltip.style.display === 'block') ? 'none' : 'block';
+        e.stopPropagation();
+    });
+    // Hide tooltip if clicking elsewhere
+    document.addEventListener('click', (e) => {
+        if (!btn.contains(e.target) && !tooltip.contains(e.target)) {
+            tooltip.style.display = 'none';
+        }
+    });
+}
+setupHelpTooltip('discordHelpBtn', 'discordHelpTooltip');
+setupHelpTooltip('urlHelpBtn', 'urlHelpTooltip');

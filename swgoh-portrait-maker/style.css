@@ -49,6 +49,8 @@ canvas.loaded {
 }
 
 #downloadLink,
+#loadUrlBtn,
+#loadDiscordBtn,
 #debugMode,
 #resetAll,
 #downloadLinkM,
@@ -68,6 +70,8 @@ canvas.loaded {
 }
 
 #downloadLink:hover,
+#loadUrlBtn:hover,
+#loadDiscordBtn:hover,
 #debugMode:hover,
 #resetAll:hover,
 #downloadLinkM:hover,
@@ -521,7 +525,6 @@ canvas.loaded {
 }
 
 .modal-checkbox input[type="checkbox"] {
-    /*display: none;*/
     opacity: 0;
 }
 
@@ -599,4 +602,118 @@ canvas.loaded {
 
 #close-banner:hover {
     transform: scale(1.2);
+}
+
+.help-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    margin-left: 6px;
+    border-radius: 50%;
+    border: 2px solid #007BFF;
+    background: #fff;
+    color: #007BFF;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    position: relative;
+    outline: none;
+    padding: 0;
+}
+
+.help-btn:hover,
+.help-btn:focus {
+    background: #007BFF;
+    color: #fff;
+}
+
+.help-tooltip {
+    display: none;
+    position: absolute;
+    left: 110%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #fff;
+    color: #222;
+    border: 2px solid #007BFF;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 14px;
+    min-width: 220px;
+    max-width: 320px;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    text-align: left;
+    white-space: normal;
+}
+
+.help-btn:focus+.help-tooltip,
+.help-btn:hover+.help-tooltip {
+    display: block;
+}
+
+.input-with-help {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    gap: 4px;
+    border-radius: 8px;
+    padding: 2px 6px 2px 2px;
+}
+
+@media (max-width: 600px) {
+    .help-tooltip {
+        left: 0;
+        top: 120%;
+        transform: none;
+    }
+
+    .input-container {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .input-group {
+        width: 100%;
+    }
+
+    .input-with-help {
+        width: 100%;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+input[type="text"],
+input[type="number"] {
+    padding: 10px 14px;
+    border: 2px solid #007BFF;
+    border-radius: 6px;
+    background: #fff;
+    color: #222;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    margin: 6px 0;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 0 2px #b3d7ff;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #222;
+    letter-spacing: 0.01em;
 }
