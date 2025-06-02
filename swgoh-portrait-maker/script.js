@@ -29,12 +29,12 @@ const discordServerStartUrl = "https://legofan9-discord-hash-getter.onrender.com
 fetch(discordServerStartUrl)
 
 const unwantedEntries = {
-    'dismissedAnnouncementVersion': [],
-    "agreedToTerms": []
+    'dismissedAnnouncementVersion': ['1.0.0'],
+    "agreedToTerms": ['1.0.0']
 };
 
-const CURRENT_ANNOUNCEMENT_VERSION = '1.0.0';
-const CURRENT_TERMS_VERSION = '1.0.0';
+const CURRENT_ANNOUNCEMENT_VERSION = '1.1.0';
+const CURRENT_TERMS_VERSION = '1.1.0';
 
 Object.entries(unwantedEntries).forEach(([key, valuesToRemove]) => {
     const currentValue = localStorage.getItem(key);
