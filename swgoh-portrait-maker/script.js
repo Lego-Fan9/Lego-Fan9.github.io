@@ -4,6 +4,7 @@ const uploadInput = document.getElementById('upload');
 const downloadLink = document.getElementById('downloadLink');
 const downloadLinkM = document.getElementById('downloadLinkM');
 const downloadLinkMDesc = document.getElementById('downloadLinkMDesc');
+const downloadLinkText = document.getElementById('imageDownloadText');
 const resetAll = document.getElementById('resetAll');
 const urlInput = document.getElementById('urlInput');
 const loadUrlBtn = document.getElementById('loadUrlBtn');
@@ -29,11 +30,11 @@ const discordServerStartUrl = "https://legofan9-discord-hash-getter.onrender.com
 fetch(discordServerStartUrl)
 
 const unwantedEntries = {
-    'dismissedAnnouncementVersion': ['1.0.0'],
+    'dismissedAnnouncementVersion': ['1.0.0', '1.1.0'],
     "agreedToTerms": ['1.0.0']
 };
 
-const CURRENT_ANNOUNCEMENT_VERSION = '1.1.0';
+const CURRENT_ANNOUNCEMENT_VERSION = '1.1.1';
 const CURRENT_TERMS_VERSION = '1.1.0';
 
 Object.entries(unwantedEntries).forEach(([key, valuesToRemove]) => {
@@ -311,12 +312,13 @@ async function doGenerate() {
     ctx.drawImage(img, 0, 0);
     // will add back later canvas.classList.add('loaded')
 
-    downloadLink.href = canvas.toDataURL();
-    downloadLink.download = "swgoh-portrait-image.png";
+    downloadLink.href = canvas.toDataURL('image/webp');
+    downloadLink.download = "swgoh-portrait-image.webp";
     downloadLink.textContent = "Download Result (PC)";
     downloadLink.style.display = "inline";
     downloadLinkM.style.display = "inline";
     downloadLinkM.textContent = "Download Result (Mobile)";
+    downloadLinkText.style.display = "inline";
     resetAll.style.display = "inline";
 }
 
@@ -327,7 +329,7 @@ function mobileDownload() {
     if (oldPreview) oldPreview.remove();
 
     const imgPreview = document.createElement('img');
-    imgPreview.src = canvas.toDataURL();
+    imgPreview.src = canvas.toDataURL('image/webp');
     imgPreview.style.maxWidth = "100%";
     imgPreview.id = "imgPreview";
     mainEl.appendChild(imgPreview);
@@ -432,7 +434,7 @@ async function renderCanvasFromDOM() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(img, 0, 0);
 
-    downloadLink.href = canvas.toDataURL();
+    downloadLink.href = canvas.toDataURL('image/webp');
 }
 
 function zoomIn() {
@@ -518,7 +520,7 @@ function fakeRefresh() {
     downloadLink.style.display = "none";
     downloadLink.href = "#";
     downloadLink.textContent = "";
-
+    downloadLinkText.style.display = "none";
     downloadLinkM.style.display = "none";
     downloadLinkM.textContent = "";
     downloadLinkMDesc.style.display = "none";
