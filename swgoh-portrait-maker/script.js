@@ -4,6 +4,7 @@ const uploadInput = document.getElementById('upload');
 const downloadLink = document.getElementById('downloadLink');
 const downloadLinkM = document.getElementById('downloadLinkM');
 const downloadLinkMDesc = document.getElementById('downloadLinkMDesc');
+const downloadLinkText = document.getElementById('imageDownloadText');
 const resetAll = document.getElementById('resetAll');
 const urlInput = document.getElementById('urlInput');
 const loadUrlBtn = document.getElementById('loadUrlBtn');
@@ -29,11 +30,11 @@ const discordServerStartUrl = "https://legofan9-discord-hash-getter.onrender.com
 fetch(discordServerStartUrl)
 
 const unwantedEntries = {
-    'dismissedAnnouncementVersion': ['1.0.0'],
+    'dismissedAnnouncementVersion': ['1.0.0', '1.1.0'],
     "agreedToTerms": ['1.0.0']
 };
 
-const CURRENT_ANNOUNCEMENT_VERSION = '1.1.0';
+const CURRENT_ANNOUNCEMENT_VERSION = '1.1.1';
 const CURRENT_TERMS_VERSION = '1.1.0';
 
 Object.entries(unwantedEntries).forEach(([key, valuesToRemove]) => {
@@ -317,6 +318,7 @@ async function doGenerate() {
     downloadLink.style.display = "inline";
     downloadLinkM.style.display = "inline";
     downloadLinkM.textContent = "Download Result (Mobile)";
+    downloadLinkText.style.display = "inline";
     resetAll.style.display = "inline";
 }
 
@@ -518,7 +520,7 @@ function fakeRefresh() {
     downloadLink.style.display = "none";
     downloadLink.href = "#";
     downloadLink.textContent = "";
-
+    downloadLinkText.style.display = "none";
     downloadLinkM.style.display = "none";
     downloadLinkM.textContent = "";
     downloadLinkMDesc.style.display = "none";

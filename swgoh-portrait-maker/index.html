@@ -26,11 +26,9 @@
         <div id="announcement-bar" style="display: none;">
             <div id="announcement-content">
                 <div class="announcement-text-wrapper">
-                    <span>Version 1.1.0 is now out!</span><br>
-                    <span>This version brings 2 new upload options!</span><br>
-                    <span>Because of those new upload options we have updates or Terms of Service</span><br>
-                    <span>Another change is that Relic 0 will no longer display a relic badge at all</span><br>
-                    <span>Credit to Hyredrum for thinking of that change</span>
+                    <span>Version 1.1.1 is now out!</span><br>
+                    <span>This version fixes a couple UI elements</span><br>
+                    <span>It also now outputs images as webp instead of png</span>
                 </div>
                 <button id="close-banner" onclick="closeAnnouncementBar()"
                     aria-label="Close announcement">&times;</button>
@@ -40,12 +38,13 @@
         <h1>SWGOH Portrait Maker</h1>
     </header>
     <main>
-        <h1 id="uploadText">Upload Your Image Here:</h1>
+        <h1 class="uploadText">Upload Your Image Here:</h1>
         <div>
             <div>
                 <label for="upload" class="file-upload">Choose Image</label>
                 <input type="file" id="upload" accept="image/*">
             </div>
+            <div style="height: 10px;"></div>
             <div>
                 <label for="urlInput" class="input-labels">Image URL:</label>
                 <span class="input-image">
@@ -74,6 +73,7 @@
                 <button id="loadDiscordBtn">Load Discord Avatar</button>
             </div>
         </div>
+        <h1 class="uploadText">Now select the options you want on the image</h1>
         <div class="input-container">
             <div class="input-group">
                 <label for="zetaCount">Zetas:</label>
@@ -109,6 +109,7 @@
         <br>
         <button onclick="stackImages()" id="generateButton">Generate!</button>
         <br><br>
+        <h1 class="uploadText">Move it around until you are happy</h1>
         <canvas id="canvas"></canvas>
         <div style="height: 30px;"></div>
         <div class="imgControlers">
@@ -126,6 +127,8 @@
         </div>
         <button id="resetAll" style="display: none;" onclick="fakeRefresh()">Reset Page</button>
         <div style="height: 30px;"></div>
+        <h1 class="uploadText" id="imageDownloadText" style="display: none;">Now download your image!</h1>
+        <div style="height: 40px;"></div>
         <a id="downloadLink" style="display: none; text-decoration: none;">Download Result(PC)</a>
         <div style="height: 50px;"></div>
         <a id="downloadLinkM" onclick="mobileDownload()" style="display: none;">Download Result(Mobile)</a>
