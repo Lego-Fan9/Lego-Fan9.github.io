@@ -311,8 +311,8 @@ async function doGenerate() {
     ctx.drawImage(img, 0, 0);
     // will add back later canvas.classList.add('loaded')
 
-    downloadLink.href = canvas.toDataURL();
-    downloadLink.download = "swgoh-portrait-image.png";
+    downloadLink.href = canvas.toDataURL('image/webp');
+    downloadLink.download = "swgoh-portrait-image.webp";
     downloadLink.textContent = "Download Result (PC)";
     downloadLink.style.display = "inline";
     downloadLinkM.style.display = "inline";
@@ -327,7 +327,7 @@ function mobileDownload() {
     if (oldPreview) oldPreview.remove();
 
     const imgPreview = document.createElement('img');
-    imgPreview.src = canvas.toDataURL();
+    imgPreview.src = canvas.toDataURL('image/webp');
     imgPreview.style.maxWidth = "100%";
     imgPreview.id = "imgPreview";
     mainEl.appendChild(imgPreview);
@@ -432,7 +432,7 @@ async function renderCanvasFromDOM() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(img, 0, 0);
 
-    downloadLink.href = canvas.toDataURL();
+    downloadLink.href = canvas.toDataURL('image/webp');
 }
 
 function zoomIn() {
