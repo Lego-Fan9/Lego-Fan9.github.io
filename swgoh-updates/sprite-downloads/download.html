@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SWGoH Sprite Downloads">
+    <meta name="author" content="LegoFan9">
+    <title>Download Sprites</title>
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <p id="status">Waking server...</p>
+    <p id="checksumInfo"></p>
+    <button id="startDownloadBtn" class="app-link" disabled>Start Download</button>
+
+    <script>
+        const baseDownloadURL = "https://legofan9-sprite-server.onrender.com";
+        const statusEl = document.getElementById("status");
+        const checksumEl = document.getElementById("checksumInfo");
+        const startBtn = document.getElementById("startDownloadBtn");
+
+        function checkRateLimit(response) {
+            if (response.status === 429) {
+                statusEl.textContent = "You have reached the download limit. Please wait before trying again.";
+                throw new Error("429");
+            }
+        }
+
+        async function wakeServer() {
+            try {
+                statusEl.textContent = "Waking server (this may take up to 50 seconds)...";
+                const res = await fetch(`${baseDownloadURL}/Wake`);
+                if (!res.ok) throw new Error("Failed to wake server");
+
+                statusEl.textContent = "Server awake! Fetching checksum...";
+                pollChecksum();
+
+            } catch (err) {
+                console.error(err);
+                statusEl.textContent = "Error waking server.";
+            }
+        }
+
+        async function pollChecksum() {
+            try {
+                const res = await fetch(`${baseDownloadURL}/Checksum`);
+                if (!res.ok) throw new Error("Failed to fetch checksum");
+
+                const checksum = (await res.text()).trim();
+
+                checksumEl.textContent = `File checksum: ${checksum}`;
+                statusEl.textContent = "Download ready!";
+                startBtn.disabled = false;
+
+            } catch (err) {
+                console.error(err);
+                statusEl.textContent = "Error retrieving checksum.";
+            }
+        }
+
+        startBtn.addEventListener("click", async () => {
+            try {
+                statusEl.textContent = "Starting download...";
+                const res = await fetch(`${baseDownloadURL}/Download`);
+                checkRateLimit(res);
+                statusEl.textContent = "Done!";
+                window.location.href = `${baseDownloadURL}/Download`;
+
+            } catch (err) {
+                if (err.message === "429") {
+                    statusEl.textContent = "You have been rate limited. Try again in a couple minutes."
+                }
+                if (err.message !== "429") {
+                    console.error(err);
+                    statusEl.textContent = "Error starting download.";
+                }
+            }
+        });
+
+        wakeServer();
+    </script>
+</body>
+
+</html>
