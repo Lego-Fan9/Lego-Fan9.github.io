@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SWGoH Sprite Downloads">
+    <meta name="author" content="LegoFan9">
+    <title>Download Sprites</title>
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Download the Latest Sprites</h1>
+    <p>Click the button below to download the latest version SWGoH Sprites.</p>
+    <p>There is rate limiting on this service based on IP address.</p>
+
+    <div class="download-section">
+        <button id="downloadBtn" class="app-link">Download Now</button>
+        <div style="height: 20px"></div>
+        <p id="checksumInfo"></p>
+    </div>
+
+    <p id="terms">By using this service you agree to allow basic logging of your IP address for usage analytics and rate
+        limiting.</p>
+
+    <script>
+        document.getElementById("downloadBtn").addEventListener("click", () => {
+            window.location.href = "download.html";
+        });
+    </script>
+</body>
+
+</html>
