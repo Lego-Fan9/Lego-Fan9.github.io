@@ -23,6 +23,15 @@
 
 <body>
     <header>
+        <button onclick="window.location.href = window.location.href.replace(/\/[^\/]+\/?$/, '/');" style="position: absolute; top: 10px; left: 10px; 
+               cursor: pointer; color: white; background-color: #007BFF; 
+               padding: 6px 14px; font-size: 0.9em;
+               border: 3px solid black; border-radius: 4px; 
+               font-weight: bold; text-decoration: none; transition: box-shadow 0.3s, background-color 0.3s;"
+        onmouseover="this.style.backgroundColor='#0056b3'; this.style.boxShadow='0 0 0 2px black';"
+        onmouseout="this.style.backgroundColor='#007BFF'; this.style.boxShadow='none';">
+        Back
+    </button>
         <div id="announcement-bar" style="display: none;">
             <div id="announcement-content">
                 <div class="announcement-text-wrapper">

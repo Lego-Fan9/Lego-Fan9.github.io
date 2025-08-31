@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SWGoH Updates Localization Bundle Formatter">
+    <meta name="author" content="LegoFan9">
+    <link rel="icon" href="../swgoh-updates-icon.webp">
+    <link rel="stylesheet" href="style.css">
+    <title>SWGoH Updates Formatter</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X7TKZ22H21"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-X7TKZ22H21');
+    </script>
+</head>
+
+<body>
+    <button onclick="window.location.href = window.location.href.replace(/\/[^\/]+\/?$/, '/');" style="position: absolute; top: 10px; left: 10px; 
+               cursor: pointer; color: white; background-color: #007BFF; 
+               padding: 6px 14px; font-size: 0.9em;
+               border: 3px solid black; border-radius: 4px; 
+               font-weight: bold; text-decoration: none; transition: box-shadow 0.3s, background-color 0.3s;"
+        onmouseover="this.style.backgroundColor='#0056b3'; this.style.boxShadow='0 0 0 2px black';"
+        onmouseout="this.style.backgroundColor='#007BFF'; this.style.boxShadow='none';">
+        Back
+    </button>
+    <h1>SWGoH Localization Bundle Formatter</h1>
+    <div class="main-card">
+        <textarea id="inputText" placeholder="Paste your localization string here..."
+            oninput="autoResize(this)"></textarea>
+
+        <div class="output-box">
+            <textarea id="outputText" readonly oninput="autoResize(this)"></textarea>
+            <button class="blue-button" onclick="copyOutput()">Copy</button>
+        </div>
+    </div>
+    <p>If you find any issues, please report them in our discord server</p>
+    <a href="https://discord.gg/cmZjsRBwTY" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 5px; margin-bottom: 15px; 
+          cursor: pointer; color: white; background-color: #5865F2; padding: 10px 20px; 
+          border: 3px solid black; border-radius: 4px; text-decoration: none; font-weight: bold; 
+          transition: box-shadow 0.3s, background-color 0.3s;"
+        onmouseover="this.style.backgroundColor='#0056b3'; this.style.boxShadow='0 0 0 2px black';"
+        onmouseout="this.style.backgroundColor='#5865F2'; this.style.boxShadow='none';">
+        <img src="../../discord.svg" alt="Discord" style="width: 20px; height: 20px;">
+        Join our Discord
+    </a>
+    <footer class="site-footer">
+        &copy; 2025 LegoFan9. All rights reserved.
+    </footer>
+    <script src="script.js"></script>
+</body>
