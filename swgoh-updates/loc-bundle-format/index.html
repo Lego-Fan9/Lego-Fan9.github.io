@@ -8,6 +8,7 @@
     <meta name="author" content="LegoFan9">
     <link rel="icon" href="../swgoh-updates-icon.webp">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../utils/nav-bar/nav-bar.css">
     <title>SWGoH Updates Formatter</title>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-X7TKZ22H21"></script>
@@ -21,15 +22,22 @@
 </head>
 
 <body>
-    <button onclick="window.location.href = window.location.href.replace(/\/[^\/]+\/?$/, '/');" style="position: absolute; top: 10px; left: 10px; 
-               cursor: pointer; color: white; background-color: #007BFF; 
-               padding: 6px 14px; font-size: 0.9em;
-               border: 3px solid black; border-radius: 4px; 
-               font-weight: bold; text-decoration: none; transition: box-shadow 0.3s, background-color 0.3s;"
-        onmouseover="this.style.backgroundColor='#0056b3'; this.style.boxShadow='0 0 0 2px black';"
-        onmouseout="this.style.backgroundColor='#007BFF'; this.style.boxShadow='none';">
-        Back
-    </button>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <div class="logo">SWGoH Updates</div>
+                <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+                <ul class="nav-links">
+                    <li><a href="javascript:history.back()">Back</a></li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/swgoh-portrait-maker">SWGoH Portrait Maker</a></li>
+                    <li><a href="/swgoh-updates">SWGoH Updates</a></li>
+                    <li><a href="/about">About</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div style="height: 30px;"></div>
+    </header>
     <h1>SWGoH Localization Bundle Formatter</h1>
     <div class="main-card">
         <textarea id="inputText" placeholder="Paste your localization string here..."
@@ -54,4 +62,9 @@
         &copy; 2025 LegoFan9. All rights reserved.
     </footer>
     <script src="script.js"></script>
+    <script>
+        document.querySelector(".menu-toggle").addEventListener("click", () => {
+            document.querySelector(".nav-links").classList.toggle("show");
+        });
+    </script>
 </body>

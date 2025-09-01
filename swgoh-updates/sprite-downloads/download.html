@@ -9,21 +9,46 @@
     <title>Download Sprites</title>
     <link rel="icon" href="../../favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../utils/nav-bar/nav-bar.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X7TKZ22H21"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-X7TKZ22H21');
+    </script>
 </head>
 
 <body>
-    <button onclick="window.location.href = window.location.href.replace(/\/[^\/]+\/?$/, '/');" style="position: absolute; top: 10px; left: 10px; 
-               cursor: pointer; color: white; background-color: #007BFF; 
-               padding: 6px 14px; font-size: 0.9em;
-               border: 3px solid black; border-radius: 4px; 
-               font-weight: bold; text-decoration: none; transition: box-shadow 0.3s, background-color 0.3s;"
-        onmouseover="this.style.backgroundColor='#0056b3'; this.style.boxShadow='0 0 0 2px black';"
-        onmouseout="this.style.backgroundColor='#007BFF'; this.style.boxShadow='none';">
-        Back
-    </button>
-    <p id="status">Waking server...</p>
-    <p id="checksumInfo"></p>
-    <button id="startDownloadBtn" class="app-link" disabled>Start Download</button>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <div class="logo">SWGoH Updates</div>
+                <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+                <ul class="nav-links">
+                    <li><a href="javascript:history.back()">Back</a></li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/swgoh-portrait-maker">SWGoH Portrait Maker</a></li>
+                    <li><a href="/swgoh-updates">SWGoH Updates</a></li>
+                    <li><a href="/about">About</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div style="height: 25px;"></div>
+    </header>
+    <main>
+        <p id="status">Waking server...</p>
+        <p id="checksumInfo"></p>
+        <button id="startDownloadBtn" class="app-link" disabled style="display: none;">Start Download</button>
+    </main>
+
+    <script>
+        document.querySelector(".menu-toggle").addEventListener("click", () => {
+            document.querySelector(".nav-links").classList.toggle("show");
+        });
+    </script>
 
     <script>
         const baseDownloadURL = "https://legofan9-sprite-server.onrender.com";
@@ -62,6 +87,7 @@
 
                 checksumEl.textContent = `File checksum: ${checksum}`;
                 statusEl.textContent = "Download ready!";
+                startBtn.style.display = "";
                 startBtn.disabled = false;
 
             } catch (err) {

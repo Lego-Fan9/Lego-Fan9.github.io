@@ -1,0 +1,70 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 70px 15px 15px;
+    margin: 0px;
+    background-color: #f3effa;
+}
+
+.app-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.app-card {
+    background: white;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+    padding: 24px;
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.app-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.13);
+    border-color: #007BFF;
+}
+
+.app-title {
+    font-size: 1.3em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.app-desc {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 18px;
+}
+
+.app-link {
+    display: inline-block;
+    cursor: pointer;
+    color: white;
+    background-color: #007BFF;
+    padding: 10px 20px;
+    border: 3px solid black;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: box-shadow 0.3s, background-color 0.3s;
+}
+
+.app-link:hover {
+    box-shadow: 0 0 0 2px black;
+    background-color: #0056b3;
+}
+
+p {
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 1em;
+    color: #333;
+}

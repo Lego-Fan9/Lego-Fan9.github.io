@@ -30,11 +30,9 @@ const discordServerStartUrl = "https://legofan9-discord-hash-getter.onrender.com
 fetch(discordServerStartUrl)
 
 const unwantedEntries = {
-    'dismissedAnnouncementVersion': ['1.0.0', '1.1.0'],
     "agreedToTerms": ['1.0.0']
 };
 
-const CURRENT_ANNOUNCEMENT_VERSION = '1.1.1';
 const CURRENT_TERMS_VERSION = '1.1.0';
 
 Object.entries(unwantedEntries).forEach(([key, valuesToRemove]) => {
@@ -45,27 +43,6 @@ Object.entries(unwantedEntries).forEach(([key, valuesToRemove]) => {
         console.log(`Removed ${key} because value matched: ${currentValue}`);
     }
 });
-
-function closeAnnouncementBar() {
-    const banner = document.getElementById('announcement-bar');
-    if (banner) {
-        banner.style.display = 'none';
-        localStorage.setItem('dismissedAnnouncementVersion', CURRENT_ANNOUNCEMENT_VERSION);
-    }
-}
-
-function initAnnouncementBar() {
-    const dismissedVersion = localStorage.getItem('dismissedAnnouncementVersion');
-    const banner = document.getElementById('announcement-bar');
-
-    if (!banner) return;
-
-    if (dismissedVersion !== CURRENT_ANNOUNCEMENT_VERSION) {
-        banner.style.display = '';
-    }
-}
-
-document.addEventListener('DOMContentLoaded', initAnnouncementBar);
 
 uploadInput.addEventListener('change', (e) => {
     const file = e.target.files[0];
