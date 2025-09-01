@@ -7,6 +7,7 @@
     <meta name="description" content="LegoFan9's Star Wars: Galaxy of Heroes Tools">
     <meta name="author" content="LegoFan9">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="utils/nav-bar/nav-bar.css">
     <title>LegoFan9's SWGoH Tools</title>
     <style>
         body {
@@ -85,6 +86,22 @@
 </head>
 
 <body>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <div class="logo">SWGoH Updates</div>
+                <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+                <ul class="nav-links">
+                    <li><a href="javascript:history.back()">Back</a></li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/swgoh-portrait-maker">SWGoH Portrait Maker</a></li>
+                    <li><a href="/swgoh-updates">SWGoH Updates</a></li>
+                    <li><a href="/about">About</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div style="height: 25px;"></div>
+    </header>
     <h1>Welcome to LegoFan9's SWGoH Tools</h1>
     <p>Select an app below to get started:</p>
     <div class="app-list">
@@ -102,13 +119,17 @@
     <div style="height: 20px;"></div>
     <a class="app-link" href="https://discord.gg/cmZjsRBwTY" target="_blank"
         style="background-color: #5865F2; display: inline-flex; align-items: center; gap: 8px;">
-        <img src="discord.svg" alt="Discord"
-            style="width: 20px; height: 20px;">
+        <img src="discord.svg" alt="Discord" style="width: 20px; height: 20px;">
         Join our Discord
     </a>
     <div style="height: 20px"></div>
     <p>By using this site you agree to allow useage of Google Analytics</p>
 
+    <script>
+        document.querySelector(".menu-toggle").addEventListener("click", () => {
+            document.querySelector(".nav-links").classList.toggle("show");
+        });
+    </script>
 </body>
 
 </html>

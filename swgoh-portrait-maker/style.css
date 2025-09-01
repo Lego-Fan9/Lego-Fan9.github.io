@@ -561,55 +561,6 @@ canvas.loaded {
     pointer-events: none;
 }
 
-#announcement-bar {
-    position: relative;
-    background-color: #007BFF;
-    color: white;
-    padding: 0px 20px 5px;
-    max-width: 600px;
-    text-align: center;
-    margin: 0 auto;
-    font-size: 14px;
-    font-weight: 600;
-    border-bottom: 3px solid black;
-    border-right: 3px solid black;
-    border-left: 3px solid black;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 0 0 10px 10px;
-}
-
-.announcement-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 auto;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 4px 0px 10px;
-}
-
-.announcement-text-wrapper {
-    padding-top: 3px;
-}
-
-#close-banner {
-    position: absolute;
-    top: -7px;
-    right: 15px;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-    padding: 0;
-    line-height: 1;
-    transition: transform 0.2s ease-in-out;
-}
-
-#close-banner:hover {
-    transform: scale(1.2);
-}
-
 .help-btn {
     display: inline-flex;
     align-items: center;
@@ -713,4 +664,10 @@ input[type="number"]:focus {
     margin-bottom: 4px;
     color: #222;
     letter-spacing: 0.01em;
+}
+
+@media (max-width: 768px) {
+    #top-gap {
+        height: 100px !important;
+    }
 }

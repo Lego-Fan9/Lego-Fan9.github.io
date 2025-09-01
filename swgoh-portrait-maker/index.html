@@ -7,6 +7,7 @@
     <meta name="description" content="SWGoH Portrait Maker - Create custom portraits for your favorite characters.">
     <meta name="author" content="LegoFan9">
     <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../utils/nav-bar/nav-bar.css">
     <title>SWGoH Portrait Maker</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
@@ -23,30 +24,23 @@
 
 <body>
     <header>
-        <button onclick="window.location.href = window.location.href.replace(/\/[^\/]+\/?$/, '/');" style="position: absolute; top: 10px; left: 10px; 
-               cursor: pointer; color: white; background-color: #007BFF; 
-               padding: 6px 14px; font-size: 0.9em;
-               border: 3px solid black; border-radius: 4px; 
-               font-weight: bold; text-decoration: none; transition: box-shadow 0.3s, background-color 0.3s;"
-        onmouseover="this.style.backgroundColor='#0056b3'; this.style.boxShadow='0 0 0 2px black';"
-        onmouseout="this.style.backgroundColor='#007BFF'; this.style.boxShadow='none';">
-        Back
-    </button>
-        <div id="announcement-bar" style="display: none;">
-            <div id="announcement-content">
-                <div class="announcement-text-wrapper">
-                    <span>Version 1.1.1 is now out!</span><br>
-                    <span>This version fixes a couple UI elements</span><br>
-                    <span>It also now outputs images as webp instead of png</span>
-                </div>
-                <button id="close-banner" onclick="closeAnnouncementBar()"
-                    aria-label="Close announcement">&times;</button>
+        <nav>
+            <div class="nav-container">
+                <div class="logo">SWGoH Updates</div>
+                <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+                <ul class="nav-links">
+                    <li><a href="javascript:history.back()">Back</a></li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/swgoh-portrait-maker">SWGoH Portrait Maker</a></li>
+                    <li><a href="/swgoh-updates">SWGoH Updates</a></li>
+                    <li><a href="/about">About</a></li>
+                </ul>
             </div>
-        </div>
-
-        <h1>SWGOH Portrait Maker</h1>
+        </nav>
+        <div id="top-gap" style="height: 45px;"></div>
     </header>
     <main>
+        <h1>SWGOH Portrait Maker</h1>
         <h1 class="uploadText">Upload Your Image Here:</h1>
         <div>
             <div>
@@ -143,7 +137,7 @@
         <a id="downloadLinkM" onclick="mobileDownload()" style="display: none;">Download Result(Mobile)</a>
         <p id="downloadLinkMDesc" style="display: none;">Hold down on the image then click save to photos</p>
         <div style="height: 50px;"></div>
-        <script src="script.js"></script>
+        
         <div id="termsModal" style="display: none;" class="modal-overlay">
             <div class="modal-content">
                 <h2>Before You Continue</h2>
@@ -196,6 +190,12 @@
         </div>
         <div id="debugGapC" style="height: 30px; display: none;"></div>
     </footer>
+    <script src="script.js"></script>
+    <script>
+        document.querySelector(".menu-toggle").addEventListener("click", () => {
+            document.querySelector(".nav-links").classList.toggle("show");
+        });
+    </script>
 </body>
 
 </html>
