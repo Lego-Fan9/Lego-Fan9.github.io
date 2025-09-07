@@ -37,11 +37,15 @@ function fixUnicode(input) {
     });
 }
 
-function fixNewlines(input) {
+function fixDubleNewlines(input) {
     return input.replace(/\\\\n/g, "\n");
 }
 
-const filters = [removeBold, removeItalics, removeCTag, removeColorCodes, fixUnicode, fixNewlines];
+function fixNewlines(input) {
+    return input.replace(/\\n/g, "\n");
+}
+
+const filters = [removeBold, removeItalics, removeCTag, removeColorCodes, fixUnicode, fixDubleNewlines, fixNewlines];
 
 inputText.addEventListener("input", transformText);
 
