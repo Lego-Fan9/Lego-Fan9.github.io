@@ -19,6 +19,7 @@ function isTrueWebKit() {
     const hasMac = /Macintosh|Mac OS/.test(ua);
     return isWebKit && hasWebKitFeatures && hasAppleProdName && hasMac;
 }
+
 const isWebKit = isTrueWebKit();
 
 let imageOffsetX = 0;
@@ -211,7 +212,8 @@ function updatePreviewTransform() {
     renderCanvasFromDOM();
 }
 
-async function stackImages() {
+window.stackImages = stackImages
+export async function stackImages() {
     if (localStorage.getItem("agreedToTerms") === CURRENT_TERMS_VERSION) {
         return doGenerate();
     }
@@ -219,7 +221,8 @@ async function stackImages() {
     document.getElementById('termsModal').style.display = 'flex';
 }
 
-function confirmTerms() {
+window.confirmTerms = confirmTerms
+export function confirmTerms() {
     const agree = document.getElementById('modalAgree').checked;
     const remember = document.getElementById('modalRemember').checked;
 
@@ -236,7 +239,8 @@ function confirmTerms() {
     doGenerate();
 }
 
-function closeTermsModal() {
+window.closeTermsModal = closeTermsModal
+export function closeTermsModal() {
     document.getElementById('termsModal').style.display = 'none';
 }
 
@@ -299,7 +303,8 @@ async function doGenerate() {
     resetAll.style.display = "inline";
 }
 
-function mobileDownload() {
+window.mobileDownload = mobileDownload
+export function mobileDownload() {
     const mainEl = document.querySelector('main');
     const oldPreview = document.getElementById('imgPreview');
     downloadLinkMDesc.style.display = "block";
@@ -312,8 +317,8 @@ function mobileDownload() {
     mainEl.appendChild(imgPreview);
 }
 
-
-function loadImage(src) {
+window.loadImage = loadImage
+export function loadImage(src) {
     return new Promise((resolve) => {
         const img = new Image();
         img.crossOrigin = "anonymous";
@@ -414,7 +419,8 @@ async function renderCanvasFromDOM() {
     downloadLink.href = canvas.toDataURL('image/webp');
 }
 
-function zoomIn() {
+window.zoomIn = zoomIn
+export function zoomIn() {
     if (isWebKit) {
         // zoom in
         imageScale = Math.min(imageScale * 1.1, 5);
@@ -437,7 +443,8 @@ function zoomIn() {
     }
 }
 
-function zoomOut() {
+window.zoomOut = zoomOut
+export function zoomOut() {
     if (isWebKit) {
         // zoom out
         imageScale = Math.max(imageScale / 1.1, 0.2);
@@ -460,7 +467,8 @@ function zoomOut() {
     }
 }
 
-function imgMove(val, amount) {
+window.imgMove = imgMove
+export function imgMove(val, amount) {
     if (val === 'X') {
         imageOffsetX += amount;
     } else if (val === 'Y') {
@@ -469,14 +477,16 @@ function imgMove(val, amount) {
     updatePreviewTransform();
 }
 
-function resetImagePosition() {
+window.resetImagePosition = resetImagePosition
+export function resetImagePosition() {
     imageOffsetX = 0;
     imageOffsetY = 0;
     imageScale = 1;
     updatePreviewTransform();
 }
 
-function fakeRefresh() {
+window.fakeRefresh = fakeRefresh
+export function fakeRefresh() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     canvas.width = 0;
     canvas.height = 0;
@@ -522,7 +532,8 @@ function fakeRefresh() {
     portraitContainer.style.marginTop = ''
 }
 
-function debugMode() {
+window.debugMode = debugMode
+export function debugMode() {
     const portraitContainer = document.getElementById('portraitContainer');
     portraitContainer.style.left = '50%';
     portraitContainer.style.top = '50%';
@@ -575,6 +586,9 @@ function showErrorPopup(message) {
     document.getElementById('popupModal').style.display = 'flex';
 }
 
-function closeErrorPopup() {
+window.closeErrorPopup = closeErrorPopup
+export function closeErrorPopup() {
     document.getElementById('popupModal').style.display = 'none';
 }
+
+window.stackImages = stackImages

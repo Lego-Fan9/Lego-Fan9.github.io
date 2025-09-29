@@ -2,7 +2,8 @@ const outputText = document.getElementById("outputText");
 const inputText = document.getElementById("inputText");
 const copyBtn = document.querySelector(".output-box button");
 
-function transformText() {
+window.transformText = transformText
+export function transformText() {
     var input = inputText.value;
 
     for (const func of filters) {
@@ -54,7 +55,8 @@ function autoResize(el) {
     el.style.height = (el.scrollHeight) + 'px';
 }
 
-async function copyOutput() {
+window.copyOutput = copyOutput
+export async function copyOutput() {
     if (navigator.clipboard && navigator.clipboard.writeText) {
         try {
             await navigator.clipboard.writeText(outputText.value);
