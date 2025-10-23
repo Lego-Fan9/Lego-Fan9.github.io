@@ -41,15 +41,25 @@ nav {
     padding: 0;
 }
 
+.nav-links li {
+    border: none !important;
+}
+
 .nav-links a {
     color: white;
-    text-decoration: none;
+    text-decoration: none !important;
     font-weight: bold;
     transition: color 0.3s;
 }
 
 .nav-links a:hover {
     color: #FFD700;
+}
+
+.nav-links a:hover,
+.nav-links a:visited,
+.nav-links a:active {
+    text-decoration: none !important;
 }
 
 @media (max-width: 768px) {

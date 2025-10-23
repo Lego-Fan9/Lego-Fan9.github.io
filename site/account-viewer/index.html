@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>AccountViewer</title>
+</head>
+
+<body>
+	<main class="dashboard">
+		<nav>
+			<div class="nav-container">
+				<div class="logo">SWGoH Updates</div>
+				<button class="menu-toggle" aria-label="Toggle menu">☰</button>
+				<ul class="nav-links">
+					<li><a href="javascript:history.back()">Back</a></li>
+					<li><a href="/">Home</a></li>
+					<li><a href="../swgoh-portrait-maker/">SWGoH Portrait Maker</a></li>
+					<li><a href="../swgoh-updates/">SWGoH Updates</a></li>
+					<li><a href="../about/">About</a></li>
+				</ul>
+			</div>
+		</nav>
+		<div id="gap-1" style="height:5px;"></div>
+
+		<section class="allycode-input card">
+			<h2>Enter AllyCode</h2>
+			<input type="text" id="allyCodeInput" placeholder="AllyCode" maxlength="11" inputmode="numeric" />
+			<button id="submitAllyCode">Submit</button>
+			<p id="inputError" style="display: none;">Please enter a valid 9-digit Ally Code</p>
+		</section>
+
+		<section class="loading-screen card hidden" id="loadingScreen">
+			<h2>Loading player data...</h2>
+		</section>
+
+		<section class="back hidden">
+			<button id="backToInput">Select Other Player</button>
+		</section>
+
+		<section class="player-info card hidden">
+			<h2>Player Information</h2>
+			<ul id="mainList"></ul>
+		</section>
+
+		<section class="stats-grid hidden">
+			<div class="card">
+				<h3>Galactic Power</h3>
+				<ul id="GPList"></ul>
+			</div>
+
+			<div class="card">
+				<h3>Mod Pips</h3>
+				<ul id="pipList"></ul>
+			</div>
+
+			<div class="card">
+				<h3>Speed Mods</h3>
+				<ul id="modsList"></ul>
+			</div>
+
+			<div class="card">
+				<h3>Offense Mods</h3>
+				<ul id="offenseModsList"></ul>
+			</div>
+		</section>
+
+		<section class="charts-grid hidden">
+			<div id="relicCanvas-container" class="chart-card"></div>
+			<div id="gearCanvas-container" class="chart-card"></div>
+			<div id="starCanvas-container" class="chart-card"></div>
+			<div id="activeCanvas-container" class="chart-card"></div>
+		</section>
+
+		<section class="stats-grid-2 hidden">
+			<div class="card">
+				<h3>Profile Stats</h3>
+				<ul id="profileStatList"></ul>
+			</div>
+		</section>
+	</main>
+
+	<script type="module" src="/src/account-viewer/main.ts"></script>
+</body>
+
+</html>

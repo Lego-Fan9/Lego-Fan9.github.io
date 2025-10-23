@@ -1,0 +1,167 @@
+body {
+    margin: 0;
+    font-family: "Inter", system-ui, sans-serif;
+    background: #f6f8fa;
+    color: #222;
+}
+
+main.dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: auto;
+}
+
+h1,
+h2,
+h3 {
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-weight: 600;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+.stats-grid,
+.charts-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.charts-grid {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    padding: 0.3rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+.chart-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    height: 350px;
+}
+
+.chart-card canvas {
+    aspect-ratio: 296 / 175 !important;
+}
+
+canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+@media (max-width: 700px) {
+    main.dashboard {
+        padding: 1rem;
+    }
+
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.hidden {
+    display: none !important;
+}
+
+.loading-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    gap: 1rem;
+    text-align: center;
+}
+
+.allycode-input {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
+    padding: 1.5rem;
+    box-sizing: border-box;
+}
+
+.allycode-input input {
+    width: 6rem;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.allycode-input input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    outline: none;
+}
+
+.allycode-input button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.allycode-input button:hover {
+    background-color: #4f46e5;
+}
+
+#inputError {
+    font-size: 0.9rem;
+    color: #ef4444;
+}
+
+#backToInput {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#backToInput:hover {
+    background-color: #4f46e5;
+}

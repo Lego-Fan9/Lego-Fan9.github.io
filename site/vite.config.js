@@ -14,6 +14,7 @@ export default defineConfig({
                 locBundleFormat: resolve(__dirname, 'swgoh-updates/loc-bundle-format/index.html'),
                 spriteDownloads: resolve(__dirname, 'swgoh-updates/sprite-downloads/index.html'),
                 spriteDownloadsDownload: resolve(__dirname, 'swgoh-updates/sprite-downloads/download.html'),
+                accountViewer: resolve(__dirname, 'account-viewer/index.html')
             }
         }
     }
