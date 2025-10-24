@@ -4,11 +4,16 @@ import { profileStatMappings, playerMappings, galacticPowerMappings, speedModMap
 import { getSpeedModCount, getPipCount, countOffensePercentRolls } from "./mods.ts";
 import { ULLocation, relicChart, gearChart, starChart, activeChart } from "./locations.ts"
 
+function handleLastSeen(player: PlayerResp): void {
+    let lastSeen = new Date(Number(player.lastActivityTime)).toLocaleString();
+    ULLocation("mainList", `Last Seen: ${lastSeen}`);
+}
+
 function handleProfileStat(player: PlayerResp): void {
     profileStatMappings.forEach(stat => {
         const playerStat = player.profileStat.find(ps => ps.index === stat.index);
         if (playerStat) {
-            ULLocation("profileStatList", `${stat.displayName}: ${playerStat.value}`);
+            ULLocation("profileStatList", `${stat.displayName}: ${Number(playerStat.value).toLocaleString()}`);
         }
     });
 }
@@ -17,7 +22,7 @@ function handleGP(player: PlayerResp): void {
     galacticPowerMappings.forEach(stat => {
         const playerStat = player.profileStat.find(ps => ps.index === stat.index)
         if (playerStat) {
-            ULLocation("GPList", `${stat.displayName}: ${playerStat.value}`);
+            ULLocation("GPList", `${stat.displayName}: ${Number(playerStat.value).toLocaleString()}`);
         }
     });
 }
@@ -101,9 +106,9 @@ function handleOffenseMods(player: PlayerResp): void {
 function handlePips(player: PlayerResp): void {
     const { sixDot, fiveDot, other } = getPipCount(player);
 
-    ULLocation("pipList", `${pipMappings.sixDot}: ${sixDot}`);
-    ULLocation("pipList", `${pipMappings.fiveDot}: ${fiveDot}`);
-    ULLocation("pipList", `${pipMappings.other}: ${other}`);
+    ULLocation("pipList", `${pipMappings.sixDot}: ${sixDot.toLocaleString()}`);
+    ULLocation("pipList", `${pipMappings.fiveDot}: ${fiveDot.toLocaleString()}`);
+    ULLocation("pipList", `${pipMappings.other}: ${other.toLocaleString()}`);
 }
 
 function handleStars(player: PlayerResp): void {
@@ -149,6 +154,10 @@ export async function FillList(allyCode: string) {
 
         switch (playerMappings[key].displayType) {
             case 0:
+                if (playerMappings[key].displayName == "Player Allycode") {
+                    ULLocation("mainList", `${playerMappings[key].displayName}: ${Number(player[key]).toLocaleString("en-US").replace(/,/g, "-")}`);
+                    break;
+                }
                 ULLocation("mainList", `${playerMappings[key].displayName}: ${player[key]}`);
                 break;
             case 1:
@@ -176,7 +185,10 @@ export async function FillList(allyCode: string) {
                 handleActivated(player, units);
                 break;
             case 9:
-                handleOffenseMods(player)
+                handleOffenseMods(player);
+                break;
+            case 10:
+                handleLastSeen(player);
                 break;
             default:
                 console.error(`Found unknown playerMappings key: ${key}`)

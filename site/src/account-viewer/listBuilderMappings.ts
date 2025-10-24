@@ -54,7 +54,7 @@ export const profileStatMappings: { index: number, displayName: string }[] = [
     {
         "index": 19,
         "displayName": "GAC Territories Defeated"
-    }
+    },
 ];
 
 export const galacticPowerMappings: { index: number; displayName: string }[] = [
@@ -225,6 +225,10 @@ export const playerMappings: Record<string, { displayType: number; displayName: 
     },
     "profileStat": {
         "displayType": 1,
+        "displayName": "",
+    },
+    "lastActive": {
+        "displayType": 10,
         "displayName": "",
     }
 };

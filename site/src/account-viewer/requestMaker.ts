@@ -30,10 +30,10 @@ async function makeHMACSigCryptoJS(secret: string, message: string): Promise<str
 
 async function makeHMACSig(secret: string, message: string): Promise<string> {
 	if (crypto.subtle) {
-        return makeHMACSigCrypto(secret, message);
-    } else {
-        return makeHMACSigCryptoJS(secret, message);
-    }
+		return makeHMACSigCrypto(secret, message);
+	} else {
+		return makeHMACSigCryptoJS(secret, message);
+	}
 }
 
 async function makeAuthHeader(secret: string, user: string, method: string, path: string): Promise<string> {
@@ -46,24 +46,24 @@ async function makeAuthHeader(secret: string, user: string, method: string, path
 	return `HMAC user=${user},ts=${ts},sig=${sig}`;
 }
 
-type ProfileStat = {
+export type ProfileStat = {
 	value: string;
 	index: number;
 };
 
-type SecondaryStat = {
+export type SecondaryStat = {
 	stat: {
 		unitStatId: number;
 		unscaledDecimalValue: number;
 	};
 };
 
-type EquippedStatMod = {
+export type EquippedStatMod = {
 	secondaryStat: SecondaryStat[];
 	definitionId: string;
 };
 
-type RosterUnit = {
+export type RosterUnit = {
 	equippedStatMod: EquippedStatMod[];
 	purchasedAbilityId: string[];
 	definitionId: string;
@@ -74,10 +74,24 @@ type RosterUnit = {
 	};
 };
 
+export type PlayerRating = {
+	playerSkillRating: {
+		skillRating: number;
+	};
+	playerRankStatus: {
+		leagueId: string;
+		divisionId: number;
+	};
+};
+
 export type PlayerResp = {
 	name: string;
 	guildName: string;
 	allyCode: string;
+	playerId: string;
+	guildId: string;
+	lastActivityTime: string;
+	playerRating: PlayerRating
 	profileStat: ProfileStat[];
 	rosterUnit: RosterUnit[];
 };
