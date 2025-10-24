@@ -13,7 +13,7 @@ const loadingScreen = document.getElementById("loadingScreen") as HTMLElement;
 const backBtn = document.getElementById("backToInput") as HTMLButtonElement;
 
 const dashboardSections = document.querySelectorAll<HTMLElement>(
-    ".player-info, .stats-grid, .charts-grid, .stats-grid-2, .back"
+    ".player-info, .stats-grid, .charts-grid, .stats-grid-2, .back" //, .gac-info
 );
 
 submitBtn.addEventListener("click", async () => {

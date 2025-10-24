@@ -167,6 +167,29 @@ export async function getPlayer(allyCode: string): Promise<any> {
 	}
 }
 
+export async function getPlayerPlayerId(playerId: string): Promise<any> {
+	const header = await makeAuthHeader("It96XCNbCtVhN7Hg+a2cPSJJ7WF7jG6YuBybI1lLS4XykNQwcWm+0fkk2ciKaeLy", "LegoFan9", "GET", "/player");
+	//console.log("Authorization:", header);
+
+	try {
+		const resp = await fetch(`${SERVER_URL}/player?playerId=${playerId}`, {
+			headers: { Authorization: header }
+		});
+
+		if (!resp.ok) {
+			console.error("HTTP error", resp.status, resp.statusText);
+			return null;
+		}
+
+		const data = await resp.json();
+		//console.log(`Response:\n${JSON.stringify(data, null, 2)}`);
+		return data;
+	} catch (err) {
+		console.error("Fetch failed:", err);
+		return null;
+	}
+}
+
 export function cleanAllyCode(input: string): string | null {
 	const digitsOnly = input.replace(/\D/g, "");
 

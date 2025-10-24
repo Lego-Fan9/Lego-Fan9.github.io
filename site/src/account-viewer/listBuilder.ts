@@ -3,6 +3,8 @@ import type { PlayerResp, UnitsResp } from "./requestMaker.ts";
 import { profileStatMappings, playerMappings, galacticPowerMappings, speedModMappings, pipMappings, relicMappings, gearMappings, rarityMappings } from "./listBuilderMappings.ts";
 import { getSpeedModCount, getPipCount, countOffensePercentRolls } from "./mods.ts";
 import { ULLocation, relicChart, gearChart, starChart, activeChart } from "./locations.ts"
+import { getWins } from "./grand-arena/main.ts"
+import { getInstanceIds } from "./grand-arena/getRecentRounds.ts"
 
 function handleLastSeen(player: PlayerResp): void {
     let lastSeen = new Date(Number(player.lastActivityTime)).toLocaleString();
@@ -136,6 +138,35 @@ function checkIfShip(units: UnitsResp[], defId: string): boolean {
     return false;
 }
 
+async function handleGACWins(player: PlayerResp): Promise<void> {
+    let gp = 0;
+    galacticPowerMappings.forEach(stat => {
+        const playerStat = player.profileStat.find(ps => ps.index === stat.index)
+        if (playerStat) {
+            gp = Number(playerStat.value);
+        }
+    });
+    if (gp === 0) {
+        console.error("Found a player with 0 GP...");
+        return;
+    }
+
+    const wins = await getWins(player.playerId, gp);
+    const recent3v3 = await getInstanceIds("3v3");
+    const recent5v5 = await getInstanceIds("5v5");
+    if (!wins || !recent3v3 || !recent5v5) {
+        console.error("Missing wins, recent3v3, or recent5v5 in handleGACWins()");
+        return;
+    }
+
+    let seasons: number[] = [];
+    seasons.push(recent3v3.season);
+    seasons.push(recent5v5.season);
+    seasons.sort((a, b) => a - b);
+
+    ULLocation("gacInfo", `Wins in seasons ${seasons[0]} and ${seasons[1]}: ${wins}`);
+}
+
 export async function FillList(allyCode: string) {
     const units = await getUnits();
     if (!units) {
@@ -189,6 +220,9 @@ export async function FillList(allyCode: string) {
                 break;
             case 10:
                 handleLastSeen(player);
+                break;
+            case 11:
+                await handleGACWins(player);
                 break;
             default:
                 console.error(`Found unknown playerMappings key: ${key}`)

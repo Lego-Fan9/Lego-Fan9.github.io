@@ -230,5 +230,9 @@ export const playerMappings: Record<string, { displayType: number; displayName: 
     "lastActive": {
         "displayType": 10,
         "displayName": "",
+    },
+    "GACWins": {
+        "displayType": 11,
+        "displayName": "",
     }
 };
