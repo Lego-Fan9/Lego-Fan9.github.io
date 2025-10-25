@@ -5,6 +5,7 @@ import { getSpeedModCount, getPipCount, countOffensePercentRolls } from "./mods.
 import { ULLocation, relicChart, gearChart, starChart, activeChart } from "./locations.ts"
 import { getWins } from "./grand-arena/main.ts"
 import { getInstanceIds } from "./grand-arena/getRecentRounds.ts"
+import { saveRecentSearch } from "./recentSearches.ts"
 
 function handleLastSeen(player: PlayerResp): void {
     let lastSeen = new Date(Number(player.lastActivityTime)).toLocaleString();
@@ -225,7 +226,9 @@ export async function FillList(allyCode: string) {
                 await handleGACWins(player);
                 break;
             default:
-                console.error(`Found unknown playerMappings key: ${key}`)
+                console.error(`Found unknown playerMappings key: ${key}`);
         }
     }
+
+    saveRecentSearch(allyCode, player.name);
 }

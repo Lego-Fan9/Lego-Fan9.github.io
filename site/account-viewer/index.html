@@ -31,6 +31,12 @@
 			<p id="inputError" style="display: none;">Please enter a valid 9-digit Ally Code</p>
 		</section>
 
+		<section class="recent-searches card">
+			<h2>Recent Searches</h2>
+			<ul id="recentSearchList"></ul>
+			<p id="noRecent" class="no-recent">No recent searches</p>
+		</section>
+
 		<section class="loading-screen card hidden" id="loadingScreen">
 			<h2>Loading player data...</h2>
 		</section>
@@ -88,7 +94,31 @@
 		</section>
 	</main>
 
+	<footer>
+		<section id="termsModal" class="modal hidden">
+			<div class="modal-content card">
+				<h2>Terms and Conditions</h2>
+				<div class="modal-body"></div>
+				<div class="modal-actions">
+					<button id="acceptTerms" class="primary-btn">I Agree</button>
+					<button id="closeTerms" class="secondary-btn">I Do Not Agree</button>
+				</div>
+			</div>
+		</section>
+
+		<section class="disclaimer">
+			<p>Copyright 2025 LegoFan9</p>
+			<p>This site is not affiliated with EA, Capital Games, Disney or Lucasfilm LTD.</p>
+			<a href="#" id="openTerms">Terms</a>
+		</section>
+	</footer>
+
 	<script type="module" src="/src/account-viewer/main.ts"></script>
+	<script>
+		document.querySelector(".menu-toggle").addEventListener("click", () => {
+			document.querySelector(".nav-links").classList.toggle("show");
+		});
+	</script>
 </body>
 
 </html>

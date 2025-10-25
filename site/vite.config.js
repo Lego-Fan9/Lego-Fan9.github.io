@@ -17,5 +17,11 @@ export default defineConfig({
                 accountViewer: resolve(__dirname, 'account-viewer/index.html')
             }
         }
-    }
+    },
+    server: {
+    host: '0.0.0.0', // allow LAN access
+    port: 5173,
+    strictPort: true,
+    cors: true,
+  },
 })

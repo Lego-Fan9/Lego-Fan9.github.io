@@ -3,6 +3,8 @@ import '/src/nav-bar.css'
 import { FillList } from "./listBuilder.ts";
 import { cleanAllyCode, wakeServer } from "./requestMaker.ts"
 import { Chart } from "chart.js"
+import { getRecentSearches } from "./recentSearches.ts";
+import {populateTermsModal} from "./terms.ts"
 
 wakeServer();
 
@@ -11,12 +13,31 @@ const submitBtn = document.getElementById("submitAllyCode") as HTMLButtonElement
 const inputError = document.getElementById("inputError") as HTMLParagraphElement;
 const loadingScreen = document.getElementById("loadingScreen") as HTMLElement;
 const backBtn = document.getElementById("backToInput") as HTMLButtonElement;
+const recentSearchList = document.getElementById("recentSearchList") as HTMLUListElement;
+const noRecent = document.getElementById("noRecent") as HTMLParagraphElement;
+const termsModal = document.getElementById("termsModal") as HTMLElement;
+const acceptBtn = document.getElementById("acceptTerms") as HTMLButtonElement;
+const closeBtn = document.getElementById("closeTerms") as HTMLButtonElement;
+const openTerms = document.getElementById("openTerms") as HTMLAnchorElement;
 
 const dashboardSections = document.querySelectorAll<HTMLElement>(
     ".player-info, .stats-grid, .charts-grid, .stats-grid-2, .back" //, .gac-info
 );
 
+const urlParams = new URLSearchParams(window.location.search);
+
+const TERMS_VERSION = "v0"
+
 submitBtn.addEventListener("click", async () => {
+    const termsVersion = localStorage.getItem("acceptedTerms");
+    if (termsVersion !== TERMS_VERSION) {
+        const agreed = await showTermsModal();
+        if (!agreed) {
+            alert("You must agree to the terms to use this site.");
+            return;
+        }
+    }
+
     const rawInput = allyInput.value.trim();
     const allyCode = cleanAllyCode(rawInput);
 
@@ -28,10 +49,15 @@ submitBtn.addEventListener("click", async () => {
     inputError.style.display = "none";
 
     (document.querySelector(".allycode-input") as HTMLElement).classList.add("hidden");
+    (document.querySelector(".recent-searches") as HTMLElement).classList.add("hidden");
 
     loadingScreen.classList.remove("hidden");
 
     await FillList(allyCode);
+
+    const url = new URL(window.location.href);
+    url.searchParams.set("p", allyCode);
+    window.history.replaceState({}, "", url.toString());
 
     loadingScreen.classList.add("hidden");
     dashboardSections.forEach(section => section.classList.remove("hidden"));
@@ -73,6 +99,7 @@ export function backButton() {
     Object.values(Chart.instances).forEach((chart: any) => chart.destroy());
 
     (document.querySelector(".allycode-input") as HTMLElement).classList.remove("hidden");
+    (document.querySelector(".recent-searches") as HTMLElement).classList.remove("hidden");
 
     allyInput.value = "";
 
@@ -82,15 +109,89 @@ export function backButton() {
         "pipList",
         "modsList",
         "offenseModsList",
-        "profileStatList"
+        "profileStatList",
+        "recentSearchList"
     ];
 
     listsToClear.forEach(id => {
         const ul = document.getElementById(id);
         if (ul) ul.innerHTML = "";
     });
+
+    const url = new URL(window.location.href);
+    url.searchParams.delete("p");
+    window.history.replaceState({}, "", url.toString());
+
+    populateRecentSeen();
 }
 
 backBtn.addEventListener("click", () => {
     backButton();
+});
+
+function populateRecentSeen(): void {
+    let recentSearch = getRecentSearches();
+    recentSearch.forEach(search => {
+        let newButton = document.createElement("button");
+        newButton.classList.add("recent-item");
+        newButton.textContent = `${search.playerName}: ${search.allyCode}`;
+        newButton.addEventListener("click", () => {
+            allyInput.value = search.allyCode;
+			submitBtn.click();
+        });
+
+        let newEntry = document.createElement("li");
+        newEntry.appendChild(newButton);
+        recentSearchList.append(newEntry);
+    });
+
+    if (recentSearch.length > 0) {
+        noRecent.classList.add("hidden")
+    }
+}
+
+openTerms.addEventListener("click", async e => {
+    e.preventDefault();
+    await showTermsModal();
+});
+
+function showTermsModal(): Promise<boolean> {
+    return new Promise(resolve => {
+        termsModal.classList.remove("hidden");
+
+        const onAccept = () => {
+            localStorage.setItem("acceptedTerms", TERMS_VERSION);
+            termsModal.classList.add("hidden");
+            cleanup();
+            resolve(true);
+        };
+
+        const onReject = () => {
+            localStorage.setItem("acceptedTerms", "OPTED_OUT");
+            termsModal.classList.add("hidden");
+            cleanup();
+            resolve(false);
+        };
+
+        const cleanup = () => {
+            acceptBtn.removeEventListener("click", onAccept);
+            closeBtn.removeEventListener("click", onReject);
+        };
+
+        acceptBtn.addEventListener("click", onAccept);
+        closeBtn.addEventListener("click", onReject);
+    });
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => { }, 1)
+
+    const allyCodeUrlQuery = urlParams.get("p");
+    if (allyCodeUrlQuery) {
+        allyInput.value = allyCodeUrlQuery;
+        submitBtn.click();
+    }
+
+    populateRecentSeen();
+    populateTermsModal();
 });
