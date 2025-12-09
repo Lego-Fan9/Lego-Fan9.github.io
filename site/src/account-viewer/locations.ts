@@ -67,7 +67,7 @@ export function relicChart(relics: number[]) {
     const canvas = makeCanvas("relicCanvas")
 
     const data = {
-        labels: ["Not Reliced", "Relic 0", "Relic 1", "Relic 2", "Relic 3", "Relic 4", "Relic 5", "Relic 6", "Relic 7", "Relic 8", "Relic 9"],
+        labels: ["Not Reliced", "Relic 0", "Relic 1", "Relic 2", "Relic 3", "Relic 4", "Relic 5", "Relic 6", "Relic 7", "Relic 8", "Relic 9", "Relic 10"],
         datasets: [{
             label: "Relics",
             data: relics,
@@ -83,6 +83,7 @@ export function relicChart(relics: number[]) {
                 "#4c1d95",
                 "#3b0764",
                 "#2e1065",
+                "#000000",
             ],
             borderColor: "#ffffff",
             borderWidth: 1.5,

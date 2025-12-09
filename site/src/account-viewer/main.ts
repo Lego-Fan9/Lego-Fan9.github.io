@@ -21,7 +21,7 @@ const closeBtn = document.getElementById("closeTerms") as HTMLButtonElement;
 const openTerms = document.getElementById("openTerms") as HTMLAnchorElement;
 
 const dashboardSections = document.querySelectorAll<HTMLElement>(
-    ".player-info, .stats-grid, .charts-grid, .stats-grid-2, .back" //, .gac-info
+    ".player-info, .stats-grid, .charts-grid, .stats-grid-2, .back, .gac-info"
 );
 
 const urlParams = new URLSearchParams(window.location.search);
