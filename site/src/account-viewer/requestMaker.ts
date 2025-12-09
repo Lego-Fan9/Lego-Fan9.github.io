@@ -1,6 +1,6 @@
 import CryptoJS from "crypto-js";
 
-const SERVER_URL = "https://stats-server.onrender.com/"
+const SERVER_URL = "https://stats-server-docker.onrender.com/"
 
 async function makeHMACSigCrypto(secret: string, message: string): Promise<string> {
 	const enc = new TextEncoder();
