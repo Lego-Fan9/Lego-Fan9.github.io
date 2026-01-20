@@ -8,7 +8,6 @@
     <meta name="author" content="LegoFan9">
     <link rel="icon" href="../swgoh-updates-icon.webp">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="../../src/nav-bar.css">
     <title>SWGoH Updates Formatter</title>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-X7TKZ22H21"></script>
@@ -22,22 +21,7 @@
 </head>
 
 <body>
-    <header>
-        <nav>
-            <div class="nav-container">
-                <div class="logo">SWGoH Updates</div>
-                <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-                <ul class="nav-links">
-                    <li><a href="javascript:history.back()">Back</a></li>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/swgoh-portrait-maker/">SWGoH Portrait Maker</a></li>
-                    <li><a href="/swgoh-updates/">SWGoH Updates</a></li>
-                    <li><a href="/about/">About</a></li>
-                </ul>
-            </div>
-        </nav>
-        <div style="height: 30px;"></div>
-    </header>
+    <nav></nav>
     <h1>SWGoH Localization Bundle Formatter</h1>
     <div class="main-card">
         <textarea id="inputText" placeholder="Paste your localization string here..."
@@ -62,9 +46,5 @@
         &copy; 2025 LegoFan9. All rights reserved.
     </footer>
     <script src="/src/locFormat.js" type="module"></script>
-    <script>
-        document.querySelector(".menu-toggle").addEventListener("click", () => {
-            document.querySelector(".nav-links").classList.toggle("show");
-        });
-    </script>
+    <script type="module" src="/src/nav-bar.ts"></script>
 </body>

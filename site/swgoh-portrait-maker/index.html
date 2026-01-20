@@ -7,7 +7,6 @@
     <meta name="description" content="SWGoH Portrait Maker - Create custom portraits for your favorite characters.">
     <meta name="author" content="LegoFan9">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/src/nav-bar.css">
     <title>SWGoH Portrait Maker</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
@@ -23,22 +22,7 @@
 </head>
 
 <body>
-    <header>
-        <nav>
-            <div class="nav-container">
-                <div class="logo">SWGoH Updates</div>
-                <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-                <ul class="nav-links">
-                    <li><a href="javascript:history.back()">Back</a></li>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/swgoh-portrait-maker/">SWGoH Portrait Maker</a></li>
-                    <li><a href="/swgoh-updates/">SWGoH Updates</a></li>
-                    <li><a href="/about/">About</a></li>
-                </ul>
-            </div>
-        </nav>
-        <div id="top-gap" style="height: 45px;"></div>
-    </header>
+    <nav></nav>
     <main>
         <h1>SWGOH Portrait Maker</h1>
         <h1 class="uploadText">Upload Your Image Here:</h1>
@@ -137,7 +121,7 @@
         <a id="downloadLinkM" onclick="mobileDownload()" style="display: none;">Download Result(Mobile)</a>
         <p id="downloadLinkMDesc" style="display: none;">Hold down on the image then click save to photos</p>
         <div style="height: 50px;"></div>
-        
+
         <div id="termsModal" style="display: none;" class="modal-overlay">
             <div class="modal-content">
                 <h2>Before You Continue</h2>
@@ -191,11 +175,7 @@
         <div id="debugGapC" style="height: 30px; display: none;"></div>
     </footer>
     <script src="/src/portraitMaker.js" type="module"></script>
-    <script>
-        document.querySelector(".menu-toggle").addEventListener("click", () => {
-            document.querySelector(".nav-links").classList.toggle("show");
-        });
-    </script>
+    <script type="module" src="/src/nav-bar.ts"></script>
 </body>
 
 </html>

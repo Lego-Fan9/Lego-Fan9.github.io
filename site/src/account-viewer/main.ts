@@ -1,5 +1,4 @@
 import './style.css';
-import '/src/nav-bar.css'
 import { FillList } from "./listBuilder.ts";
 import { cleanAllyCode, wakeServer } from "./requestMaker.ts"
 import { Chart } from "chart.js"

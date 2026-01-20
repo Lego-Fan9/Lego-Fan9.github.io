@@ -7,9 +7,8 @@
     <meta name="description" content="SWGoH Sprite Downloads">
     <meta name="author" content="LegoFan9">
     <title>Download Sprites</title>
-    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="/src/nav-bar.css">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-X7TKZ22H21"></script>
     <script>
@@ -22,22 +21,7 @@
 </head>
 
 <body>
-    <header>
-        <nav>
-            <div class="nav-container">
-                <div class="logo">SWGoH Updates</div>
-                <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-                <ul class="nav-links">
-                    <li><a href="javascript:history.back()">Back</a></li>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/swgoh-portrait-maker/">SWGoH Portrait Maker</a></li>
-                    <li><a href="/swgoh-updates/">SWGoH Updates</a></li>
-                    <li><a href="/about/">About</a></li>
-                </ul>
-            </div>
-        </nav>
-        <div style="height: 25px;"></div>
-    </header>
+    <nav></nav>
     <h1>Download the Latest Sprites</h1>
     <p>Click the button below to download the latest version SWGoH Sprites.</p>
     <p>There is rate limiting on this service based on IP address.</p>
@@ -56,11 +40,7 @@
             window.location.href = "download.html";
         });
     </script>
-    <script>
-        document.querySelector(".menu-toggle").addEventListener("click", () => {
-            document.querySelector(".nav-links").classList.toggle("show");
-        });
-    </script>
+    <script type="module" src="/src/nav-bar.ts"></script>
 </body>
 
 </html>

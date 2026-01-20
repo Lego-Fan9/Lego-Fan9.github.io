@@ -7,9 +7,8 @@
     <meta name="description" content="SWGoH Sprite Downloads">
     <meta name="author" content="LegoFan9">
     <title>Download Sprites</title>
-    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="/src/nav-bar.css">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-X7TKZ22H21"></script>
     <script>
@@ -22,33 +21,14 @@
 </head>
 
 <body>
-    <header>
-        <nav>
-            <div class="nav-container">
-                <div class="logo">SWGoH Updates</div>
-                <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-                <ul class="nav-links">
-                    <li><a href="javascript:history.back()">Back</a></li>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/swgoh-portrait-maker/">SWGoH Portrait Maker</a></li>
-                    <li><a href="/swgoh-updates/">SWGoH Updates</a></li>
-                    <li><a href="/about/">About</a></li>
-                </ul>
-            </div>
-        </nav>
-        <div style="height: 25px;"></div>
-    </header>
+        <nav></nav>
     <main>
         <p id="status">Waking server...</p>
         <p id="checksumInfo"></p>
         <button id="startDownloadBtn" class="app-link" disabled style="display: none;">Start Download</button>
     </main>
 
-    <script>
-        document.querySelector(".menu-toggle").addEventListener("click", () => {
-            document.querySelector(".nav-links").classList.toggle("show");
-        });
-    </script>
+    <script type="module" src="/src/nav-bar.ts"></script>
 
     <script>
         const baseDownloadURL = "https://legofan9-sprite-server.onrender.com";
