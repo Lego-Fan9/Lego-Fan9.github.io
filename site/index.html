@@ -85,22 +85,7 @@
 </head>
 
 <body>
-    <header>
-        <nav>
-            <div class="nav-container">
-                <div class="logo">SWGoH Updates</div>
-                <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-                <ul class="nav-links">
-                    <li><a href="javascript:history.back()">Back</a></li>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/swgoh-portrait-maker/">SWGoH Portrait Maker</a></li>
-                    <li><a href="/swgoh-updates/">SWGoH Updates</a></li>
-                    <li><a href="/about/">About</a></li>
-                </ul>
-            </div>
-        </nav>
-        <div style="height: 25px;"></div>
-    </header>
+        <nav></nav>
     <h1>Welcome to LegoFan9's SWGoH Tools</h1>
     <p>Select an app below to get started:</p>
     <div class="app-list">
@@ -123,11 +108,7 @@
     </a>
     <div style="height: 20px"></div>
     <p>By using this site you agree to allow useage of Google Analytics</p>
-    <script>
-        document.querySelector(".menu-toggle").addEventListener("click", () => {
-            document.querySelector(".nav-links").classList.toggle("show");
-        });
-    </script>
+    <script type="module" src="/src/nav-bar.ts"></script>
 </body>
 
 </html>
