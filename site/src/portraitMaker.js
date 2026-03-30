@@ -116,6 +116,9 @@ loadSwgohAsset.addEventListener("focus", async () => {
 });
 
 loadSwgohAssetBtn.addEventListener('click', async () => {
+    const ogText = loadSwgohAssetBtn.innerText;
+    loadSwgohAssetBtn.innerText = "loading...";
+
     const selectedAsset = loadSwgohAsset.options[loadSwgohAsset.selectedIndex].text;
 
     const assetVersion = await GetAssetVersionGithub();
@@ -131,6 +134,8 @@ loadSwgohAssetBtn.addEventListener('click', async () => {
         userImageDataURL = event.target.result;
     };
     reader.readAsDataURL(blob);
+
+    loadSwgohAssetBtn.innerText = ogText;
 });
 
 uploadInput.addEventListener('change', (e) => {
@@ -145,6 +150,9 @@ uploadInput.addEventListener('change', (e) => {
 });
 
 loadUrlBtn.addEventListener('click', async () => {
+    const ogText = loadUrlBtn.innerText;
+    loadUrlBtn.innerText = "loading...";
+
     const url = urlInput.value.trim();
     if (!url) {
         showErrorPopup("Please input a URL");
@@ -189,6 +197,8 @@ loadUrlBtn.addEventListener('click', async () => {
         .catch(err => {
             console.error("Image load error via proxy:", err);
         });
+
+    loadUrlBtn.innerText = ogText;
 });
 
 async function generateSignature(sharedSecret, method, endpoint) {
@@ -239,6 +249,9 @@ function extractDiscordId(input) {
 }
 
 loadDiscordBtn.addEventListener('click', async () => {
+    const ogText = loadDiscordBtn.innerText;
+    loadDiscordBtn.innerText = "loading...";
+
     const discordId = extractDiscordId(discordIdInput.value.trim());
     if (!discordId) {
         showErrorPopup("Please provide a discordId");
@@ -289,6 +302,8 @@ loadDiscordBtn.addEventListener('click', async () => {
         .catch(error => {
             console.error('Error:', error);
         });
+
+    loadDiscordBtn.innerText = ogText;
 });
 
 function updatePreviewTransform() {
