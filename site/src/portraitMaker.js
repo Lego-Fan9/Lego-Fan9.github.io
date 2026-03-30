@@ -10,6 +10,8 @@ const urlInput = document.getElementById('urlInput');
 const loadUrlBtn = document.getElementById('loadUrlBtn');
 const discordIdInput = document.getElementById('discordIdInput');
 const loadDiscordBtn = document.getElementById('loadDiscordBtn');
+const loadSwgohAsset = document.getElementById("loadSwgohAsset");
+const loadSwgohAssetBtn = document.getElementById("loadSwgohAssetBtn");
 
 function isTrueWebKit() {
     const ua = navigator.userAgent;
@@ -43,6 +45,92 @@ Object.entries(unwantedEntries).forEach(([key, valuesToRemove]) => {
         localStorage.removeItem(key);
         console.log(`Removed ${key} because value matched: ${currentValue}`);
     }
+});
+
+let assetVersionPromise;
+
+async function GetAssetVersionGithub() {
+    // this function is slightly stolen from swgoh-ae2
+
+    if (!assetVersionPromise) {
+        assetVersionPromise = (async () => {
+            const versionGetterUrl = "https://raw.githubusercontent.com/swgoh-utils/gamedata/refs/heads/main/meta.json";
+
+            const versionResponse = await fetch(versionGetterUrl);
+
+            if (versionResponse.status === 200) {
+                const metaDataShort = await versionResponse.json();
+                const versionResult = metaDataShort.data.assetVersion;
+
+                console.log("Found AssetVersion:", versionResult);
+
+                return versionResult;
+            }
+
+            console.error("Failed to get github version");
+            throw new Error("Failed to fetch asset version");
+        })();
+    }
+
+    return assetVersionPromise;
+}
+
+const __assetVersion = await GetAssetVersionGithub();
+
+const swgohAssetExtractor = "https://legofan-swgoh-ae2.onrender.com";
+
+async function wakeAE() {
+    const assetVersion = await GetAssetVersionGithub();
+    fetch(`${swgohAssetExtractor}/Asset/list?version=${assetVersion}`);
+}
+
+wakeAE();
+setTimeout(wakeAE, 300000);
+
+let loadSwgohAssetLoaded = false;
+loadSwgohAsset.addEventListener("focus", async () => {
+    if (loadSwgohAssetLoaded) {
+        return;
+    }
+
+    loadSwgohAsset.innerHTML = "";
+
+    const loadOption = document.createElement("option");
+    loadOption.value = "loading...";
+    loadOption.textContent = "loading...";
+    loadSwgohAsset.appendChild(loadOption);
+
+    const assetVersion = await GetAssetVersionGithub();
+
+    const response = await fetch(`${swgohAssetExtractor}/Asset/list?version=${assetVersion}`);
+    const data = await response.json()
+
+    loadSwgohAsset.innerHTML = "";
+
+    data.forEach(item => {
+        const option = document.createElement("option");
+        option.value = item;
+        option.textContent = item;
+        loadSwgohAsset.appendChild(option);
+    });
+});
+
+loadSwgohAssetBtn.addEventListener('click', async () => {
+    const selectedAsset = loadSwgohAsset.options[loadSwgohAsset.selectedIndex].text;
+
+    const assetVersion = await GetAssetVersionGithub();
+
+    const response = await fetch(`${swgohAssetExtractor}/Asset/single?version=${assetVersion}&assetName=${selectedAsset}`);
+    if (!response.ok) {
+        console.error("Failed to fetch asset")
+    }
+
+    const blob = await response.blob()
+    const reader = new FileReader();
+    reader.onload = function (event) {
+        userImageDataURL = event.target.result;
+    };
+    reader.readAsDataURL(blob);
 });
 
 uploadInput.addEventListener('change', (e) => {
@@ -580,6 +668,7 @@ function setupHelpTooltip(btnId, tooltipId) {
 }
 setupHelpTooltip('discordHelpBtn', 'discordHelpTooltip');
 setupHelpTooltip('urlHelpBtn', 'urlHelpTooltip');
+setupHelpTooltip('swgohAssethelpBtn', 'swgohAssetHelpTooltip');
 
 function showErrorPopup(message) {
     document.getElementById('popupMessage').textContent = message;

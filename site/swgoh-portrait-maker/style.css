@@ -56,6 +56,7 @@ canvas.loaded {
 #downloadLinkM,
 #generateButton,
 #resetPos,
+#loadSwgohAssetBtn,
 .file-upload,
 .termsButton {
     display: inline-block;
@@ -79,6 +80,7 @@ canvas.loaded {
 #resetPos:hover,
 .file-upload:hover,
 .gl-checkbox-label:hover,
+#loadSwgohAssetBtn:hover,
 .termsButton:hover {
     box-shadow: 0 0 0 2px black;
     background-color: #0056b3
@@ -633,14 +635,16 @@ canvas.loaded {
     }
 
     .input-image input[type="text"],
-    .input-image input[type="number"] {
+    .input-image input[type="number"],
+    .input-image select {
         width: 100%;
         box-sizing: border-box;
     }
 }
 
 .input-image input[type="text"],
-.input-image input[type="number"] {
+.input-image input[type="number"],
+.input-image select {
     padding: 10px 14px;
     border: 2px solid #007BFF;
     border-radius: 6px;
@@ -651,6 +655,11 @@ canvas.loaded {
     transition: border-color 0.2s, box-shadow 0.2s;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
     margin: 6px 0;
+}
+
+.input-image select {
+    width: 225.6px;
+    height: 41.6px;
 }
 
 input[type="text"]:focus,

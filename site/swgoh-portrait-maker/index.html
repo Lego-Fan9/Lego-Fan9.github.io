@@ -33,6 +33,19 @@
             </div>
             <div style="height: 10px;"></div>
             <div>
+                <label for="loadSwgohAsset" class="input-labels" style="margin-right: 7px;">SWGoH Asset:</label>
+                <span class="input-image">
+                    <select id="loadSwgohAsset">
+                        <option>Click to load options...</option>
+                    </select>
+                    <button id="swgohAssethelpBtn" class="help-btn" type="button" tabindex="0">?</button>
+                    <span class="help-tooltip" id="swgohAssetHelpTooltip" style="display:none;">
+                        Download a SWGoH Asset. Limited, may be slow.
+                    </span>
+                </span>
+                <button id="loadSwgohAssetBtn">Load SWGoH Asset</button>
+            </div>
+            <div>
                 <label for="urlInput" class="input-labels">Image URL:</label>
                 <span class="input-image">
                     <input type="text" id="urlInput" placeholder="https://example.com/image.png">
