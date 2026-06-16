@@ -1,0 +1,62 @@
+:root {
+    --background-color-dark: #121212;
+    --card-background-dark: #1E1E1E;
+
+    --text-dark: #F5F5F5;
+    --text-secondary-dark: #A0A0A0;
+
+    --border-dark: #2E2E2E;
+    --border-hover-dark: #555555;
+
+    --accent-dark: #D4D4D4;
+
+    --button: #3A3A3A;
+    --button-hover: #555555;
+
+    --navbar-background-dark: #181818;
+    --navbar-border-dark: #2A2A2A;
+    --link-hover-dark: #D0D0D0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    background-color: var(--background-color-dark);
+}
+
+.common-button {
+    display: inline-block;
+    cursor: pointer;
+    color: white;
+    background-color: var(--button);
+    padding: 10px 20px;
+    border: 2px solid var(--button-hover);
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    transition: box-shadow 0.3s, background-color 0.3s;
+
+    &:hover {
+        box-shadow: 0 0 0 2px black;
+        background-color: var(--button-hover);
+    }
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--card-background-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-dark);
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--border-hover-dark);
+}
