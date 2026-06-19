@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import { usePortraitMakerCtx, useBooleanCtx } from "../../ts/portrait-maker/context.ts";
+import { usePortraitMakerCtx } from "../../ts/portrait-maker/context.ts";
 
 import SwgohPortrait from "../swgohPortrait.tsx";
 
