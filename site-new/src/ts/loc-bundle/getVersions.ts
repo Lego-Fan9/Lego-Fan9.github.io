@@ -155,6 +155,7 @@ async function getGitRepoCommitLogsNew(): Promise<LocVersion[]> {
 
                 if (firstChildMarker === true) {
                     working.includeInOld = false;
+                    firstChildMarker = false;
                 }
 
                 working.url = `https://raw.githubusercontent.com/Lego-Fan9/lego-fan9.github.io-storage/${working.commitHash}/Loc_ENG_US.txt.json.br`
