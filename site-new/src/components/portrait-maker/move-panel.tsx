@@ -8,17 +8,17 @@ export default function MovePanel() {
     const ctx = usePortraitMakerCtx();
 
     function changeZoom(amount: number) {
-        ctx.zoom.current += amount;
+        ctx.setZoom(prev => prev + amount);
         ctx.notify();
     }
 
     function changeX(amount: number) {
-        ctx.offsetX.current += amount;
+        ctx.setOffsetX(prev => prev + amount);
         ctx.notify();
     }
 
     function changeY(amount: number) {
-        ctx.offsetY.current += amount;
+        ctx.setOffsetY(prev => prev + amount);
         ctx.notify();
     }
 

@@ -21,17 +21,17 @@ function AbilityAndRelic() {
     const ctx = usePortraitMakerCtx();
 
     function updateZetas(value: number) {
-        ctx.zetas.current = value;
+        ctx.setZetas(value);
         ctx.notify();
     }
 
     function updateOmis(value: number) {
-        ctx.omis.current = value;
+        ctx.setOmis(value);
         ctx.notify();
     }
 
     function updateRelic(value: number) {
-        ctx.relic.current = value;
+        ctx.setRelic(value);
         ctx.notify();
     }
 
@@ -123,7 +123,7 @@ function AlignmentSwitch() {
     function onChange(e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>) {
         setAlignment(Number(e.target.value));
 
-        ctx.alignment.current = convertAlignment(Number(e.target.value))
+        ctx.setAlignment(convertAlignment(Number(e.target.value)));
         ctx.notify();
     }
 
@@ -304,7 +304,7 @@ function GLSelect() {
     const ctx = usePortraitMakerCtx();
 
     function onChange(e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>) {
-        ctx.isGL.current = e.target.checked;
+        ctx.setIsGL(e.target.checked);
         ctx.notify();
     }
 

@@ -19,21 +19,21 @@ import Export from "../components/portrait-maker/export.tsx";
 import Renderer from "../components/portrait-maker/render-div.tsx";
 
 export default function PortraitMaker() {
-    const isGl = useRef(false);
-    const alignment = useRef(Alignment.Neutral);
-    const relic = useRef(0);
-    const imageUrl = useRef("");
-    const zetas = useRef(0);
-    const omis = useRef(0);
-    const zoom = useRef(0);
-    const offsetX = useRef(0);
-    const offsetY = useRef(0);
-    const debugMode = useRef(false);
+    const [isGL, setIsGL] = useState(false);
+    const [alignment, setAlignment] = useState<Alignment>(Alignment.Neutral);
+    const [relic, setRelic] = useState<number>(0);
+    const [imageUrl, setImageUrl] = useState<string>("");
+    const [zetas, setZetas] = useState<number>(0);
+    const [omis, setOmis] = useState<number>(0);
+    const [zoom, setZoom] = useState<number>(0);
+    const [offsetX, setOffsetX] = useState<number>(0);
+    const [offsetY, setOffsetY] = useState<number>(0);
+    const [debugMode, setDebugMode] = useState<boolean>(false);
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const canvasCtxRef = useRef<CanvasRenderingContext2D | null>(null);
     const renderRef = useRef<HTMLDivElement | null>(null);
     const [renderContent, setRenderContent] = useState<SwgohPortraitOpts | null>(null);
-    const versionRef = useRef(0);
+    const [versionRef, setVersionRef] = useState<number>(0);
 
     const diffListeners = useRef(new Set<() => void>());
     const subscribe = (cb: () => void) => {
@@ -45,7 +45,7 @@ export default function PortraitMaker() {
     };
 
     const notify = () => {
-        versionRef.current++;
+        setVersionRef(prev => prev + 1);
         for (const cb of diffListeners.current) {
             cb();
         }
@@ -78,16 +78,26 @@ export default function PortraitMaker() {
     }
 
     let ctx: PortraitMakerContext = {
-        isGL: isGl,
-        alignment: alignment,
-        relic: relic,
-        imageUrl: imageUrl,
-        zetas: zetas,
-        omis: omis,
-        zoom: zoom,
-        offsetX: offsetX,
-        offsetY: offsetY,
-        debugMode: debugMode,
+        isGL,
+        setIsGL,
+        alignment,
+        setAlignment,
+        relic,
+        setRelic,
+        imageUrl,
+        setImageUrl,
+        zetas,
+        setZetas,
+        omis,
+        setOmis,
+        zoom,
+        setZoom,
+        offsetX,
+        setOffsetX,
+        offsetY,
+        setOffsetY,
+        debugMode,
+        setDebugMode,
         subscribe: subscribe,
         notify: notify,
         canvasRef: canvasRef,
@@ -96,6 +106,7 @@ export default function PortraitMaker() {
         renderContent: renderContent,
         setRenderContent: setRenderContent,
         versionRef: versionRef,
+        setVersionRef,
         notifyReady: notifyReady,
     }
 
@@ -145,7 +156,7 @@ function DebugMode() {
     const ctx = usePortraitMakerCtx();
 
     function onClick() {
-        ctx.debugMode.current = true;
+        ctx.setDebugMode(true);
         ctx.notify();
     }
 

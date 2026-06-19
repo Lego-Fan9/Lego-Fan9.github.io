@@ -29,9 +29,7 @@ function UploadFile() {
                 console.error(`Invalid imageUrl onload`)
             }
 
-            ctx.imageUrl.current = event.target?.result as string;
-
-            console.log(ctx);
+            ctx.setImageUrl(event.target?.result as string);
         };
 
         reader.readAsDataURL(file);

@@ -8,16 +8,35 @@ import { Alignment } from "../../components/swgohPortrait.tsx";
 export let PortraitMakerCtx = createContext<PortraitMakerContext | undefined>(undefined);
 
 export type PortraitMakerContext = {
-    isGL: RefObject<boolean>;
-    alignment: RefObject<Alignment>;
-    relic: RefObject<number>;
-    imageUrl: RefObject<string>;
-    zetas: RefObject<number>;
-    omis: RefObject<number>;
-    zoom: RefObject<number>;
-    offsetX: RefObject<number>;
-    offsetY: RefObject<number>;
-    debugMode: RefObject<boolean>;
+    isGL: boolean;
+    setIsGL: React.Dispatch<React.SetStateAction<boolean>>;
+
+    alignment: Alignment;
+    setAlignment: React.Dispatch<React.SetStateAction<Alignment>>;
+
+    relic: number;
+    setRelic: React.Dispatch<React.SetStateAction<number>>;
+
+    imageUrl: string;
+    setImageUrl: React.Dispatch<React.SetStateAction<string>>;
+
+    zetas: number;
+    setZetas: React.Dispatch<React.SetStateAction<number>>;
+
+    omis: number;
+    setOmis: React.Dispatch<React.SetStateAction<number>>;
+
+    zoom: number;
+    setZoom: React.Dispatch<React.SetStateAction<number>>;
+
+    offsetX: number;
+    setOffsetX: React.Dispatch<React.SetStateAction<number>>;
+
+    offsetY: number;
+    setOffsetY: React.Dispatch<React.SetStateAction<number>>;
+
+    debugMode: boolean;
+    setDebugMode: React.Dispatch<React.SetStateAction<boolean>>;
 
     canvasRef: RefObject<HTMLCanvasElement | null>;
     canvasCtxRef: RefObject<CanvasRenderingContext2D | null>;
@@ -29,7 +48,8 @@ export type PortraitMakerContext = {
     subscribe: (cb: () => void) => () => void;
     notify: () => void;
 
-    versionRef: RefObject<number>;
+    versionRef: number
+    setVersionRef: React.Dispatch<React.SetStateAction<number>>;
 
     notifyReady: () => void;
 }
