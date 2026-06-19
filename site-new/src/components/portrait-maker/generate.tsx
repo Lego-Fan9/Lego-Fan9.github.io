@@ -1,4 +1,4 @@
-import { useEffect, useSyncExternalStore } from "react"
+import { useEffect } from "react"
 
 //import domtoimage from "dom-to-image";
 
@@ -15,19 +15,31 @@ type GenerateButtonProps = {
 export default function GenerateButton({ onAdd }: GenerateButtonProps) {
     const ctx = usePortraitMakerCtx();
 
-    const opts: SwgohPortraitOpts = {
-        isGL: ctx.isGL,
-        alignment: ctx.alignment,
-        relic: ctx.relic,
-        imageUrl: ctx.imageUrl,
-        zetas: ctx.zetas,
-        omis: ctx.omis,
-        zoom: ctx.zoom,
-        offsetX: ctx.offsetX,
-        offsetY: ctx.offsetY,
-    };
+    useEffect(() => {
+        const opts: SwgohPortraitOpts = {
+            isGL: ctx.isGL,
+            alignment: ctx.alignment,
+            relic: ctx.relic,
+            imageUrl: ctx.imageUrl,
+            zetas: ctx.zetas,
+            omis: ctx.omis,
+            zoom: ctx.zoom,
+            offsetX: ctx.offsetX,
+            offsetY: ctx.offsetY,
+        };
 
-    ctx.setRenderContent(opts);
+        ctx.setRenderContent(opts);
+    }, [
+        ctx.isGL,
+        ctx.alignment,
+        ctx.relic,
+        ctx.imageUrl,
+        ctx.zetas,
+        ctx.omis,
+        ctx.zoom,
+        ctx.offsetX,
+        ctx.offsetY,
+    ]);
 
     function onClick() {
         onAdd();

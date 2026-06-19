@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { usePortraitMakerCtx, useBooleanCtx } from "../../ts/portrait-maker/context.ts";
 
@@ -9,9 +9,11 @@ export default function Renderer() {
 
     return (
         <RenderContainerParent>
-            <RenderContainer ref={ctx.renderRef} $visible={ctx.debugMode}>
+            <RenderContainer $visible={ctx.debugMode}>
                 {ctx.renderContent && (
-                    <SwgohPortrait opts={ctx.renderContent} onReady={ctx.notifyReady} />
+                    <div ref={ctx.renderRef}>
+                        <SwgohPortrait opts={ctx.renderContent} onReady={ctx.notifyReady} />
+                    </div>
                 )}
             </RenderContainer>
         </RenderContainerParent>
@@ -23,5 +25,15 @@ const RenderContainerParent = styled.div`
 `;
 
 const RenderContainer = styled.div<{ $visible: boolean }>`
+    position: absolute;
+    left:-9999px;
+    top:-9999px;
 
+    ${({ $visible }) =>
+        $visible &&
+        css`
+        position: relative;
+        left: 0px;
+        top: 0px;
+    `}
 `;
