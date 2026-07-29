@@ -61,3 +61,8 @@ export async function Copy(text: string) {
         return success;
     }
 }
+
+export function DiscordFormat(key: string, text: string): string {
+    const formatted = formatString(text);
+    return "```\n" + key + "\n\n" + formatted + "\n```";
+}

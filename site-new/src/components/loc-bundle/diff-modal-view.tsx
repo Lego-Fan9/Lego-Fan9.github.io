@@ -5,7 +5,7 @@ import { diffChars } from "diff";
 
 import { Page, Card, CardRow } from "./page.tsx"
 
-import { Copy, formatString } from "../../ts/loc-bundle/format.ts";
+import { Copy, formatString, DiscordFormat } from "../../ts/loc-bundle/format.ts";
 
 export type DiffModalViewProps =
     | {
@@ -28,20 +28,14 @@ export type DiffModalViewProps =
 export default function DiffModalView(props: DiffModalViewProps) {
     const [copiedF, setCopiedF] = useState(false);
     const [copiedR, setCopiedR] = useState(false);
+    const [copiedD, setCopiedD] = useState(false);
 
-    const handleCopyF = async (text: string) => {
+    const handleCopy = async (setCopied: React.Dispatch<React.SetStateAction<boolean>>, text: string) => {
         await Copy(text);
 
-        setCopiedF(true);
-        setTimeout(() => setCopiedF(false), 1200);
-    };
-
-    const handleCopyR = async (text: string) => {
-        await Copy(text);
-
-        setCopiedR(true);
-        setTimeout(() => setCopiedR(false), 1200);
-    };
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1200);
+    }
 
     return (
         <Page>
@@ -64,7 +58,7 @@ export default function DiffModalView(props: DiffModalViewProps) {
                                 <Title>
                                     <b>Formatted String</b>
                                 </Title>
-                                <CopyButton $copied={copiedF} onClick={() => handleCopyF(formatString(props.string2))}>
+                                <CopyButton $copied={copiedF} onClick={() => handleCopy(setCopiedF, formatString(props.string2))}>
                                     {copiedF ? "Copied!" : "Copy"}
                                 </CopyButton>
                             </CardHeader>
@@ -78,11 +72,26 @@ export default function DiffModalView(props: DiffModalViewProps) {
                                 <Title>
                                     <b>Raw String</b>
                                 </Title>
-                                <CopyButton $copied={copiedR} onClick={() => handleCopyR(props.string2)}>
+                                <CopyButton $copied={copiedR} onClick={() => handleCopy(setCopiedR, props.string2)}>
                                     {copiedR ? "Copied!" : "Copy"}
                                 </CopyButton>
                             </CardHeader>
                             <Paragraph style={{ margin: "6px" }}>{props.string2}</Paragraph>
+                        </CardRow>
+                    </Card>
+                    <Card>
+                        <CardRow>
+                            <CardHeader>
+                                <div />
+                                <Title>
+                                    <b>Discord Sharing</b>
+                                </Title>
+                                <CopyButton $copied={copiedD} onClick={() => handleCopy(setCopiedD, DiscordFormat(props.string1, props.string2))}>
+                                    {copiedD ? "Copied!" : "Copy"}
+                                </CopyButton>
+                            </CardHeader>
+
+                            <Paragraph style={{ margin: "6px"}}>Copy with extra formatting for Discord</Paragraph>
                         </CardRow>
                     </Card>
                 </>
@@ -92,9 +101,11 @@ export default function DiffModalView(props: DiffModalViewProps) {
                         <CardRow>
                             <CardHeader>
                                 <div />
-                                <Title><b>Formatted Diff</b></Title>
-                                <CopyButton $copied={copiedF} onClick={() => handleCopyF(formatString(props.string2))}>
-                                    {copiedR ? "Copied!" : "Copy New"}
+                                <Title>
+                                    <b>Formatted Diff</b>
+                                </Title>
+                                <CopyButton $copied={copiedF} onClick={() => handleCopy(setCopiedF, formatString(props.string2))}>
+                                    {copiedR ? "Copied!" : "Copy"}
                                 </CopyButton>
                             </CardHeader>
 
@@ -107,15 +118,32 @@ export default function DiffModalView(props: DiffModalViewProps) {
                         <CardRow>
                             <CardHeader>
                                 <div />
-                                <Title><b>Unformatted Diff</b></Title>
-                                <CopyButton $copied={copiedR} onClick={() => handleCopyR(props.string2)}>
-                                    {copiedR ? "Copied!" : "Copy New"}
+                                <Title>
+                                    <b>Unformatted Diff</b>
+                                </Title>
+                                <CopyButton $copied={copiedR} onClick={() => handleCopy(setCopiedR, props.string2)}>
+                                    {copiedR ? "Copied!" : "Copy"}
                                 </CopyButton>
                             </CardHeader>
 
                             <DiffText>
                                 {renderDiff(props.string2, props.string3)}
                             </DiffText>
+                        </CardRow>
+                    </Card>
+                    <Card>
+                        <CardRow>
+                            <CardHeader>
+                                <div />
+                                <Title>
+                                    <b>Discord Sharing</b>
+                                </Title>
+                                <CopyButton $copied={copiedD} onClick={() => handleCopy(setCopiedD, DiscordFormat(props.string1, props.string2))}>
+                                    {copiedD ? "Copied!" : "Copy"}
+                                </CopyButton>
+                            </CardHeader>
+
+                            <Paragraph style={{ margin: "6px"}}>Copy with extra formatting for Discord</Paragraph>
                         </CardRow>
                     </Card>
                 </>
