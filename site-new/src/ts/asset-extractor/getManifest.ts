@@ -1,7 +1,7 @@
 import { RawAssetManifest } from "./manifest.ts";
 
 export default async function getManifest(version: string, includeAudio = false): Promise<string[]> {
-    const resp = await fetch(`https://swgoh-assets.lego-fan9.workers.dev/?version=${version}&item=manifest`);
+    const resp = await fetch(`https://swgoh-assets.lego-fan9.workers.dev/assets?version=${version}&item=manifest`);
     if (!resp.ok) {
         throw new Error("Bad fetch: " + resp.status);
     }
