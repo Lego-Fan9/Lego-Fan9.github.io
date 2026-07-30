@@ -12,6 +12,7 @@ import LocBundle from "./pages/loc-bundle.tsx";
 import Terms from "./pages/terms.tsx";
 import AssetExtractorWeb from "./pages/asset-extractor-web.tsx";
 import GoatCounter from "./components/goatCounter.tsx";
+import NotFound from "./pages/not-found.tsx";
 
 export default function App() {
 	return (
@@ -32,6 +33,8 @@ export default function App() {
 						<Route path="/asset-extractor-web" element={<AssetExtractorWeb />} />
 
 						<Route path="/swgoh-updates/loc-bundle-format" element={<Navigate to="/loc-bundle-format" replace />} />
+					
+						<Route path="*" element={<NotFound />} />
 					</Routes>
 				</Main>
 
