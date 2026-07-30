@@ -1,9 +1,8 @@
 name: Deploy Vite app to GitHub Pages
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [published]
 
 permissions:
   contents: read
@@ -19,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: site
+        working-directory: site-new
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
