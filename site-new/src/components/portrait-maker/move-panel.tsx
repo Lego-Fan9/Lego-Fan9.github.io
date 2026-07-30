@@ -22,6 +22,13 @@ export default function MovePanel() {
         ctx.notify();
     }
 
+    function reset() {
+        ctx.setZoom(0);
+        ctx.setOffsetX(0);
+        ctx.setOffsetY(0);
+        ctx.notify();
+    }
+
     return (
         <Card>
             <CardRow>
@@ -35,7 +42,7 @@ export default function MovePanel() {
                     <GridItem id="leftButton" className="common-button" onClick={() => changeX(5)}>Left</GridItem>
                     <GridItem id="rightButton" className="common-button" onClick={() => changeX(-5)}>Right</GridItem>
                 </GridContainer>
-                <Reset className="common-button">Reset</Reset>
+                <Reset className="common-button" onClick={() => reset()}>Reset</Reset>
             </CardRow>
         </Card>
     )
