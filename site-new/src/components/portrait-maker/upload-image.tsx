@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import { useState } from "react";
 
 import { usePortraitMakerCtx } from "../../ts/portrait-maker/context.ts";
+import { GetAssetVersionGithub } from "../../ts/portrait-maker/assetVersion.ts"
 
 import HelpBtn from "../help-btn.tsx";
 import { Card, CardRow } from "./card.tsx"
@@ -44,16 +46,105 @@ function UploadFile() {
 }
 
 function UploadSWGoHAsset() {
+    const ctx = usePortraitMakerCtx();
+
+    type ButtonStatus = "idle" | "loading" | "loaded" | "failed";
+    const buttonText = {
+        idle: "Load SWGoH Asset",
+        loading: "Loading...",
+        loaded: "Loaded!",
+        failed: "Failed!",
+    };
+
+    const AEURL = "https://legofan-swgoh-ae2.onrender.com";
+
+    const [assets, setAssets] = useState([]);
+    const [loaded, setLoaded] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [selectedAsset, setSelectedAsset] = useState("");
+    const [buttonStatus, setButtonStatus] = useState<ButtonStatus>("idle");
+
+    async function wakeAE() {
+        const assetVersion = await GetAssetVersionGithub();
+        fetch(`${AEURL}/Asset/list?version=${assetVersion}`);
+    }
+
+    wakeAE();
+
+    const handleFocus = async () => {
+        if (loaded || loading) return;
+
+        setLoading(true);
+
+        try {
+            const assetVersion = await GetAssetVersionGithub();
+            const response = await fetch(`${AEURL}/Asset/list?version=${assetVersion}`);
+            const data = await response.json();
+
+            setAssets(data);
+            setLoaded(true);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleDownload = async () => {
+        if (selectedAsset === "") {
+            alert("Please select an asset to download first...");
+            return;
+        }
+
+        setButtonStatus("loading");
+
+        try {
+            const assetVersion = await GetAssetVersionGithub();
+            const response = await fetch(`${AEURL}/Asset/single?version=${assetVersion}&assetName=${selectedAsset}`);
+            if (!response.ok) {
+                throw new Error(`Invalid status ${response.status}`);
+            }
+            const data = await response.blob();
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                if (!event.target || typeof event.target.result !== "string") {
+                    console.error(`Invalid imageUrl onload`)
+                }
+
+                ctx.setImageUrl(event.target?.result as string);
+            };
+
+            reader.readAsDataURL(data);
+
+            setButtonStatus("loaded");
+            setTimeout(() => { setButtonStatus("idle") }, 2000);
+        } catch (error) {
+            console.error(error);
+            setButtonStatus("failed");
+            setTimeout(() => { setButtonStatus("idle") }, 2000);
+        }
+    }
+
     return (
         <CardRow>
             <InputLabel htmlFor="loadSwgohAsset">SWGoH Asset:</InputLabel>
             <InputImageSpan>
-                <select id="loadSwgohAsset" className="common-button">
-                    <option>Click to load options...</option>
+                <select id="loadSwgohAsset" className="common-button" onFocus={handleFocus} onChange={(e) => setSelectedAsset(e.target.value)}>
+                    {loading ? (
+                        <option>Loading...</option>
+                    ) : assets.length === 0 ? (
+                        <option>Click to load options...</option>
+                    ) : (
+                        assets.map((item) => (
+                            <option key={item} value={item}>
+                                {item}
+                            </option>
+                        ))
+                    )}
                 </select>
                 <HelpBtn text="Download a SWGoH Asset. Limited, may be slow." />
             </InputImageSpan>
-            <button id="loadSwgohAssetBtn" className="common-button">Load SWGoH Asset</button>
+            <button id="loadSwgohAssetBtn" className={`common-button ${buttonStatus}`} onClick={handleDownload} disabled={buttonStatus === "loading"}>{buttonText[buttonStatus]}</button>
         </CardRow>
     )
 }
@@ -120,14 +211,61 @@ const InputImageSpan = styled.span`
 `;
 
 function UploadUrl() {
+    const ctx = usePortraitMakerCtx();
+
+    type ButtonStatus = "idle" | "loading" | "loaded" | "failed";
+    const buttonText = {
+        idle: "Load URL Image",
+        loading: "Loading...",
+        loaded: "Loaded!",
+        failed: "Failed!",
+    };
+
+    const [buttonStatus, setButtonStatus] = useState<ButtonStatus>("idle");
+    const [inputUrl, setInputUrl] = useState("")
+
+    const handleDownload = async () => {
+        if (inputUrl === "") {
+            alert("Please select an asset to download first...");
+            return;
+        }
+
+        setButtonStatus("loading");
+
+        try {
+            const response = await fetch(`https://swgoh-assets.lego-fan9.workers.dev/proxy?url=${inputUrl}`);
+            if (!response.ok) {
+                throw new Error(`Invalid status ${response.status}`);
+            }
+            const data = await response.blob();
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                if (!event.target || typeof event.target.result !== "string") {
+                    console.error(`Invalid imageUrl onload`)
+                }
+
+                ctx.setImageUrl(event.target?.result as string);
+            };
+
+            reader.readAsDataURL(data);
+
+            setButtonStatus("loaded");
+            setTimeout(() => { setButtonStatus("idle") }, 2000);
+        } catch (error) {
+            console.error(error);
+            setButtonStatus("failed");
+            setTimeout(() => { setButtonStatus("idle") }, 8000);
+        }
+    }
+
     return (
         <CardRow>
             <InputLabel htmlFor="urlInput">Image URL:</InputLabel>
             <InputImageSpan>
-                <input type="text" id="urlInput" placeholder="https://example.com/image.png" />
+                <input type="text" id="urlInput" placeholder="https://example.com/image.png" onChange={(e) => setInputUrl(e.target.value)}/>
                 <HelpBtn text="Enter a direct link to an image (ending in .png, .jpg, etc)." />
             </InputImageSpan>
-            <button id="loadUrlBtn" className="common-button">Load from URL</button>
+            <button className={`common-button ${buttonStatus}`} onClick={handleDownload} disabled={buttonStatus === "loading"}>{buttonText[buttonStatus]}</button>
         </CardRow>
     )
 }
