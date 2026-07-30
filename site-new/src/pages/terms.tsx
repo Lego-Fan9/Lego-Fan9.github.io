@@ -14,7 +14,7 @@ export default function Terms() {
             <p>Some features of this site require servers. The server hosts used are:</p>
             <ul>
                 <li><b>Github Pages:</b> Provides regular website access</li>
-                <li><b>Render:</b> Provides beta site access (onrender will be in domain) and acts as a proxy server when downloading SWGoH assets, or linked images.</li>
+                <li><b>Render:</b> Provides beta site access (onrender will be in domain)</li>
                 <li><b>Github:</b> Provides all localization bundles and the assetVersion for Asset Extractor Web</li>
                 <li><b>Cloudflare:</b> Provides manifests and assets for Asset Extractor Web.</li>
             </ul>
@@ -56,7 +56,7 @@ export default function Terms() {
                 </li>
 
                 <li>
-                    dom-to-image: <a href="https://github.com/tsayen/dom-to-image" target="_blank" rel="noopener noreferrer">https://github.com/tsayen/dom-to-image</a>
+                    dom-to-image: <a href="https://github.com/bubkoo/html-to-image" target="_blank" rel="noopener noreferrer">https://github.com/bubkoo/html-to-image</a>
                 </li>
             </ul>
         </TermsPage>
