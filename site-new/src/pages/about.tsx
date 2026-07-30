@@ -6,14 +6,16 @@ export default function About() {
             <p>Hi! I'm LegoFan9, I made this site originally for portrait maker, however I have since added numerous tools. Here
                 are some of the ones I find most worth sharing</p>
             <ul>
-                <li><a href="/swgoh-updates/">Update Notifier</a> A discord based automatic datamining tool for SWGoH</li>
-                <li><a href="/swgoh-portrait-maker/">SWGoH Portrait Maker</a> A tool that overlays custom SWGoH style borders
+                <li><a href="/swgoh-updates">Update Notifier</a> A discord based automatic datamining tool for SWGoH</li>
+                <li><a href="/swgoh-portrait-maker">SWGoH Portrait Maker</a> A tool that overlays custom SWGoH style borders
                     over your images</li>
                 <li><a href="https://github.com/Lego-Fan9/swgoh-assetapi">SWGoH AssetAPI</a> An asset datamining tool for SWGoH
                 </li>
-                <li><a href="/swgoh-updates/sprite-downloads/">SWGoH Sprite Cutter</a> A tool that datamines SWGoH sprites.
+                <li><a href="/swgoh-updates/sprite-downloads">SWGoH Sprite Cutter</a> A tool that datamines SWGoH sprites.
                     Closed source, but you can download
                     assets</li>
+                <li><a href="/loc-bundle-format">SWGoH Localization Bundle Parser</a> A tool to explore SWGoH Localization Bundles</li>
+                <li><a href="/asset-extractor-web">Asset Extractor Web</a> A showcase of another project, <a href="https://www.npmjs.com/package/@lego-fan9/asset-studio-web">asset-studio-web</a></li>
             </ul>
             <p>There are more plans for the future, but for now I think thats all. MTFBWY</p>
         </AboutPage>
