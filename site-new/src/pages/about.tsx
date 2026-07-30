@@ -11,9 +11,6 @@ export default function About() {
                     over your images</li>
                 <li><a href="https://github.com/Lego-Fan9/swgoh-assetapi">SWGoH AssetAPI</a> An asset datamining tool for SWGoH
                 </li>
-                <li><a href="/swgoh-updates/sprite-downloads">SWGoH Sprite Cutter</a> A tool that datamines SWGoH sprites.
-                    Closed source, but you can download
-                    assets</li>
                 <li><a href="/loc-bundle-format">SWGoH Localization Bundle Parser</a> A tool to explore SWGoH Localization Bundles</li>
                 <li><a href="/asset-extractor-web">Asset Extractor Web</a> A showcase of another project, <a href="https://www.npmjs.com/package/@lego-fan9/asset-studio-web">asset-studio-web</a></li>
             </ul>
