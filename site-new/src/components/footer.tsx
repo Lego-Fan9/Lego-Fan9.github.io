@@ -1,13 +1,14 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
     return (
         <FooterContainer>
             <FooterContent>
                 <FooterLinks>
-                    <a href="/">Home</a>
-                    <a href="/about">About</a>
-                    <a href="/terms">Terms</a>
+                    <Link to="/">Home</Link>
+                    <Link to="/about">About</Link>
+                    <Link to="/terms">Terms</Link>
                     <a href="https://discord.gg/cmZjsRBwTY" target="_blank" rel="noopener noreferrer">Discord</a>
                     <a href="https://github.com/Lego-Fan9/Lego-Fan9.github.io" target="_blank" rel="noopener noreferrer">Source Code</a>
                 </FooterLinks>

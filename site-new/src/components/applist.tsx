@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export type AppCardModel = {
     Title: string;
@@ -17,7 +18,15 @@ export default function AppList({ cards }: AppListProps) {
                 <Appcard key={card.Title}>
                     <Apptitle>{card.Title}</Apptitle>
                     <Appdesc>{card.Desc}</Appdesc>
-                    <Applink href={card.Link}>Open</Applink>
+                    {card.Link.startsWith("http") ? (
+                        <ExternalLink href={card.Link} target="_blank" rel="noopener noreferrer">
+                            Open
+                        </ExternalLink>
+                    ) : (
+                        <Applink to={card.Link}>
+                            Open
+                        </Applink>
+                    )}
                 </Appcard>
             ))}
         </Applist>
@@ -62,7 +71,26 @@ const Appdesc = styled.div`
     margin-bottom: 18px;
 `;
 
-const Applink = styled.a`
+const ExternalLink = styled.a`
+    display: inline-block;
+    margin-top: 10px;
+    cursor: pointer;
+    color: white;
+    background-color: var(--button);
+    padding: 10px 20px;
+    border: 2px solid var(--button-hover);
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: box-shadow 0.3s, background-color 0.3s;
+
+    &:hover {
+        box-shadow: 0 0 0 2px black;
+        background-color: var(--button-hover);
+    }
+`;
+
+const Applink = styled(Link)`
     display: inline-block;
     margin-top: 10px;
     cursor: pointer;

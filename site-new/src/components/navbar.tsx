@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const links = [
     { href: "#", text: "Back", isBack: true },
@@ -30,11 +31,11 @@ export default function NavBar() {
                     {links.map((link) => (
                         <li key={link.text}>
                             {link.isBack ? (
-                                <a href="#" onClick={handleBack}>
+                                <Link to="#" onClick={handleBack}>
                                     {link.text}
-                                </a>
+                                </Link>
                             ) : (
-                                <a href={link.href}>{link.text}</a>
+                                <Link to={link.href}>{link.text}</Link>
                             )}
                         </li>
                     ))}
