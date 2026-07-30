@@ -32,4 +32,4 @@ export async function GetAssetVersionGithub(): Promise<string> {
   return assetVersionPromise;
 }
 
-const assetVersion = await GetAssetVersionGithub();
+await GetAssetVersionGithub();
