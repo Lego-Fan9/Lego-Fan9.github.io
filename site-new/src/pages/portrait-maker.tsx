@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
 
-import domtoimage from "dom-to-image";
+import { toPng } from "html-to-image";
 
 import type { PortraitMakerContext } from "../ts/portrait-maker/context.ts";
 import { PortraitMakerCtx, usePortraitMakerCtx } from "../ts/portrait-maker/context.ts"
@@ -57,7 +57,13 @@ export default function PortraitMaker() {
         if (!ctx.renderRef.current || !ctx.canvasRef.current || !ctx.canvasCtxRef.current) return;
         console.log("Doing render");
 
-        const png = await domtoimage.toPng(ctx.renderRef.current);
+        const param = {
+            width: ctx.renderRef.current.clientWidth * zoom,
+            height: ctx.renderRef.current.clientHeight * zoom,
+            cacheBust: true,
+        }
+
+        const png = await toPng(ctx.renderRef.current, param);
         console.log(png);
 
         const img = new Image();

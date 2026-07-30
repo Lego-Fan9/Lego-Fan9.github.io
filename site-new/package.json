@@ -14,7 +14,7 @@
     "@lego-fan9/asset-studio-web": "^0.2.3",
     "@types/dom-to-image": "^2.6.7",
     "diff": "^9.0.0",
-    "dom-to-image": "^2.6.0",
+    "html-to-image": "^1.11.13",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "react-router-dom": "^7.17.0",
