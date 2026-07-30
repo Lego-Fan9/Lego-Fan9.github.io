@@ -13,8 +13,13 @@ const links = [
 export default function NavBar() {
     const [menuOpen, setMenuOpen] = useState(false);
 
+    const closeMenu = () => {
+        setMenuOpen(false);
+    };
+
     const handleBack = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
+        closeMenu();
         window.history.back();
     };
 
@@ -24,7 +29,7 @@ export default function NavBar() {
                 <Logo>SWGoH Updates</Logo>
 
                 <MenuToggle aria-label="Toggle menu" onClick={() => setMenuOpen((prev) => !prev)}>
-                    ☰
+                    {menuOpen ? "✕" : "☰"}
                 </MenuToggle>
 
                 <NavLinks $open={menuOpen}>
@@ -35,7 +40,7 @@ export default function NavBar() {
                                     {link.text}
                                 </Link>
                             ) : (
-                                <Link to={link.href}>{link.text}</Link>
+                                <Link to={link.href} onClick={closeMenu}>{link.text}</Link>
                             )}
                         </li>
                     ))}
