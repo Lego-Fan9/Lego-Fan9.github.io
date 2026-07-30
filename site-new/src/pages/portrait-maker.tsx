@@ -58,8 +58,6 @@ export default function PortraitMaker() {
         console.log("Doing render");
 
         const param = {
-            width: ctx.renderRef.current.clientWidth * zoom,
-            height: ctx.renderRef.current.clientHeight * zoom,
             cacheBust: true,
         }
 
