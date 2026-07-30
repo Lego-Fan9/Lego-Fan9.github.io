@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { usePortraitMakerCtx } from "../../ts/portrait-maker/context.ts";
 import { GetAssetVersionGithub } from "../../ts/portrait-maker/assetVersion.ts"
@@ -64,12 +64,14 @@ function UploadSWGoHAsset() {
     const [selectedAsset, setSelectedAsset] = useState("");
     const [buttonStatus, setButtonStatus] = useState<ButtonStatus>("idle");
 
-    async function wakeAE() {
-        const assetVersion = await GetAssetVersionGithub();
-        fetch(`${AEURL}/Asset/list?version=${assetVersion}`);
-    }
+    useEffect(() => {
+        const wakeAE = async () => {
+            const assetVersion = await GetAssetVersionGithub();
+            fetch(`${AEURL}/Asset/list?version=${assetVersion}`);
+        }
 
-    wakeAE();
+        wakeAE();
+    }, []);
 
     const handleFocus = async () => {
         if (loaded || loading) return;
@@ -262,7 +264,7 @@ function UploadUrl() {
         <CardRow>
             <InputLabel htmlFor="urlInput">Image URL:</InputLabel>
             <InputImageSpan>
-                <input type="text" id="urlInput" placeholder="https://example.com/image.png" onChange={(e) => setInputUrl(e.target.value)}/>
+                <input type="text" id="urlInput" placeholder="https://example.com/image.png" onChange={(e) => setInputUrl(e.target.value)} />
                 <HelpBtn text="Enter a direct link to an image (ending in .png, .jpg, etc)." />
             </InputImageSpan>
             <button className={`common-button ${buttonStatus}`} onClick={handleDownload} disabled={buttonStatus === "loading"}>{buttonText[buttonStatus]}</button>

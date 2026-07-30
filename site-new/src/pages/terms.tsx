@@ -19,7 +19,17 @@ export default function Terms() {
                 <li><b>Cloudflare:</b> Provides manifests and assets for Asset Extractor Web.</li>
             </ul>
             <p>This site, nor it's maintainer is employed by any of these companies, and is not responsible for any information they collect about you.</p>
-            <p>This site utalizes <b>Google Analytics</b> to provide the developer with insight on site traffic.</p>
+            <br />
+            <p>This site utilizes <b><a href="https://www.goatcounter.com/">GoatCounter</a></b>to provide the developer with insight on site traffic. <br />By using the site you agree to allow the following data to be collected and read:</p>
+            <ul>
+                <li>Your current location on the website</li>
+                <li>How you got to the website</li>
+                <li>Your screen size</li>
+                <li>If it thinks you are a bot</li>
+                <li>What browser and operating system it thinks you are using</li>
+                <li>What country your IP is from (Will not collect region)</li>
+            </ul>
+            <p>All data is collected by GoatCounter and is deleted after 90 days</p>
 
             <h3>Our Use of Your Content</h3>
             <p>When you upload any content you grant permission for us to use it to do what you asked us to do with it. Sometimes this will involve sending it to our server, and we will minimize your content being retained. By uploading any content, you grant us access to use it for this purpose.</p>

@@ -11,11 +11,14 @@ import PortraitMaker from "./pages/portrait-maker.tsx";
 import LocBundle from "./pages/loc-bundle.tsx";
 import Terms from "./pages/terms.tsx";
 import AssetExtractorWeb from "./pages/asset-extractor-web.tsx";
+import GoatCounter from "./components/goatCounter.tsx";
 
 export default function App() {
 	return (
 		<Layout>
 			<Router>
+				<GoatCounter />
+
 				<Navbar />
 
 				<Main>
