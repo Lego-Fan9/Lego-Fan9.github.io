@@ -1,14 +1,9 @@
 // @ts-ignore
-import "./bjs.js";
-
-declare global {
-	interface Window {
-    BrotliDecompress(data: Int8Array): Uint8Array;
-  }
-}
+import { brotliDecode } from "./decode.js";
 
 export default function decodeBrotli(arrayBuffer: ArrayBuffer): string {
-  const br = new Int8Array(arrayBuffer);
-  const decompressed = window.BrotliDecompress(br); // @ts-ignore
-  return new TextDecoder().decode(decompressed);
+  const compressed = new Int8Array(arrayBuffer);
+  const decompressed = brotliDecode(compressed);
+
+  return new TextDecoder("utf-8").decode(decompressed);
 }

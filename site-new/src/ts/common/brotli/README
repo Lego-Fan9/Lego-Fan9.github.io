@@ -1,1 +1,2 @@
-bjs.js is from https://github.com/google/brotli/issues/120
+decode.ts is from https://github.com/google/brotli
+It has been modified to make vite like it, mostly just some casts tsc didn't like and unused functions, if you update it just keep tsc happy
