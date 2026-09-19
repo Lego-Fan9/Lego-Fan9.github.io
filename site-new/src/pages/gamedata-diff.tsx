@@ -1,4 +1,4 @@
-import styled from "styled-components";
+/*import styled from "styled-components";
 import { useEffect, useState, useRef } from "react";
 
 import type { GamedataContext, GamedataVersion } from "../ts/gamedata/context.ts";
@@ -45,4 +45,4 @@ export default function GamedataDiffPage() {
 
         </GamedataCtx.Provider>
     )
-}
+}*/
