@@ -9,8 +9,6 @@ export async function getLocalVersions(): Promise<LocVersion[]> {
 
     resp.push(...await getGitRepoCommitLogsNew());
 
-    resp.push(...await getGitRepoCommitLogsOld());
-
     // This is complicated because I wanted to preserve older, but deduplication is needed
     const byVersion = new Map<string, LocVersion>();
     for (const version of resp) {
@@ -24,60 +22,6 @@ export async function getLocalVersions(): Promise<LocVersion[]> {
     }
 
     return [...byVersion.values()];
-}
-
-async function getGitRepoCommitLogsOld(): Promise<LocVersion[]> {
-    const url = "https://api.github.com/repos/swgoh-utils/gamedata/commits?path=Loc_ENG_US.txt.json"
-
-    let respJson
-
-    try {
-        const response = await fetch(url)
-        if (!response.ok) {
-            console.error(`Failed to get versions: ${response.status}: ${response.text}`);
-            return [];
-        }
-
-        respJson = await response.json()
-    } catch (e) {
-        console.error(`Failed to get gitRepoCommitLogs: ${e}`);
-        return [];
-    }
-
-    let resp: LocVersion[] = []
-
-    for (const commit of respJson) {
-        let working: LocVersion = {
-            repoName: "gamedata",
-            repoOwner: "swgoh-utils",
-            commitHash: "",
-            date: "",
-            version: "",
-            url: "",
-            includeInOld: true,
-        }
-
-        if (commit.commit != null) {
-            if (commit.commit.message != null && commit.commit.committer != null && commit.commit.committer.date != null) {
-                working.commitHash = commit.sha;
-                working.date = commit.commit.committer.date;
-                working.version = commit.commit.message;
-                if (commitsToIgnore.some(ignore => commit.commit.message.includes(ignore))) {
-                    continue;
-                }
-
-                working.url = `https://raw.githubusercontent.com/swgoh-utils/gamedata/${working.commitHash}/Loc_ENG_US.txt.json`;
-
-                resp.push(working);
-            } else {
-                console.log(commit.commit)
-            }
-        } else {
-            console.log(commit)
-        }
-    }
-
-    return resp;
 }
 
 async function getLatest(): Promise<LocVersion> {
