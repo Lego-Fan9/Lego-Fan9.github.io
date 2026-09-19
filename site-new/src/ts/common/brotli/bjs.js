@@ -396,15 +396,15 @@ exports.lookupOffsets = new Uint16Array([
    limitations under the License.
 */
 
-var BrotliInput = require('./streams').BrotliInput;
-var BrotliOutput = require('./streams').BrotliOutput;
-var BrotliBitReader = require('./bit_reader');
-var BrotliDictionary = require('./dictionary');
-var HuffmanCode = require('./huffman').HuffmanCode;
-var BrotliBuildHuffmanTable = require('./huffman').BrotliBuildHuffmanTable;
-var Context = require('./context');
-var Prefix = require('./prefix');
-var Transform = require('./transform');
+var BrotliInput = require('./streams.js').BrotliInput;
+var BrotliOutput = require('./streams.js').BrotliOutput;
+var BrotliBitReader = require('./bit_reader.js');
+var BrotliDictionary = require('./dictionary.js');
+var HuffmanCode = require('./huffman.js').HuffmanCode;
+var BrotliBuildHuffmanTable = require('./huffman.js').BrotliBuildHuffmanTable;
+var Context = require('./context.js');
+var Prefix = require('./prefix.js');
+var Transform = require('./transform.js');
 
 var kDefaultCodeLength = 8;
 var kCodeLengthRepeatCode = 16;
@@ -1332,7 +1332,7 @@ var fs = require('fs');
  * it's own dictionary. 😜
  */
 exports.init = function() {
-  var BrotliDecompressBuffer = require('./decode').BrotliDecompressBuffer;
+  var BrotliDecompressBuffer = require('./decode.js').BrotliDecompressBuffer;
   var compressed = base64.toByteArray(require('./dictionary.bin.js'));
   return BrotliDecompressBuffer(compressed);
 };
@@ -1358,7 +1358,7 @@ module.exports="W5/fcQLn5gKf2XUbAiQ1XULX+TZz6ADToDsgqk6qVfeC0e4m6OO2wcQ1J76ZBVRV
    Collection of static dictionary words.
 */
 
-var data = require('./dictionary-data');
+var data = require('./dictionary-data.js');
 exports.init = function() {
   exports.dictionary = data.init();
 };
@@ -1619,7 +1619,7 @@ exports.BrotliOutput = BrotliOutput;
    Transformations on dictionary words.
 */
 
-var BrotliDictionary = require('./dictionary');
+var BrotliDictionary = require('./dictionary.js');
 
 var kIdentity       = 0;
 var kOmitLast1      = 1;
@@ -1851,7 +1851,7 @@ exports.transformDictionaryWord = function(dst, idx, word, len, transform) {
 }
 
 },{"./dictionary":7}],12:[function(require,module,exports){
-module.exports = require('./dec/decode').BrotliDecompressBuffer;
+module.exports = require('./dec/decode.js').BrotliDecompressBuffer;
 
 },{"./dec/decode":4}],13:[function(require,module,exports){
 'use strict'

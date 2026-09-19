@@ -1,6 +1,6 @@
 import type { LocVersion } from "./context.ts";
 
-import decodeBrotli from "./brotli/wrapper.ts";
+import decodeBrotli from "../common/brotli/wrapper.ts";
 
 export async function Load(ver1: LocVersion, ver2: LocVersion): Promise<LocDiff> {
     const file1 = await DownloadLocFile(ver1.url);
