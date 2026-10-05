@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
 
-import { usePortraitMakerCtx } from "../../ts/portrait-maker/context.ts";
+import { usePortraitMakerCtx } from "../../ts/portrait-maker/context";
 
-import SwgohPortrait from "../swgohPortrait.tsx";
+import SwgohPortrait from "../swgohPortrait";
 
 export default function Renderer() {
     const ctx = usePortraitMakerCtx();

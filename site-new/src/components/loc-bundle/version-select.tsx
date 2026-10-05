@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 
-import { Card, CardRow } from "./page.tsx"
+import { Card, CardRow } from "./page"
 
-import { useLocBundleContext } from "../../ts/loc-bundle/context.ts";
-import { Load } from "../../ts/loc-bundle/loader.ts";
+import { useLocBundleContext } from "../../ts/loc-bundle/context";
+import { Load } from "../../ts/loc-bundle/loader";
 
 type VersionSelectProps = {
     onAdd: () => void;

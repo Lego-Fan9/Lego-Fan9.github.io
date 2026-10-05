@@ -3,12 +3,12 @@ import { useEffect, useState, useRef } from "react";
 
 import type { LocBundleContext, LocVersion } from "../ts/loc-bundle/context.ts";
 import type { LocDiff } from "../ts/loc-bundle/loader.ts";
-import { LocBundleCtx, getEmptyVersion } from "../ts/loc-bundle/context.ts";
-import { getLocalVersions } from "../ts/loc-bundle/getVersions.ts";
+import { LocBundleCtx, getEmptyVersion } from "../ts/loc-bundle/context";
+import { getLocalVersions } from "../ts/loc-bundle/getVersions";
 
-import { Page, Card, CardRow } from "../components/loc-bundle/page.tsx";
-import VersionSelect from "../components/loc-bundle/version-select.tsx";
-import DiffView from "../components/loc-bundle/diff-view.tsx";
+import { Page, Card, CardRow } from "../components/loc-bundle/page";
+import VersionSelect from "../components/loc-bundle/version-select";
+import DiffView from "../components/loc-bundle/diff-view";
 
 export default function LocBundle() {
     const [versions, setVersions] = useState<LocVersion[]>([]);

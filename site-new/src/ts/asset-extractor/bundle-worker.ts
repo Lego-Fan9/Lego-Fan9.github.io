@@ -1,7 +1,7 @@
 import { AssetsManager, ExportTexture2D, Texture2D } from "@lego-fan9/asset-studio-web";
-import type { RequestEnvelopePayload, InitPayload } from "./RequestEnvelope.ts";
-import { RequestEnvelope } from "./RequestEnvelope.ts";
-import type { ImageType } from "./imageType.ts";
+import type { RequestEnvelopePayload, InitPayload } from "./RequestEnvelope";
+import { RequestEnvelope } from "./RequestEnvelope";
+import type { ImageType } from "./imageType";
 
 let assetsManager: AssetsManager | null = null
 

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import Discord from "../components/discord.tsx"
+import Discord from "../components/discord"
 
 export default function SWGoHUpdates() {
     return (

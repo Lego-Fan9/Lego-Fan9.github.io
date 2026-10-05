@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import React, { useEffect, useState, useMemo } from "react";
 
-import Modal from "../modal.tsx";
+import Modal from "../modal";
 
-import { Card, CardRow } from "./page.tsx"
-import type { DiffModalViewProps } from "./diff-modal-view.tsx";
-import DiffModalView from "./diff-modal-view.tsx";
+import { Card, CardRow } from "./page"
+import type { DiffModalViewProps } from "./diff-modal-view";
+import DiffModalView from "./diff-modal-view";
 
-import { useLocBundleContext } from "../../ts/loc-bundle/context.ts";
-import type { LocDiff } from "../../ts/loc-bundle/loader.ts";
+import { useLocBundleContext } from "../../ts/loc-bundle/context";
+import type { LocDiff } from "../../ts/loc-bundle/loader";
 
 export default function DiffView() {
     const ctx = useLocBundleContext();

@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 
-import { usePortraitMakerCtx } from "../../ts/portrait-maker/context.ts";
-import { GetAssetVersionGithub } from "../../ts/portrait-maker/assetVersion.ts"
+import { usePortraitMakerCtx } from "../../ts/portrait-maker/context";
+import { GetAssetVersionGithub } from "../../ts/portrait-maker/assetVersion"
 
-import HelpBtn from "../help-btn.tsx";
-import { Card, CardRow } from "./card.tsx"
+import HelpBtn from "../help-btn";
+import { Card, CardRow } from "./card"
 
 export default function UploadImage() {
     return (

@@ -1,7 +1,7 @@
 import type { RefObject } from "react";
 import { createContext, useContext } from "react";
 
-import type { LocDiff } from "./loader.ts";
+import type { LocDiff } from "./loader";
 
 export let LocBundleCtx = createContext<LocBundleContext | undefined>(undefined);
 

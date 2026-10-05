@@ -1,5 +1,5 @@
-import AppList from "../components/applist.tsx";
-import type { AppCardModel } from "../components/applist.tsx";
+import AppList from "../components/applist";
+import type { AppCardModel } from "../components/applist";
 
 const appCardList: AppCardModel[] = [
     {

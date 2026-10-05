@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { useEffect, useState } from "react";
-import { Card, CardRow } from "./page.tsx";
+import { Card, CardRow } from "./page";
 
 export default function LoadingAssets() {
     const [seconds, setSeconds] = useState(0);

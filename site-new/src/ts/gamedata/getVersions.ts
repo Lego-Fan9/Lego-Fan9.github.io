@@ -1,4 +1,4 @@
-import type { GamedataVersion } from "./context.ts";
+import type { GamedataVersion } from "./context";
 
 export async function getGamedataVersions(filename: string): Promise<GamedataVersion[]> {
     let resp: GamedataVersion[] = [];

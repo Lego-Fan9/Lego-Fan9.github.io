@@ -3,9 +3,9 @@ import { useState } from "react";
 
 import { diffChars } from "diff";
 
-import { Page, Card, CardRow } from "./page.tsx"
+import { Page, Card, CardRow } from "./page"
 
-import { Copy, formatString, DiscordFormat } from "../../ts/loc-bundle/format.ts";
+import { Copy, formatString, DiscordFormat } from "../../ts/loc-bundle/format";
 
 export type DiffModalViewProps =
     | {
