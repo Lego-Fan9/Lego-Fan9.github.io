@@ -124,13 +124,18 @@ function getViteConfigTs(): string {
 
     return `import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import moveHtmlPlugin  from "./vite/moveHtmlPlugin";
+
+//@ts-ignore
+import moveHtmlPlugin from "./vite/moveHtmlPlugin.js";
+//@ts-ignore
+import devHtmlPlugin from "./vite/devHtmlPlugin.js";
 
 // https://vite.dev/config/
 export default defineConfig({
     plugins: [
         react(),
-        moveHtmlPlugin()
+        moveHtmlPlugin(),
+        devHtmlPlugin()
     ],
     build: {
         rollupOptions: {
@@ -164,7 +169,7 @@ async function main(): Promise<void> {
     console.log("Done generating index.html...");
     console.log("Generating sitemap...");
 
-    const sitemapFile = path.join(DIST_DIR, "sitemap.xml");
+    const sitemapFile = path.join(DIST_DIR, "public", "sitemap.xml");
 
     await fs.writeFile(
         sitemapFile,

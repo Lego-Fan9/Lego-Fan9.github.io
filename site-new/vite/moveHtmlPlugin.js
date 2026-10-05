@@ -1,11 +1,10 @@
-import type { Plugin } from "vite";
 import fs from "node:fs/promises";
 import path from "node:path";
 
 const DIST_DIR = path.resolve("./dist");
 const HTML_DIR = path.join(DIST_DIR, "html");
 
-export default function moveHtmlPlugin(): Plugin {
+export default function moveHtmlPlugin() {
     return {
         name: "move-html",
         apply: "build",

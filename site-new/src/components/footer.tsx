@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+
+import Link from "./link"
 
 export default function Footer() {
     return (

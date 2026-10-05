@@ -1,12 +1,17 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import moveHtmlPlugin  from "./vite/moveHtmlPlugin";
+
+//@ts-ignore
+import moveHtmlPlugin from "./vite/moveHtmlPlugin.js";
+//@ts-ignore
+import devHtmlPlugin from "./vite/devHtmlPlugin.js";
 
 // https://vite.dev/config/
 export default defineConfig({
     plugins: [
         react(),
-        moveHtmlPlugin()
+        moveHtmlPlugin(),
+        devHtmlPlugin()
     ],
     build: {
         rollupOptions: {
