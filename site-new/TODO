@@ -1,7 +1,5 @@
-Add <title>
 Add robots.txt
 Add automated checks
-Import style.css
 Test everything
 Rewrite 404.html
 Write to correct dir

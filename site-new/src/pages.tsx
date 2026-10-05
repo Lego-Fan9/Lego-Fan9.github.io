@@ -9,6 +9,7 @@ import NotFound from "./pages/not-found";
 
 export type PageDefinition = {
     PageName: string;
+    PageTitle: string;
     PageElement: React.ComponentType;
     PageMainPath: string;
     PageAliasPaths: string[];
@@ -29,6 +30,7 @@ const defaultMeta: React.ReactElement[] = [
 export const Pages: PageDefinition[] = [
     {
         PageName: "Home",
+        PageTitle: `Home - ${SiteShortLink}`,
         PageElement: Home,
         PageMainPath: "/",
         PageAliasPaths: [],
@@ -39,6 +41,7 @@ export const Pages: PageDefinition[] = [
     },
     {
         PageName: "About",
+        PageTitle: `About - ${SiteShortLink}`,
         PageElement: About,
         PageMainPath: "/about",
         PageAliasPaths: [],
@@ -49,6 +52,7 @@ export const Pages: PageDefinition[] = [
     },
     {
         PageName: "SWGoH Updates",
+        PageTitle: `SWGoH Updates - ${SiteShortLink}`,
         PageElement: SWGoHUpdates,
         PageMainPath: "/swgoh-updates",
         PageAliasPaths: [],
@@ -59,6 +63,7 @@ export const Pages: PageDefinition[] = [
     },
     {
         PageName: "SWGoH Portrait Maker",
+        PageTitle: `SWGoH Portrait Maker - ${SiteShortLink}`,
         PageElement: PortraitMaker,
         PageMainPath: "/swgoh-portrait-maker",
         PageAliasPaths: [],
@@ -69,6 +74,7 @@ export const Pages: PageDefinition[] = [
     },
     {
         PageName: "SWGoH Loc Bundle Formatter",
+        PageTitle: `SWGoH Loc Bundle Formatter - ${SiteShortLink}`,
         PageElement: LocBundle,
         PageMainPath: "/loc-bundle-format",
         PageAliasPaths: [
@@ -81,6 +87,7 @@ export const Pages: PageDefinition[] = [
     },
     {
         PageName: "Terms",
+        PageTitle: `Terms - ${SiteShortLink}`,
         PageElement: Terms,
         PageMainPath: "/terms",
         PageAliasPaths: [],
@@ -91,6 +98,7 @@ export const Pages: PageDefinition[] = [
     },
     {
         PageName: "Asset Extractor Web",
+        PageTitle: `Asset Extractor Web - ${SiteShortLink}`,
         PageElement: AssetExtractorWeb,
         PageMainPath: "/asset-extractor-web",
         PageAliasPaths: [],
@@ -101,6 +109,7 @@ export const Pages: PageDefinition[] = [
     },
     {
         PageName: "404",
+        PageTitle: `404 - ${SiteShortLink}`,
         PageElement: NotFound,
         PageMainPath: "*",
         PageAliasPaths: [],

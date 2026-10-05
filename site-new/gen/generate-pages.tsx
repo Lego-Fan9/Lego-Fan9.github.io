@@ -16,13 +16,14 @@ const { Pages } = await vite.ssrLoadModule("/src/pages.tsx");
 
 export type PageDefinition = {
     PageName: string;
+    PageTitle: string;
     PageElement: React.ComponentType;
     PageMainPath: string;
     PageAliasPaths: string[];
     PageMetaTags: React.ReactElement[];
 }
 
-const DIST_DIR = path.resolve("dist-test");
+const DIST_DIR = path.resolve("dist");
 
 function getOutputDirectory(pagePath: string): string {
     if (pagePath === "*") {
@@ -36,9 +37,10 @@ function getOutputDirectory(pagePath: string): string {
         : DIST_DIR;
 }
 
-function getPageHtml(page: (typeof Pages)[number]): string {
+function getPageHtml(page: PageDefinition): string {
     const metaTags = renderToStaticMarkup(
         <>
+            <title>{page.PageTitle}</title>
             {page.PageMetaTags}
         </>
     ).replace(/></g, ">\n<");
