@@ -23,18 +23,21 @@ export type PageDefinition = {
     PageMetaTags: React.ReactElement[];
 }
 
-const DIST_DIR = path.resolve("dist");
+const DIST_DIR = path.resolve("./");
+const HTML_DIR = path.join(DIST_DIR, "html");
 
-function getOutputDirectory(pagePath: string): string {
-    if (pagePath === "*") {
-        return DIST_DIR;
+function getOutputFile(page: PageDefinition): string {
+    if (page.PageName === "404") {
+        return path.join(HTML_DIR, "404.html");
     }
 
-    const cleanPath = pagePath.replace(/^\/+|\/+$/g, "");
+    if (page.PageMainPath === "/") {
+        return path.join(HTML_DIR, "index.html");
+    }
 
-    return cleanPath
-        ? path.join(DIST_DIR, cleanPath)
-        : DIST_DIR;
+    const cleanPath = page.PageMainPath.replace(/^\/+|\/+$/g, "");
+
+    return path.join(HTML_DIR, cleanPath, "index.html");
 }
 
 function getPageHtml(page: PageDefinition): string {
@@ -74,15 +77,9 @@ ${metaTags}
 }
 
 async function generatePage(page: (typeof Pages)[number]): Promise<void> {
-    const outputDirectory = getOutputDirectory(page.PageMainPath);
-    let outputFile
-    if (page.PageName === "404") {
-        outputFile = path.join(outputDirectory, "404.html");
-    } else {
-        outputFile = path.join(outputDirectory, "index.html");
-    }
+    const outputFile = getOutputFile(page);
 
-    await fs.mkdir(outputDirectory, { recursive: true });
+    await fs.mkdir(path.dirname(outputFile), { recursive: true });
     await fs.writeFile(outputFile, getPageHtml(page), "utf8");
 
     console.log(`Generated: ${path.relative(process.cwd(), outputFile)}`);
@@ -107,12 +104,51 @@ ${urls}
 `;
 }
 
+function getViteConfigTs(): string {
+    const rollupOptions = Pages
+        .map((page: PageDefinition) => {
+            const absoluteHtmlPath = page.PageMainPath === "*"
+                ? path.join(HTML_DIR, "404.html")
+                : page.PageMainPath === "/"
+                    ? path.join(HTML_DIR, "index.html")
+                    : path.join(
+                        HTML_DIR,
+                        `${page.PageMainPath.replace(/^\/+|\/+$/g, "")}/index.html`
+                    );
+
+            const htmlPath = path.relative(DIST_DIR, absoluteHtmlPath);
+
+            return `                ${JSON.stringify(page.PageName)}: ${JSON.stringify(htmlPath)}`;
+        })
+        .join(",\n");
+
+    return `import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import moveHtmlPlugin  from "./vite/moveHtmlPlugin";
+
+// https://vite.dev/config/
+export default defineConfig({
+    plugins: [
+        react(),
+        moveHtmlPlugin()
+    ],
+    build: {
+        rollupOptions: {
+            input: {
+${rollupOptions}
+            }
+        }
+    }
+})
+`;
+}
+
 async function main(): Promise<void> {
-    console.log("Deleting old dist...");
+    console.log("Deleting html dir...");
 
-    const outputDirectory = getOutputDirectory("");
-    await fs.rm(outputDirectory, { recursive: true, force: true })
+    await fs.rm(HTML_DIR, {recursive: true, force: true});
 
+    console.log("Deleted html dir...");
     console.log("Generating page index.html files...");
 
     try {
@@ -137,6 +173,19 @@ async function main(): Promise<void> {
     );
 
     console.log("Done generating sitemap...")
+    console.log("Generating vite.config.ts...")
+
+    const viteConfigFile = path.join(DIST_DIR, "vite.config.ts");
+
+    await fs.writeFile(
+        viteConfigFile,
+        getViteConfigTs(),
+        "utf8"
+    );
+
+    console.log("Done generating vite.config.ts...");
+    
+    console.log("Done generating!");
 }
 
 main().catch((error) => {
