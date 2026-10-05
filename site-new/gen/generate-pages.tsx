@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
+import prettier from "prettier";
 
 import { createServer } from "vite";
 
@@ -40,7 +41,7 @@ function getOutputFile(page: PageDefinition): string {
     return path.join(HTML_DIR, cleanPath, "index.html");
 }
 
-function getPageHtml(page: PageDefinition): string {
+async function getPageHtml(page: PageDefinition): Promise<string> {
     const metaTags = renderToStaticMarkup(
         <>
             <title>{page.PageTitle}</title>
@@ -48,7 +49,7 @@ function getPageHtml(page: PageDefinition): string {
         </>
     ).replace(/></g, ">\n<");
 
-    return `<!DOCTYPE html>
+    return await prettier.format(`<!DOCTYPE html>
 <html lang="en">
 <head>
 ${metaTags}
@@ -73,14 +74,14 @@ ${metaTags}
     <script type="module" src="/src/main.tsx"></script>
 </body>
 </html>
-`;
+`, { parser: "html" });
 }
 
 async function generatePage(page: (typeof Pages)[number]): Promise<void> {
     const outputFile = getOutputFile(page);
 
     await fs.mkdir(path.dirname(outputFile), { recursive: true });
-    await fs.writeFile(outputFile, getPageHtml(page), "utf8");
+    await fs.writeFile(outputFile, await getPageHtml(page), "utf8");
 
     console.log(`Generated: ${path.relative(process.cwd(), outputFile)}`);
 }
@@ -151,7 +152,7 @@ ${rollupOptions}
 async function main(): Promise<void> {
     console.log("Deleting html dir...");
 
-    await fs.rm(HTML_DIR, {recursive: true, force: true});
+    await fs.rm(HTML_DIR, { recursive: true, force: true });
 
     console.log("Deleted html dir...");
     console.log("Generating page index.html files...");
@@ -189,7 +190,7 @@ async function main(): Promise<void> {
     );
 
     console.log("Done generating vite.config.ts...");
-    
+
     console.log("Done generating!");
 }
 
