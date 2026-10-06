@@ -24,21 +24,21 @@ export type PageDefinition = {
     PageMetaTags: React.ReactElement[];
 }
 
-const DIST_DIR = path.resolve("./");
-const HTML_DIR = path.join(DIST_DIR, "html");
+const DIST_DIR = path.posix.resolve("./");
+const HTML_DIR = path.posix.join(DIST_DIR, "html");
 
 function getOutputFile(page: PageDefinition): string {
     if (page.PageName === "404") {
-        return path.join(HTML_DIR, "404.html");
+        return path.posix.join(HTML_DIR, "404.html");
     }
 
     if (page.PageMainPath === "/") {
-        return path.join(HTML_DIR, "index.html");
+        return path.posix.join(HTML_DIR, "index.html");
     }
 
     const cleanPath = page.PageMainPath.replace(/^\/+|\/+$/g, "");
 
-    return path.join(HTML_DIR, cleanPath, "index.html");
+    return path.posix.join(HTML_DIR, cleanPath, "index.html");
 }
 
 async function getPageHtml(page: PageDefinition): Promise<string> {
@@ -80,10 +80,10 @@ ${metaTags}
 async function generatePage(page: (typeof Pages)[number]): Promise<void> {
     const outputFile = getOutputFile(page);
 
-    await fs.mkdir(path.dirname(outputFile), { recursive: true });
+    await fs.mkdir(path.posix.dirname(outputFile), { recursive: true });
     await fs.writeFile(outputFile, await getPageHtml(page), "utf8");
 
-    console.log(`Generated: ${path.relative(process.cwd(), outputFile)}`);
+    console.log(`Generated: ${path.posix.relative(process.cwd(), outputFile)}`);
 }
 
 function getSitemapXml(): string {
@@ -109,15 +109,15 @@ function getViteConfigTs(): string {
     const rollupOptions = Pages
         .map((page: PageDefinition) => {
             const absoluteHtmlPath = page.PageMainPath === "*"
-                ? path.join(HTML_DIR, "404.html")
+                ? path.posix.join(HTML_DIR, "404.html")
                 : page.PageMainPath === "/"
-                    ? path.join(HTML_DIR, "index.html")
-                    : path.join(
+                    ? path.posix.join(HTML_DIR, "index.html")
+                    : path.posix.join(
                         HTML_DIR,
                         `${page.PageMainPath.replace(/^\/+|\/+$/g, "")}/index.html`
                     );
 
-            const htmlPath = path.relative(DIST_DIR, absoluteHtmlPath);
+            const htmlPath = path.posix.relative(DIST_DIR, absoluteHtmlPath);
 
             return `                ${JSON.stringify(page.PageName)}: ${JSON.stringify(htmlPath)}`;
         })
@@ -170,7 +170,7 @@ async function main(): Promise<void> {
     console.log("Done generating index.html...");
     console.log("Generating sitemap...");
 
-    const sitemapFile = path.join(DIST_DIR, "public", "sitemap.xml");
+    const sitemapFile = path.posix.join(DIST_DIR, "public", "sitemap.xml");
 
     await fs.writeFile(
         sitemapFile,
@@ -181,7 +181,7 @@ async function main(): Promise<void> {
     console.log("Done generating sitemap...")
     console.log("Generating vite.config.ts...")
 
-    const viteConfigFile = path.join(DIST_DIR, "vite.config.ts");
+    const viteConfigFile = path.posix.join(DIST_DIR, "vite.config.ts");
 
     await fs.writeFile(
         viteConfigFile,
