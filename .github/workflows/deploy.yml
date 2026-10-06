@@ -17,9 +17,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: site-new
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
@@ -38,7 +35,7 @@ jobs:
       - name: Upload build output
         uses: actions/upload-pages-artifact@v5
         with:
-          path: site-new/dist
+          path: dist
 
   deploy:
     if: ${{ github.event_name == 'release' }}
