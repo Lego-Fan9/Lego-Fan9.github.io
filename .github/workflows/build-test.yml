@@ -27,7 +27,7 @@ jobs:
       - name: Hash site and write to file
         run: |
           find . -type f -print0 | sort -z | xargs -0 sha256sum | sha256sum | cut -d ' ' -f 1 > ../hash.txt
-          echo "Hash: $(cat hash.txt)"
+          echo "Hash: $(cat ../hash.txt)"
       
       - name: Run generate
         run: |
@@ -36,8 +36,8 @@ jobs:
       - name: Hash site again and compare
         run: |
           find . -type f -print0 | sort -z | xargs -0 sha256sum | sha256sum | cut -d ' ' -f 1 > ../hash_two.txt
-          echo "The pre generated hash is: $(cat hash.txt)"
-          echo "The post generated hash is: $(cat hash_two.txt)"
+          echo "The pre generated hash is: $(cat ../hash.txt)"
+          echo "The post generated hash is: $(cat ../hash_two.txt)"
 
           if cmp -s ../hash.txt ../hash_two.txt; then
             echo "The site hashes match"
