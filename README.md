@@ -7,3 +7,4 @@ You can create an issue here on GitHub or you can join our discord server: [by c
 
 #### Contributing:
 Anyone is free to contribute to the project by creating a PR
+Please note the source code here may or may not reflect what is currently on the site.
