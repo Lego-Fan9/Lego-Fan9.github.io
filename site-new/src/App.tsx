@@ -13,8 +13,12 @@ export default function App() {
 	const path = window.location.pathname;
 
 	const page = Pages.find((pageDefinition) => {
-		const regex = new RegExp(`^(${[pageDefinition.PageMainPath, ...pageDefinition.PageAliasPaths].join("|")})$`, "i");
-		return regex.test(path);
+		const paths = [
+			pageDefinition.PageMainPath,
+			...pageDefinition.PageAliasPaths,
+		];
+
+		return paths.includes(path);
 	});
 
 	if (page === undefined) {

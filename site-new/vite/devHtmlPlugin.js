@@ -19,6 +19,8 @@ export default function devHtmlPlugin() {
 
                 if (pathname === "/") {
                     req.url = "/html/index.html";
+                } else if (pathname.endsWith("404.html")) {
+                    req.url = "/html/404.html"
                 } else if (!pathname.startsWith("/html/") && !pathname.includes(".")) {
                     req.url = `/html${pathname.replace(/\/$/, "")}/index.html`;
                 }
