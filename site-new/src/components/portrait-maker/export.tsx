@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { useState } from "react";
 
-import { usePortraitMakerCtx } from "../../ts/portrait-maker/context.ts";
+import { usePortraitMakerCtx } from "../../ts/portrait-maker/context";
 
-import { Card, CardRow } from "./card.tsx";
+import { Card, CardRow } from "./card";
 
 export default function Export() {
     const ctx = usePortraitMakerCtx();

@@ -2,11 +2,11 @@ import { useEffect } from "react"
 
 //import domtoimage from "dom-to-image";
 
-import { usePortraitMakerCtx } from "../../ts/portrait-maker/context.ts";
+import { usePortraitMakerCtx } from "../../ts/portrait-maker/context";
 
-import type { SwgohPortraitOpts } from "../swgohPortrait.tsx";
+import type { SwgohPortraitOpts } from "../swgohPortrait";
 
-import { Card, CardRow } from "./card.tsx";
+import { Card, CardRow } from "./card";
 
 type GenerateButtonProps = {
     onAdd: () => void;

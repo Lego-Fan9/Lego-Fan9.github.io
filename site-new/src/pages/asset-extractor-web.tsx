@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 
-import { Page, Card, CardRow } from "../components/asset-extractor/page.tsx";
-import Manifest from "../components/asset-extractor/manifest.tsx";
-import AssetViewer from "../components/asset-extractor/asset-viewer.tsx";
-import LoadingAssets from "../components/asset-extractor/loading-assets.tsx";
+import { Page, Card, CardRow } from "../components/asset-extractor/page";
+import Manifest from "../components/asset-extractor/manifest";
+import AssetViewer from "../components/asset-extractor/asset-viewer";
+import LoadingAssets from "../components/asset-extractor/loading-assets";
 
-import HelpBtn from "../components/help-btn.tsx";
+import HelpBtn from "../components/help-btn";
 
-import getGithubVersion from "../ts/asset-extractor/getGithubVersion.ts";
+import getGithubVersion from "../ts/asset-extractor/getGithubVersion";
 
 export default function AssetExtractorWeb() {
     const [assetVersion, setAssetVersion] = useState("");

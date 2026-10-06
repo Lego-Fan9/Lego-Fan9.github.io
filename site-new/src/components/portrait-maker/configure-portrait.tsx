@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { useState } from "react";
 
-import { Alignment } from "../swgohPortrait.tsx";
+import { Alignment } from "../swgohPortrait";
 
-import { usePortraitMakerCtx } from "../../ts/portrait-maker/context.ts";
+import { usePortraitMakerCtx } from "../../ts/portrait-maker/context";
 
-import { Card, CardRow } from "./card.tsx"
+import { Card, CardRow } from "./card"
 
 export default function ConfigurePortrait() {
     return (

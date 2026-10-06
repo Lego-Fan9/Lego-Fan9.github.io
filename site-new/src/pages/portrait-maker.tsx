@@ -3,20 +3,20 @@ import styled from "styled-components";
 
 import { toPng } from "html-to-image";
 
-import type { PortraitMakerContext } from "../ts/portrait-maker/context.ts";
-import { PortraitMakerCtx, usePortraitMakerCtx } from "../ts/portrait-maker/context.ts"
+import type { PortraitMakerContext } from "../ts/portrait-maker/context";
+import { PortraitMakerCtx, usePortraitMakerCtx } from "../ts/portrait-maker/context"
 
-import type { SwgohPortraitOpts } from "../components/swgohPortrait.tsx";
-import { Alignment } from "../components/swgohPortrait.tsx";
+import type { SwgohPortraitOpts } from "../components/swgohPortrait";
+import { Alignment } from "../components/swgohPortrait";
 
-import { Card, CardRow } from "../components/portrait-maker/card.tsx";
-import UploadImage from "../components/portrait-maker/upload-image.tsx";
-import ConfigurePortrait from "../components/portrait-maker/configure-portrait.tsx";
-import GenerateButton from "../components/portrait-maker/generate.tsx";
-import CanvasView from "../components/portrait-maker/canvas-view.tsx";
-import MovePanel from "../components/portrait-maker/move-panel.tsx";
-import Export from "../components/portrait-maker/export.tsx";
-import Renderer from "../components/portrait-maker/render-div.tsx";
+import { Card, CardRow } from "../components/portrait-maker/card";
+import UploadImage from "../components/portrait-maker/upload-image";
+import ConfigurePortrait from "../components/portrait-maker/configure-portrait";
+import GenerateButton from "../components/portrait-maker/generate";
+import CanvasView from "../components/portrait-maker/canvas-view";
+import MovePanel from "../components/portrait-maker/move-panel";
+import Export from "../components/portrait-maker/export";
+import Renderer from "../components/portrait-maker/render-div";
 
 export default function PortraitMaker() {
     const [isGL, setIsGL] = useState(false);

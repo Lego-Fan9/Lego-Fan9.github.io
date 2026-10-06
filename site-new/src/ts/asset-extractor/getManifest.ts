@@ -1,4 +1,4 @@
-import { RawAssetManifest } from "./manifest.ts";
+import { RawAssetManifest } from "./manifest";
 
 export default async function getManifest(version: string, includeAudio = false): Promise<string[]> {
     const resp = await fetch(`https://swgoh-assets.lego-fan9.workers.dev/assets?version=${version}&item=manifest`);

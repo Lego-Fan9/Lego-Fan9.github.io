@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { Card, CardRow } from "./page.tsx";
-import Modal from "../modal.tsx";
+import { Card, CardRow } from "./page";
+import Modal from "../modal";
 
-import getBundle from "../../ts/asset-extractor/getBundle.ts";
-import openBundle from "../../ts/asset-extractor/openBundle.ts";
-import type { ImageType } from "../../ts/asset-extractor/imageType.ts";
+import getBundle from "../../ts/asset-extractor/getBundle";
+import openBundle from "../../ts/asset-extractor/openBundle";
+import type { ImageType } from "../../ts/asset-extractor/imageType";
 
 export interface AssetViewerPrefs {
     assetVersion: string;

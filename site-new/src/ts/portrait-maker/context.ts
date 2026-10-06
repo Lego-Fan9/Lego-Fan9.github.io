@@ -2,8 +2,8 @@ import type { RefObject } from "react";
 import React from "react";
 import { createContext, useContext } from "react";
 
-import type { SwgohPortraitOpts } from "../../components/swgohPortrait.tsx";
-import { Alignment } from "../../components/swgohPortrait.tsx";
+import type { SwgohPortraitOpts } from "../../components/swgohPortrait";
+import { Alignment } from "../../components/swgohPortrait";
 
 export let PortraitMakerCtx = createContext<PortraitMakerContext | undefined>(undefined);
 

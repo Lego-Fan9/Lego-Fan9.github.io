@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /portraitMakerImages/
+Disallow: /assets/
+Disallow: 404.html
+
+Sitemap: https://Lego-Fan9.github.io/sitemap.xml

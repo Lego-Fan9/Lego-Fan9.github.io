@@ -1,4 +1,4 @@
-import type { LocVersion } from "./context.ts";
+import type { LocVersion } from "./context";
 
 const commitsToIgnore: string[] = ["Dd3CijBEQ3KS6PSznNzAlg", "remove"]
 

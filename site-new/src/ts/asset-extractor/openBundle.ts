@@ -1,6 +1,6 @@
-import type { RequestEnvelopePayload, InitPayload } from "./RequestEnvelope.ts";
-import { RequestEnvelope } from "./RequestEnvelope.ts";
-import type { ImageType } from "./imageType.ts";
+import type { RequestEnvelopePayload, InitPayload } from "./RequestEnvelope";
+import { RequestEnvelope } from "./RequestEnvelope";
+import type { ImageType } from "./imageType";
 
 export default function openBundle(bundle: Uint8Array, name: string): Promise<ImageType[]> {
     return new Promise((resolve, reject) => {

@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
 
 declare global {
     interface Window {
@@ -16,13 +15,13 @@ declare global {
 }
 
 export default function GoatCounter() {
-    const location = useLocation();
+    const { pathname, search } = window.location;
 
     useEffect(() => {
         if (!window.goatcounter) return;
 
         window.goatcounter.count({
-            path: location.pathname + location.search,
+            path: pathname + search,
             title: document.title,
         });
     }, [location]);

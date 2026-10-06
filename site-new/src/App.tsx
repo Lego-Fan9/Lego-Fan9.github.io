@@ -1,45 +1,47 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import styled from "styled-components";
 
-import Navbar from "./components/navbar.tsx";
-import Footer from "./components/footer.tsx";
+import Navbar from "./components/navbar";
+import Footer from "./components/footer";
 
-import Home from "./pages/home.tsx";
-import About from "./pages/about.tsx";
-import SWGoHUpdates from "./pages/swgoh-updates.tsx";
-import PortraitMaker from "./pages/portrait-maker.tsx";
-import LocBundle from "./pages/loc-bundle.tsx";
-import Terms from "./pages/terms.tsx";
-import AssetExtractorWeb from "./pages/asset-extractor-web.tsx";
-import GoatCounter from "./components/goatCounter.tsx";
-import NotFound from "./pages/not-found.tsx";
+import UhOh from "./pages/uhoh";
+
+import GoatCounter from "./components/goatCounter";
+
+import { Pages } from "./pages";
 
 export default function App() {
+	const path = window.location.pathname;
+
+	const page = Pages.find((pageDefinition) => {
+		const paths = [
+			pageDefinition.PageMainPath,
+			...pageDefinition.PageAliasPaths,
+		];
+
+		return paths.includes(path);
+	});
+
+	if (page === undefined) {
+		console.error("Somehow didn't find page... path was: " + path);
+
+		return (
+			<UhOh />
+		)
+	}
+
 	return (
 		<Layout>
-			<Router>
-				<GoatCounter />
+			<GoatCounter />
 
-				<Navbar />
+			<Navbar />
 
-				<Main>
-					<Routes>
-						<Route path="/" element={<Home />} />
-						<Route path="/about" element={<About />} />
-						<Route path="/swgoh-updates" element={<SWGoHUpdates />} />
-						<Route path="/swgoh-portrait-maker" element={<PortraitMaker />} />
-						<Route path="/loc-bundle-format" element={<LocBundle />} />
-						<Route path="/terms" element={<Terms />} />
-						<Route path="/asset-extractor-web" element={<AssetExtractorWeb />} />
+			<Main>
+				{
+					<page.PageElement />
+				}
+			</Main>
 
-						<Route path="/swgoh-updates/loc-bundle-format" element={<Navigate to="/loc-bundle-format" replace />} />
-					
-						<Route path="*" element={<NotFound />} />
-					</Routes>
-				</Main>
-
-				<Footer />
-			</Router>
+			<Footer />
 		</Layout>
 	)
 }

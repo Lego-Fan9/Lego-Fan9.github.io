@@ -1,9 +1,9 @@
 import { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
 
-import { Card, CardRow } from "./page.tsx";
+import { Card, CardRow } from "./page";
 
-import getManifest from "../../ts/asset-extractor/getManifest.ts";
+import getManifest from "../../ts/asset-extractor/getManifest";
 
 export interface ManifestProps {
     setSelectedAssetName: React.Dispatch<React.SetStateAction<string | null>>;

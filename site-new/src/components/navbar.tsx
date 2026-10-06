@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import Link from "./link";
 
 const links = [
     { href: "#", text: "Back", isBack: true },

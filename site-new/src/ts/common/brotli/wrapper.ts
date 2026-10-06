@@ -1,5 +1,5 @@
 // @ts-ignore
-import { brotliDecode } from "./decode.js";
+import { brotliDecode } from "./decode";
 
 export default function decodeBrotli(arrayBuffer: ArrayBuffer): string {
   const compressed = new Int8Array(arrayBuffer);
