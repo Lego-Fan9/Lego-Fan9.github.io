@@ -23,6 +23,7 @@ export default defineConfig({
                 "SWGoH Loc Bundle Formatter": "html/loc-bundle-format/index.html",
                 "Terms": "html/terms/index.html",
                 "Asset Extractor Web": "html/asset-extractor-web/index.html",
+                "Update Frequency": "html/update-frequency/index.html",
                 "404": "html/404.html"
             }
         }

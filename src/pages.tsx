@@ -5,6 +5,7 @@ import PortraitMaker from "./pages/portrait-maker";
 import LocBundle from "./pages/loc-bundle";
 import Terms from "./pages/terms";
 import AssetExtractorWeb from "./pages/asset-extractor-web";
+import UpdateFreqPage from "./pages/update-freq";
 import NotFound from "./pages/not-found";
 
 export type PageDefinition = {
@@ -104,8 +105,23 @@ export const Pages: PageDefinition[] = [
         PageAliasPaths: [],
         PageMetaTags: [
             ...defaultMeta,
-            ...GenPageMetaTags("Star Wars: Galaxy of Heroes Web base Asset Extractor", "Asset Extractor Web", "/asset-extractor-web"),
+            ...GenPageMetaTags("Star Wars: Galaxy of Heroes Web based Asset Extractor", "Asset Extractor Web", "/asset-extractor-web"),
         ],
+    },
+    {
+        PageName: "Update Frequency",
+        PageTitle: `Update Frequency - ${SiteShortLink}`,
+        PageElement: UpdateFreqPage,
+        PageMainPath: "/update-frequency",
+        PageAliasPaths: [
+            "/update-freq",
+            "/swgoh-updates/update-frequency",
+            "/swgoh-updates/update-freq",
+        ],
+        PageMetaTags: [
+            ...defaultMeta,
+            ...GenPageMetaTags("Star Wars: Galaxy of Heroes Update Frequency grapher", "Update Frequency", "/update-frequency"),
+        ]
     },
     {
         PageName: "404",
