@@ -1,3 +1,4 @@
+import { Suspense } from "react"
 import styled from "styled-components";
 
 import Navbar from "./components/navbar";
@@ -37,7 +38,9 @@ export default function App() {
 
 			<Main>
 				{
-					<page.PageElement />
+					<Suspense fallback={<h2 style={{ color: "var(--text-dark)" }}>Loading...</h2>}>
+						<page.PageElement />
+					</Suspense>
 				}
 			</Main>
 
