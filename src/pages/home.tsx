@@ -21,6 +21,11 @@ const appCardList: AppCardModel[] = [
         Title: "SWGoH Localization String Parser",
         Desc: "Understand raw localization strings",
         Link: "/loc-bundle-format"
+    },
+    {
+        Title: "SWGoH Update Frequency",
+        Desc: "See how frequently SWGoH updates",
+        Link: "/update-frequency",
     }
 ];
 
