@@ -2,7 +2,7 @@ import { useUpdateFreqCtx } from "../../ts/update-freq/context";
 
 import { Card, CardRow } from "./page";
 
-import EventFrequencyChart from "./grapher-heat";
+import EventFrequencyChart from "./grapher";
 
 export default function GraphLoader() {
     const ctx = useUpdateFreqCtx()
