@@ -1,17 +1,19 @@
-import Home from "./pages/home";
-import About from "./pages/about";
-import SWGoHUpdates from "./pages/swgoh-updates";
-import PortraitMaker from "./pages/portrait-maker";
-import LocBundle from "./pages/loc-bundle";
-import Terms from "./pages/terms";
-import AssetExtractorWeb from "./pages/asset-extractor-web";
-import UpdateFreqPage from "./pages/update-freq";
-import NotFound from "./pages/not-found";
+import { lazy } from "react";
+
+const Home = lazy(() => import("./pages/home"));
+const About = lazy(() => import("./pages/about"));
+const SWGoHUpdates = lazy(() => import("./pages/swgoh-updates"));
+const PortraitMaker = lazy(() => import("./pages/portrait-maker"));
+const LocBundle = lazy(() => import("./pages/loc-bundle"));
+const Terms = lazy(() => import("./pages/terms"));
+const AssetExtractorWeb = lazy(() => import("./pages/asset-extractor-web"));
+const UpdateFreqPage = lazy(() => import("./pages/update-freq"));
+const NotFound = lazy(() => import("./pages/not-found"));
 
 export type PageDefinition = {
     PageName: string;
     PageTitle: string;
-    PageElement: React.ComponentType;
+    PageElement: React.LazyExoticComponent<() => React.JSX.Element>;
     PageMainPath: string;
     PageAliasPaths: string[];
     PageMetaTags: React.ReactElement[];
