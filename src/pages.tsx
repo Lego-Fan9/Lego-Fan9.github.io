@@ -21,6 +21,7 @@ export type PageDefinition = {
 
 const SiteLink = "https://CobbFan9.github.io";
 const FaviconLink = SiteLink + "/favicon.ico";
+const FaviconPng = SiteLink + "/favicon.png";
 const SiteShortLink = "CobbFan9.github.io";
 
 const defaultMeta: React.ReactElement[] = [
@@ -152,11 +153,11 @@ function GenPageMetaTags(desc: string, pageName: string, pagePath: string): Reac
         <meta key="og-desc" property="og:description" content={`${SiteShortLink} - ${desc}`} />,
         <meta key="og-url" property="og:url" content={`${SiteLink}${pagePath}`} />,
         <meta key="og-type" property="og:type" content="website" />,
-        <meta key="og-image" property="og:image" content={`${FaviconLink}`} />,
+        <meta key="og-image" property="og:image" content={`${FaviconPng}`} />,
 
         <meta key="twitter-card" name="twitter:card" content="summary" />,
         <meta key="twitter-title" name="twitter:title" content={`${pageName} - ${SiteShortLink}`} />,
         <meta key="twitter-desc" name="twitter:description" content={`${SiteShortLink} - ${desc}`} />,
-        <meta key="twitter-image" name="twitter:image" content={`${FaviconLink}`} />,
+        <meta key="twitter-image" name="twitter:image" content={`${FaviconPng}`} />,
     ]
 }
