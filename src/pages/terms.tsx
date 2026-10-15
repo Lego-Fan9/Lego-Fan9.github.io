@@ -3,12 +3,12 @@ import styled from "styled-components";
 export default function Terms() {
     return (
         <TermsPage>
-            <h1>Lego-Fan9 Tools/SWGoH Updates Terms and Conditions</h1>
+            <h1>CobbFan9 Tools/SWGoH Updates Terms and Conditions</h1>
             <h3>Last Updated: 6/15/2026</h3>
 
             <div style={{ height: "20px" }} />
 
-            <p>By using Lego-Fan9 Tools/SWGoH Updates (This site) you agree to these terms and conditions.</p>
+            <p>By using CobbFan9 Tools/SWGoH Updates (This site) you agree to these terms and conditions.</p>
 
             <h3>Data Collection</h3>
             <p>Some features of this site require servers. The server hosts used are:</p>

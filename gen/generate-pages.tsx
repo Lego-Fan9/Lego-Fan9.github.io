@@ -90,7 +90,7 @@ function getSitemapXml(): string {
     const urls = Pages
         .filter((page: PageDefinition) => page.PageMainPath !== "*")
         .map((page: PageDefinition) => {
-            const url = new URL(page.PageMainPath, "https://Lego-Fan9.github.io");
+            const url = new URL(page.PageMainPath, "https://CobbFan9.github.io");
 
             return `    <url>
         <loc>${url.href}</loc>

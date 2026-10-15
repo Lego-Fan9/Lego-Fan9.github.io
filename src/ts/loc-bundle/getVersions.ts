@@ -31,14 +31,14 @@ async function getLatest(): Promise<LocVersion> {
         commitHash: "latest",
         version: "Latest",
         date: "",
-        url: "https://raw.githubusercontent.com/Lego-Fan9/lego-fan9.github.io-storage/main/Loc_ENG_US.txt.json.br",
+        url: "https://raw.githubusercontent.com/CobbFan9/cobbfan9.github.io-storage/main/Loc_ENG_US.txt.json.br",
         includeInOld: false
     }
 
     let respJson
 
     try {
-        const response = await fetch("https://api.github.com/repos/Lego-Fan9/lego-fan9.github.io-storage/commits?path=Loc_ENG_US.txt.json.br")
+        const response = await fetch("https://api.github.com/repos/CobbFan9/cobbfan9.github.io-storage/commits?path=Loc_ENG_US.txt.json.br")
         if (!response.ok) {
             console.error(`Failed to get versions: ${response.status}: ${response.text}`);
             return resp;
@@ -56,7 +56,7 @@ async function getLatest(): Promise<LocVersion> {
 }
 
 async function getGitRepoCommitLogsNew(): Promise<LocVersion[]> {
-    const url = "https://api.github.com/repos/Lego-Fan9/lego-fan9.github.io-storage/commits?path=Loc_ENG_US.txt.json.br"
+    const url = "https://api.github.com/repos/CobbFan9/cobbfan9.github.io-storage/commits?path=Loc_ENG_US.txt.json.br"
 
     let respJson
 
@@ -79,8 +79,8 @@ async function getGitRepoCommitLogsNew(): Promise<LocVersion[]> {
 
     for (const commit of respJson) {
         let working: LocVersion = {
-            repoName: "lego-fan9.github.io-storage",
-            repoOwner: "Lego-Fan9",
+            repoName: "cobbfan9.github.io-storage",
+            repoOwner: "CobbFan9",
             commitHash: "",
             date: "",
             version: "",
@@ -102,7 +102,7 @@ async function getGitRepoCommitLogsNew(): Promise<LocVersion[]> {
                     firstChildMarker = false;
                 }
 
-                working.url = `https://raw.githubusercontent.com/Lego-Fan9/lego-fan9.github.io-storage/${working.commitHash}/Loc_ENG_US.txt.json.br`
+                working.url = `https://raw.githubusercontent.com/CobbFan9/cobbfan9.github.io-storage/${working.commitHash}/Loc_ENG_US.txt.json.br`
 
                 resp.push(working);
             } else {

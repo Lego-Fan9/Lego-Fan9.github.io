@@ -19,9 +19,9 @@ export type PageDefinition = {
     PageMetaTags: React.ReactElement[];
 }
 
-const SiteLink = "https://Lego-Fan9.github.io";
+const SiteLink = "https://CobbFan9.github.io";
 const FaviconLink = SiteLink + "/favicon.ico";
-const SiteShortLink = "Lego-Fan9.github.io";
+const SiteShortLink = "CobbFan9.github.io";
 
 const defaultMeta: React.ReactElement[] = [
     <meta key="charset" charSet="UTF-8" />,

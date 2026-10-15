@@ -11,12 +11,12 @@ export default function Footer() {
                     <Link to="/about">About</Link>
                     <Link to="/terms">Terms</Link>
                     <a href="https://discord.gg/cmZjsRBwTY" target="_blank" rel="noopener noreferrer">Discord</a>
-                    <a href="https://github.com/Lego-Fan9/Lego-Fan9.github.io" target="_blank" rel="noopener noreferrer">Source Code</a>
+                    <a href="https://github.com/CobbFan9/CobbFan9.github.io" target="_blank" rel="noopener noreferrer">Source Code</a>
                 </FooterLinks>
 
                 <FooterText>
-                    © 2026 Lego-Fan9
-                    <br></br>Lego-Fan9 is not affiliated with EA, CG, Disney, or Lucasfilm LTD.
+                    © 2026 CobbFan9
+                    <br></br>CobbFan9 is not affiliated with EA, CG, Disney, or Lucasfilm LTD.
                 </FooterText>
             </FooterContent>
         </FooterContainer>

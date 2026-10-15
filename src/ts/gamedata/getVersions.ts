@@ -28,14 +28,14 @@ async function getLatest(filename: string): Promise<GamedataVersion> {
         commitHash: "latest",
         version: "Latest",
         date: "",
-        url: `https://raw.githubusercontent.com/Lego-Fan9/lego-fan9.github.io-storage/main/${filename}`,
+        url: `https://raw.githubusercontent.com/CobbFan9/cobbfan9.github.io-storage/main/${filename}`,
         includeInOld: false
     }
 
     let respJson
 
     try {
-        const response = await fetch(`https://api.github.com/repos/Lego-Fan9/lego-fan9.github.io-storage/commits?path=${filename}`)
+        const response = await fetch(`https://api.github.com/repos/CobbFan9/cobbfan9.github.io-storage/commits?path=${filename}`)
         if (!response.ok) {
             console.error(`Failed to get versions: ${response.status}: ${response.text}`);
             return resp;
@@ -55,7 +55,7 @@ async function getLatest(filename: string): Promise<GamedataVersion> {
 const commitsToIgnore: string[] = []
 
 async function getGitRepoCommitLogs(filename: string): Promise<GamedataVersion[]> {
-    const url = `https://api.github.com/repos/Lego-Fan9/lego-fan9.github.io-storage/commits?path=${filename}`
+    const url = `https://api.github.com/repos/CobbFan9/cobbfan9.github.io-storage/commits?path=${filename}`
 
     let respJson
 
@@ -78,8 +78,8 @@ async function getGitRepoCommitLogs(filename: string): Promise<GamedataVersion[]
 
     for (const commit of respJson) {
         let working: GamedataVersion = {
-            repoName: "lego-fan9.github.io-storage",
-            repoOwner: "Lego-Fan9",
+            repoName: "cobbfan9.github.io-storage",
+            repoOwner: "Cobb-Fan9",
             commitHash: "",
             date: "",
             version: "",
@@ -101,7 +101,7 @@ async function getGitRepoCommitLogs(filename: string): Promise<GamedataVersion[]
                     firstChildMarker = false;
                 }
 
-                working.url = `https://raw.githubusercontent.com/Lego-Fan9/lego-fan9.github.io-storage/${working.commitHash}/${filename}`
+                working.url = `https://raw.githubusercontent.com/CobbFan9/cobbfan9.github.io-storage/${working.commitHash}/${filename}`
 
                 resp.push(working);
             } else {
