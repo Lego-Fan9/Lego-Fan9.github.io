@@ -11,7 +11,7 @@ import GoatCounter from "./components/goatCounter";
 import { Pages } from "./pages";
 
 export default function App() {
-	const path = window.location.pathname;
+	const path = window.location.pathname.replace(/\/$/, "") || "/";
 
 	const page = Pages.find((pageDefinition) => {
 		const paths = [
