@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components";
 
 export default function NavBar() {
@@ -33,67 +32,4 @@ const Logo = styled.div`
     font-weight: bold;
     color: var(--text-dark);
     font-size: 1.2em;
-`;
-
-const MenuToggle = styled.button`
-    background: none;
-    border: none;
-    font-size: 1.5em;
-    color: var(--text-dark);
-    cursor: pointer;
-    display: none;
-
-    @media (max-width: 768px) {
-        display: block;
-    }
-`;
-
-const NavLinks = styled.ul<{ $open: boolean }>`
-    list-style: none;
-    display: flex;
-    gap: 25px;
-    margin: 0;
-    padding: 0;
-
-    li {
-        border: none !important;
-    }
-
-    a {
-        color: var(--text-dark);
-        text-decoration: none !important;
-        font-weight: bold;
-        transition: color 0.2s;
-
-        &:hover {
-            color: var(--link-hover-dark);
-        }
-    }
-
-    @media (max-width: 768px) {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background-color: var(--navbar-background-dark);
-        flex-direction: column;
-        margin: 0;
-        z-index: 1001;
-        gap: 0;
-        border-bottom: 1px solid var(--navbar-border-dark);
-
-        display: ${({ $open }) => ($open ? "flex" : "none")};
-
-        li {
-            padding: 10px 0;
-            border-top: 1px solid var(--navbar-border-dark);
-        }
-
-        a {
-            display: block;
-            width: 100%;
-            padding: 10px 0;
-            text-align: center;
-        }
-    }
 `;
