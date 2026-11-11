@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /
+
+Sitemap: https://Lego-Fan9.github.io/sitemap.xml
